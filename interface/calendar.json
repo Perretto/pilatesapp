@@ -1,0 +1,39 @@
+[
+    {
+      "date":"2019-03-02",
+      "badge":true,
+      "title":"Aula marcada",
+      "body":"<p class=\"lead\">Unidade Vila Matilde<\/p><p>Dia 02/03 às 09 hs<\/p>",
+      "footer":"Professor Rodrigo",
+      "classname":"purple-event"
+    },{
+      "date":"2019-03-05",
+      "badge":true,
+      "title":"Aula marcada",
+      "body":"<p class=\"lead\">Unidade Ponte Rasa<\/p><p>Dia 05/03 às 10 hs<\/p>",
+      "footer":"Professor Rodrigo",
+      "classname":"purple-event"
+    },{
+      "date":"2019-03-14",
+      "badge":true,
+      "title":"Aula marcada",
+      "body":"<p class=\"lead\">Unidade Penha<\/p><p>Dia 14/03 às 17 hs<\/p>",
+      "footer":"Professor Rodrigo",
+      "classname":"purple-event"
+    },{
+      "date":"2019-03-19",
+      "badge":true,
+      "title":"Aula marcada",
+      "body":"<p class=\"lead\">Unidade Ponte Rasa<\/p><p>Dia 19/03 às 16 hs<\/p>",
+      "footer":"Professor Rodrigo",
+      "classname":"purple-event"
+    },{
+      "date":"2019-03-29",
+      "badge":true,
+      "title":"Aula marcada",
+      "body":"<p class=\"lead\">Unidade Ponte Rasa<\/p><p>Dia 29/03 às 13 hs<\/p>",
+      "footer":"Professor Rodrigo",
+      "classname":"purple-event"
+    }
+
+  ]
