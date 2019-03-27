@@ -138,15 +138,15 @@
     <!-- / calendar -->
   </div>
 
-  <script src="lib/jquery.sparkline.js"></script>
+  <script src="../lib/jquery.sparkline.js"></script>
   <!--script for this page-->
-  <script src="lib/sparkline-chart.js"></script>
-  <script src="lib/zabuto_calendar.js"></script>
-  <script src="lib/raphael/raphael.min.js"></script>
+  <script src="../lib/sparkline-chart.js"></script>
+  <script src="../lib/zabuto_calendar.js"></script>
+  <script src="../lib/raphael/raphael.min.js"></script>
 
 
   <!--common script for all pages-->
-  <script src="lib/common-scripts.js"></script>
+  <script src="../lib/common-scripts.js"></script>
 
   <script type="application/javascript">
     $(document).ready(function() {
@@ -165,7 +165,7 @@
 
       $("#my-calendar").zabuto_calendar({
         ajax: {
-            url: "/calendar.json",
+            url: "../calendar.json",
             modal: true,
         },
         language: "pt",        
