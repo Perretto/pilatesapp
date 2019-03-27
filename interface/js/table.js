@@ -1,6 +1,6 @@
 function createtable(table){  
 
-    var url = "http://" + window.location.hostname + ":3003/api/cadastros/" + table + "/listsearch"
+    var url = "http://" + window.location.hostname + ":3003/api/" + table + "/listsearch"
                     
     $.ajax({        
         type: "GET",
@@ -43,7 +43,7 @@ function createtable(table){
                         for (index in element) {
                             if(index == "id"){
                                 tds += "<td style=\"padding:1px\">";
-                                tds += "<button  onclick=\"edit(" + element[index] + ",'" + table + "')\" type=\"button\" class=\"btn btn-icons btn-rounded btn-outline-info\">";
+                                tds += "<button  onclick=\"edit('" + element[index] + "','" + table + "')\" type=\"button\" class=\"btn btn-icons btn-rounded btn-outline-info\">";
                                 tds += "    <i class=\"fa fa-edit\"></i>";
                                 tds += "</button>";
                                 tds += "</td>";
@@ -126,7 +126,7 @@ function cancelargrid(){
 
 function edit(id, table){
     
-    var url = "http://" + window.location.hostname + ":3003/api/cadastros/" + table + "/search/" + id
+    var url = "http://" + window.location.hostname + ":3003/api/" + table + "/search/" + id
                     
     $.ajax({        
         type: "GET",
@@ -139,12 +139,9 @@ function edit(id, table){
 
                         if($("[name='" + index + "']").attr("type") == "checkbox"){
                             if(data[0][index]){
-                                $("[name='" + index + "']").attr("checked", true)
                                 $("[name='" + index + "']").prop("checked", true)
                             }else{
-                                $("[name='" + index + "']").attr("checked", false)
                                 $("[name='" + index + "']").prop("checked", false)
-
                             }
                         }
                         

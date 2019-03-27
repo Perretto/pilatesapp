@@ -3,9 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Dashboard">
-    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <title>PilatesApp</title>
     <link href="../img/favicon.png" rel="icon">
     <link href="../img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -40,17 +37,12 @@
         <section class="wrapper">
               <div class="row" id="gridsearch"></div>
           <div class="row mt">
-              <div class="col-md-12">
-                <div  id="rowform" class="form-panel">
-                  <h4 class="mb" style="padding-left:15px">Cadastro de Usuários</h4>
+              <div  class="col-md-12">
+                <div id="rowform"  class="form-panel">
+                  <h4 class="mb" style="padding-left:15px">Cadastro de Planos</h4>
                   <form class="" role="form">
-                      <div class="image image-product col-md-1">                                                    
-                          <img   style="width: 100%;" src="" >                                                    
-                          <input type="hidden" id='img_foto' name='img_foto' class="form-control">
-                          <input type="file" style="display:none"  />                                                    
-                      </div> 
                       <input type="hidden" name="id" id="id" class="form-control">
-                      <div class="form-group col-md-7">
+                      <div class="form-group col-md-8">
                           <label class="control-label">Nome</label>
                           <input type="text" class="form-control" id="nm_nome" name="nm_nome" placeholder="Nome">
                       </div>
@@ -59,27 +51,19 @@
                           <input type="text" class="form-control" id="nm_codigo" name="nm_codigo" placeholder="Código">
                       </div>  
                       
-                      <div class="form-group col-md-4">
-                          <label class="control-label">Login</label>
-                          <input type="text" class="form-control" id="nm_login" name="nm_login" placeholder="Login">
+                      <div class="form-group col-md-2">
+                          <label class="control-label">Quantidade de meses</label>
+                          <input type="number" class="form-control" id="nr_meses" name="nr_meses" placeholder="Quantidade de meses">
                       </div>  
-                      <div class="form-group col-md-4">
-                          <label class="control-label">Senha</label>
-                          <input type="password" class="form-control" name="nm_senha" id="nm_senha" placeholder="Senha">
+                      <div class="form-group col-md-2">
+                          <label class="control-label">Aulas por mês</label>
+                          <input type="number" class="form-control" name="nr_aulasmes" id="nr_aulasmes" placeholder="Aulas por mês">
                       </div>
 
-                      <div class="form-group col-md-3">
-                          <div class="col">
-                              <label class=" form-control-label">Tipo de usuário</label>
-                          </div>
-                          <div class="">
-                              <select name="nm_tipousuario" id="nm_tipousuario" class="form-control">
-                                  <option value="">Selecione</option>
-                                  <option value="Administrador">Administrador</option>
-                                  <option value="Professor">Professor</option>
-                              </select>
-                          </div>
-                      </div>
+                      <div class=" " >
+                        <label class="control-label ">Créditos</label>
+                        <input onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control " name="sn_creditos" id="sn_creditos" placeholder="Créditos">
+                    </div>
 
                       <div class="form-group">
                           <label class="control-label col-md-12"  >Observações</label>
@@ -87,21 +71,21 @@
                       </div>
 
                       <div class="row">
-                              <div class="form-group col-md-12">
-                                  <button onclick="novo()"  type="button" class="btn btn-primary">
-                                      <i class="fa fa-edit"></i>
-                                  </button>
-                                  <button onclick="save('usuarios')"  type="button" class="btn btn-success">
-                                      <i class="fa fa-save"></i>
-                                  </button>
-                                  <button  onclick="ondelete('usuarios')"  type="button" class="btn btn-danger">
-                                      <i class="fa fa-trash"></i>
-                                  </button>
-                                  <button onclick="createtable('usuarios')" type="button" class="btn btn-warning">
-                                      <i class="fa fa-search"></i>
-                                  </button>
-                              </div>
-                          </div>
+                        <div class="form-group col-md-12">
+                            <button onclick="novo()"  type="button" class="btn btn-primary">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button onclick="save('planos')"  type="button" class="btn btn-success">
+                                <i class="fa fa-save"></i>
+                            </button>
+                            <button  onclick="ondelete('planos')"  type="button" class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            <button onclick="createtable('planos')" type="button" class="btn btn-warning">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -136,6 +120,7 @@
     <script src="../node_modules/izitoast/dist/js/iziToast.min.js"></script>
     <script src="../js/generic.js" ></script>
     <script src="../js/table.js" ></script>
+    <script src="../lib/bootstrap-switch.js"></script>
   </body>
 
 </html>

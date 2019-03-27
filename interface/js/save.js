@@ -14,7 +14,7 @@ function save(table){
      
                 instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');                
                 
-                var url = "http://" + window.location.hostname + ":3003/api/cadastros/" + table + "/gravar"
+                var url = "http://" + window.location.hostname + ":3003/api/" + table + "/gravar"
                 var data = $("form").serialize();
 
                 for (let index = 0; index < $("[name][type='checkbox']").length; index++) {
@@ -86,20 +86,21 @@ function ondelete(table){
      
                 instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');                
                 
-                var url = "http://" + window.location.hostname + ":3003/api/cadastros/" + table + "/delete/" + id
+                var url = "http://" + window.location.hostname + ":3003/api/" + table + "/delete/" + id
                  
                 $.ajax({        
                     type: "GET",
                     url: url,
                     success: function(data){
                         if(data){
-                            if(data.length == 0){
+                            if(data.command){
+                                if(data.command == "DELETE"){
                                     novo()
                                     iziToast.success({
                                         title: '',
                                         message: 'Registro deletado com sucesso!',
                                     });
-                               
+                                }
                             }
                         }                        
                     }
@@ -149,12 +150,8 @@ function checkchange(element){
     $(element).val($(element).is(":checked"))
 
     if($(element).is(":checked")){
-        //$(element).attr('checked', 'checked')
-        $(element).attr("checked", true)
         $(element).prop("checked", true)
     }else{
-        //$(element).removeProp("checked")
-        $(element).attr("checked", false)
         $(element).prop("checked", false)
     }
     

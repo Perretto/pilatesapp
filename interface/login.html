@@ -20,6 +20,7 @@
   <!-- Custom styles for this template -->
   <link href="css/style.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet">
+  <link href="node_modules/izitoast/dist/css/iziToast.min.css" rel="stylesheet">
   
   <!-- =======================================================
     Template Name: Dashio
@@ -44,9 +45,9 @@
       <form class="form-login" action="index.html">
         <h2 class="form-login-heading">PILATES APP</h2>
         <div class="login-wrap">
-          <input type="text" class="form-control" placeholder="Usuário" autofocus>
+          <input name="login" id="login" type="text" class="form-control" placeholder="Usuário" autofocus>
           <br>
-          <input type="password" class="form-control" placeholder="Senha">
+          <input name="senha" id="senha" type="password" class="form-control" placeholder="Senha">
           <!--<label class="checkbox">
             <input type="checkbox" value="remember-me"> Remember me
             <span class="pull-right">
@@ -54,7 +55,7 @@
             </span>
             </label>-->
             <br>
-          <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> ENTRAR</button>
+          <button onclick="logar()" class="btn btn-theme btn-block" href="index.html" type="button"><i class="fa fa-lock"></i> ENTRAR</button>
           <hr>
           <!--
           <div class="login-social-link centered">
@@ -95,9 +96,11 @@
   <!-- js placed at the end of the document so the pages load faster -->
   <script src="lib/jquery/jquery.min.js"></script>
   <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="js/generic.js"></script>
   <!--BACKSTRETCH-->
   <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
   <script type="text/javascript" src="lib/jquery.backstretch.min.js"></script>
+  <script src="node_modules/izitoast/dist/js/iziToast.min.js"></script>
   <script>
     $.backstretch("img/fundologin.jpg", {
       speed: 500

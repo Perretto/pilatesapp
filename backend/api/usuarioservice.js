@@ -1,8 +1,8 @@
-const server = require('../../config/server');
+const server = require('../config/server');
 const express = require('express');
 const router = express.Router();
-server.use('/api/cadastros/usuarios', router);
-const general = require('../core/general');
+server.use('/api/usuarios', router);
+const general = require('./core/general');
 
 router.route('/listarusuarios').get(function(req, res) {
     var sql = "SELECT id AS id, nm_nome AS nome FROM usuarios";
@@ -37,7 +37,7 @@ router.route('/delete/:id').get(function(req, res) {
         table = atable[atable.length - 1]
     }
 
-    var sql = "DELETE FROM " + table + " WHERE id=" + id;
+    var sql = "DELETE FROM " + table + " WHERE id='" + id + "'";
     general.execute(sql, function(ret){
         res.send(ret);
     })    
@@ -45,7 +45,7 @@ router.route('/delete/:id').get(function(req, res) {
 
 
 router.route('/listsearch').get(function(req, res) {
-    var sql = "SELECT id AS id, nm_nome AS Nome, nm_login AS Login ";
+    var sql = "SELECT id AS id, nm_nome AS Nome, nm_login AS Login,  nm_tipousuario AS Tipo ";
     sql += " FROM usuarios ORDER BY nm_nome";
     general.select(sql, function(ret){
         res.send(ret);
@@ -55,7 +55,7 @@ router.route('/listsearch').get(function(req, res) {
 router.route('/search/:id').get(function(req, res) {
     var id = req.param('id');
     var sql = "SELECT * ";
-    sql += " FROM usuarios WHERE id=" + id;
+    sql += " FROM usuarios WHERE id='" + id + "'";
     general.select(sql, function(ret){
         res.send(ret);
     })    
