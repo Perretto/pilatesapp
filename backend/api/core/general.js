@@ -6,7 +6,7 @@ exports.select =  function (sql, callback){
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
-        port: 5434
+        port: 5432
     };
     const pool = new pg.Pool(config);
     pool.connect(function (err, client, done) {
