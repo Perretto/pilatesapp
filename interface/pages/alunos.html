@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+ 
+    <title>PilatesApp</title>
+    <link href="../img/favicon.png" rel="icon">
+    <link href="../img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/zabuto_calendar.css">
+    <link rel="stylesheet" type="text/css" href="../lib/gritter/css/jquery.gritter.css" />
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/style-responsive.css" rel="stylesheet">
+    <link href="../node_modules/izitoast/dist/css/iziToast.min.css" rel="stylesheet">
+    <script src="../lib/chart-master/Chart.js"></script>
+  </head>
+
+  <body>
+    <section id="container">
+      <header class="header black-bg">
+        <div class="sidebar-toggle-box">
+          <div class="fa fa-bars tooltips" data-placement="right" data-original-title=""></div>
+        </div>
+        <a href="../index.html" class="logo"><b>PILATES<span>APP</span></b></a>
+        <div class="nav notify-row" id="top_menu"></div>
+        <div class="top-menu">
+          <ul class="nav pull-right top-menu">
+            <li><a class="logout" href="../login.html">Sair</a></li>
+          </ul>
+        </div>
+      </header>
+      <aside>
+        <div id="sidebar" class="nav-collapse "></div>
+      </aside>
+      <section id="main-content">
+        <section class="wrapper">
+              <div class="row" id="gridsearch"></div>
+          <div class="row mt">
+              <div class="col-md-12">
+                <div id="rowform" class="form-panel">
+                  <h4 class="mb" style="padding-left:15px">Cadastro de Alunos</h4>
+                  <form class="" role="form">
+                    <input type="hidden" name="id" id="id" class="form-control">
+                    <div class="image image-product col-md-1">                                                    
+                        <img   style="width: 100%;" src="" >                                                    
+                        <input type="hidden" id='img_foto' name='img_foto' class="form-control">
+                        <input type="file" style="display:none"  />                                                    
+                    </div> 
+                    <div class="form-group col-md-11">
+                        <label class="control-label">Nome</label>
+                        <input type="text" class="form-control" id="nm_nome" name="nm_nome" placeholder="Nome">
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label class="control-label">CPF</label>
+                        <input type="text" class="form-control" id="nm_cpf" name="nm_cpf" placeholder="CPF">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label class="control-label">RG</label>
+                        <input type="text" class="form-control" id="nm_rg" name="nm_rg" placeholder="RG">
+                    </div>
+
+                    
+                    <div class="form-group col-md-3">
+                            <div class="col">
+                                <label class=" form-control-label">Plano:</label>
+                            </div>
+                            <div class="">
+                                <select name="nm_plano" id="nm_plano" class="form-control">
+                                        <option value="">Selecione</option>
+                                        
+                                </select>
+                            </div>
+                        </div>
+    
+                        <div class="form-group col-md-3">
+                            <div class="col">
+                                <label class=" form-control-label">Estúdio utilizado:</label>
+                            </div>
+                            <div class="">
+                                <select name="nm_estudio" id="nm_estudio" class="form-control">
+                                        <option value="">Selecione</option>
+                                        
+                                </select>
+                            </div>
+                        </div>
+
+                    <div class="form-group col-md-8">
+                        <label class="control-label">Logradouro</label>
+                        <input type="text" class="form-control" id="nm_logradouro" name="nm_logradouro" placeholder="Logradouro">
+                    </div>  
+                      
+                    <div class="form-group col-md-4">
+                        <label class="control-label">Número</label>
+                        <input type="text" class="form-control" id="nm_numero" name="nm_numero" placeholder="Número">
+                    </div>  
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Complemento</label>
+                        <input type="text" class="form-control" name="nm_complemento" id="nm_complemento" placeholder="Complemento">
+                    </div>  
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Bairro</label>
+                        <input type="text" class="form-control" name="nm_bairro" id="nm_bairro" placeholder="Bairro">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Cidade</label>
+                        <input type="text" class="form-control" name="nm_cidade" id="nm_cidade" placeholder="Cidade">
+                    </div>
+
+
+
+                      <div class="form-group col-md-2">
+                          <div class="col">
+                              <label class=" form-control-label">Estado</label>
+                          </div>
+                          <div class="">
+                              <select name="nm_estado" id="nm_estado" class="form-control">
+                                    <option value="">Selecione</option>
+                                    <option value="AC">AC</option>
+                                    <option value="AL">AL</option>
+                                    <option value="AM">AM</option>
+                                    <option value="AP">AP</option>
+                                    <option value="BA">BA</option>
+                                    <option value="CE">CE</option>
+                                    <option value="DF">DF</option>
+                                    <option value="ES">ES</option>
+                                    <option value="GO">GO</option>
+                                    <option value="MA">MA</option>
+                                    <option value="MG">MG</option>
+                                    <option value="MS">MS</option>
+                                    <option value="MT">MT</option>
+                                    <option value="PA">PA</option>
+                                    <option value="PB">PB</option>
+                                    <option value="PE">PE</option>
+                                    <option value="PI">PI</option>
+                                    <option value="PR">PR</option>
+                                    <option value="RJ">RJ</option>
+                                    <option value="RN">RN</option>
+                                    <option value="RO">RO</option>
+                                    <option value="RR">RR</option>
+                                    <option value="RS">RS</option>
+                                    <option value="SC">SC</option>
+                                    <option value="SE">SE</option>
+                                    <option value="SP">SP</option>
+                                    <option value="TO">TO</option>
+                              </select>
+                          </div>
+                      </div>
+
+                      
+                      <div class="form-group col-md-3">
+                        <label class="control-label">Telefone</label>
+                        <input type="telefone" class="form-control" name="nm_telefone" id="nm_telefone" placeholder="Telefone">
+                      </div>
+                      
+                      <div class="form-group col-md-3">
+                            <label class="control-label">Celular</label>
+                            <input type="celular" class="form-control" name="nm_celular" id="nm_celular" placeholder="Celular">
+                          </div>
+                      <div class="form-group col-md-4">
+                        <label class="control-label">Email</label>
+                        <input type="email" class="form-control" name="nm_email" id="nm_email" placeholder="Email">
+                      </div>
+
+
+
+
+
+                    
+                        
+                        
+                    <div class="row">
+                            <div class="form-group col-md-12">
+                                <button onclick="novo()"  type="button" class="btn btn-primary">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button onclick="save('alunos')"  type="button" class="btn btn-success">
+                                    <i class="fa fa-save"></i>
+                                </button>
+                                <button  onclick="ondelete('alunos')"  type="button" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button onclick="createtable('alunos')" type="button" class="btn btn-warning">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+        </section>
+      </section>
+      <footer class="site-footer">
+        <div class="text-center">
+          <p>
+            &copy; Copyrights <strong>Perretto</strong>. All Rights Reserved
+          </p>
+          <div class="credits">
+            Criado por André Perretto
+          </div>
+          <a href="../pages/index.html" class="go-top">
+            <i class="fa fa-angle-up"></i>
+            </a>
+        </div>
+      </footer>
+    </section>
+    <script src="../lib/jquery/jquery.min.js"></script>
+    <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="../lib/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="../lib/jquery.scrollTo.min.js"></script>
+    <script src="../lib/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="../lib/jquery.sparkline.js"></script>
+    <script src="../lib/common-scripts.js"></script>
+    <script type="text/javascript" src="../lib/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="../lib/gritter-conf.js"></script>
+    <script src="../lib/common-scripts.js"></script>
+    <script src="../js/save.js" ></script>
+    <script src="../node_modules/izitoast/dist/js/iziToast.min.js"></script>
+    <script src="../js/generic.js" ></script>
+    <script src="../js/table.js" ></script>
+    <script src="../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+  
+<script>
+    console.log("start")
+    var url = "http://" + window.location.hostname + ":3003/api/planos/carregarplanos"
+     $.ajax({
+        url: url,
+        context: document.body
+      }).done(function(data) {
+          var options = "<option>Selecione</option>";
+          for (let index = 0; index < data.length; index++) {
+              const element = data[index];
+              options += "<option value='" + element.nm_nome + "'>" + element.nm_nome + "</option>"
+          }
+            $("#nm_plano").html(options);
+      });
+
+      var options = "<option>Selecione</option>";
+    var url = "http://" + window.location.hostname + ":3003/api/estudios/carregarestudios"
+     $.ajax({
+        url: url,
+        context: document.body
+      }).done(function(data) {
+          
+          for (let index = 0; index < data.length; index++) {
+              const element = data[index];
+              options += "<option value='" + element.nm_nome + "'>" + element.nm_nome + "</option>"
+          }
+            $("#nm_estudio").html(options);
+      });
+</script>
+</body>
+
+
+</html>

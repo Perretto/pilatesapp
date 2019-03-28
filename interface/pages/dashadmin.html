@@ -143,14 +143,32 @@
   <script src="../lib/sparkline-chart.js"></script>
   <script src="../lib/zabuto_calendar.js"></script>
   <script src="../lib/raphael/raphael.min.js"></script>
+  <script class="include" type="text/javascript" src="../lib/jquery.dcjqaccordion.2.7.js"></script>
 
+  <script src="../lib/common-scripts-dash.js"></script>
+  <script type="text/javascript" src="../lib/gritter/js/jquery.gritter.js"></script>
+  <script type="text/javascript" src="../lib/gritter-conf.js"></script>
 
-  <!--common script for all pages-->
-  <script src="../lib/common-scripts.js"></script>
 
   <script type="application/javascript">
     $(document).ready(function() {
+      var foto = localStorage.getItem("foto");
+      var nome = "Bem vindo " + localStorage.getItem("username");
       
+      var unique_id = $.gritter.add({
+        // (string | mandatory) the heading of the notification
+        title: nome,
+        // (string | mandatory) the text inside the notification
+        text: 'O Pilates App é um sistema de gerenciamento de aulas de Pilates.',
+        // (string | optional) the image to display on the left
+        image: foto,
+        // (bool | optional) if you want it to fade out on its own or just sit there
+        sticky: false,
+        // (int | optional) the time you want it to be alive for before fading out
+        time: 8000,
+        // (string | optional) the class name you want to apply to that specific message
+        class_name: 'my-sticky-class'
+      });
       
       $("#date-popover").popover({
         html: true,

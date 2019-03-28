@@ -9,6 +9,8 @@ module.exports = function(server) {
     const estudios = require('../api/estudioservice')
     const planos = require('../api/planoservice')
     const tiposaulas = require('../api/tiposaulaservice')
+    const alunos = require('../api/alunoservice')
+    const professores = require('../api/professorservice')
 
 
 

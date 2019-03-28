@@ -4,6 +4,14 @@ const router = express.Router();
 server.use('/api/tiposaulas', router);
 const general = require('./core/general');
 
+
+router.route('/carregartipoaulas').get(function(req, res) {
+    var sql = "SELECT * FROM tiposaulas";
+    general.select(sql, function(ret){
+        res.send(ret);
+    })    
+})
+
 router.route('/listartiposaulas').get(function(req, res) {
     var sql = "SELECT id AS id, nm_nome AS nome FROM tiposaulas";
     general.select(sql, function(ret){

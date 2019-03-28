@@ -1,18 +1,19 @@
 const server = require('../config/server');
 const express = require('express');
 const router = express.Router();
-server.use('/api/estudios', router);
+server.use('/api/professores', router);
 const general = require('./core/general');
 
-router.route('/listarusuarios').get(function(req, res) {
-    var sql = "SELECT id AS id, nm_nome AS nome FROM estudios";
+
+router.route('/carregarprofessores').get(function(req, res) {
+    var sql = "SELECT * FROM professores";
     general.select(sql, function(ret){
         res.send(ret);
     })    
 })
 
-router.route('/carregarestudios').get(function(req, res) {
-    var sql = "SELECT * FROM estudios";
+router.route('/listarprofessores').get(function(req, res) {
+    var sql = "SELECT id AS id, nm_nome AS nome FROM professores";
     general.select(sql, function(ret){
         res.send(ret);
     })    
@@ -52,8 +53,8 @@ router.route('/delete/:id').get(function(req, res) {
 
 
 router.route('/listsearch').get(function(req, res) {
-    var sql = "SELECT id AS id, nm_nome AS Nome, nm_logradouro AS logradouro, nm_numero AS número, nm_cidade AS cidade, nm_estado AS UF, nm_telefone AS telefone, nm_celular AS celular ";
-    sql += " FROM estudios ORDER BY nm_nome";
+    var sql = "SELECT id AS id, nm_nome AS Nome, nm_rg AS RG, nm_cpf AS cpf ";
+    sql += " FROM professores ORDER BY nm_nome";
     general.select(sql, function(ret){
         res.send(ret);
     })    
@@ -62,7 +63,7 @@ router.route('/listsearch').get(function(req, res) {
 router.route('/search/:id').get(function(req, res) {
     var id = req.param('id');
     var sql = "SELECT * ";
-    sql += " FROM estudios WHERE id='" + id + "'";
+    sql += " FROM professores WHERE id='" + id + "'";
     general.select(sql, function(ret){
         res.send(ret);
     })    
@@ -76,7 +77,7 @@ router.route('/search/:id').get(function(req, res) {
 //=================================================================================
 
 router.route('/testeinsert').get(function(req, res) {
-    var sql = "INSERT INTO usuarios (id, nm_nome)";
+    var sql = "INSERT INTO professores (id, nm_nome)";
     sql += " VALUES";
     for (let index = 0; index < 10000; index++) {
         sql += "(" + index + ",'" + index + "'), ";
@@ -91,7 +92,7 @@ router.route('/testeinsert').get(function(req, res) {
 
 
 router.route('/testeupdate').get(function(req, res) {
-    var sql = "UPDATE usuarios SET nm_nome='PPERRETTO' WHERE nm_nome='1'";
+    var sql = "UPDATE professores SET nm_nome='PPERRETTO' WHERE nm_nome='1'";
     general.execute(sql, function(ret){
         res.send(ret);
     })    

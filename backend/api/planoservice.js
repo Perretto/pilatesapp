@@ -11,6 +11,14 @@ router.route('/listarplanos').get(function(req, res) {
     })    
 })
 
+router.route('/carregarplanos').get(function(req, res) {
+    var sql = "SELECT * FROM planos";
+    general.select(sql, function(ret){
+        res.send(ret);
+    })    
+})
+
+
 router.route('/gravar').post(function(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
