@@ -156,6 +156,7 @@ function edit(id, table){
                     
                     $("#rowform").show();
                     $("#gridsearch").hide()
+                    changeplano()
                 }
                 
             }
