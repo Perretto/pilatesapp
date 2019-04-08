@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var calendarEl = document.getElementById('calendar');
+    
            
     var estudio = "5ac391f7-294c-a77a-276d-9fef8b1f2054"; //$("#nm_estudio").val();
     var url = "http://" + window.location.hostname + ":3003/api/aulas/horariosdisponiveis/" + estudio
@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
       url: url,
       dataType: 'json',
       success: function(doc) {
+        var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           locale: 'pt',
           plugins: ['dayGrid'],
@@ -15,11 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
             events: doc
         });
     
-        calendar.render();        
+        calendar.render();  
+        $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")      
       }
     });
 
-    $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")
+    
   });
 
 
@@ -327,6 +329,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 title: '',
                 message: 'Registro deletado com sucesso!',
             });
+            voltar();
           });
 
         }, true],
