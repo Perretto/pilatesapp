@@ -19,6 +19,7 @@
   <link href="../node_modules/izitoast/dist/css/iziToast.min.css" rel="stylesheet">
   <link href="../node_modules/@fullcalendar/core/main.css" rel="stylesheet">
   <link href="../node_modules/@fullcalendar/daygrid/main.css" rel="stylesheet">
+  <link href="../lib/jquery-ui/jquery-ui.min.css" rel="stylesheet">
   <script src="../lib/chart-master/Chart.js"></script>
 </head>
 
@@ -67,11 +68,13 @@
                       <input type="hidden" name="id" id="id" class="form-control">
                       <div class="form-group col-md-8">
                           <label class="control-label">Aluno</label>
-                          <input type="text" class="form-control" id="nm_alunos" name="nm_alunos" placeholder="Aluno">
-                      </div>
+                          <input type="text" class="form-control" id="nm_alunos" placeholder="Aluno">
+                          <input type="hidden" class="form-control" name="nm_alunos" placeholder="Aluno">
+                     
+                        </div>
                       <div class="form-group col-md-4">
                           <label class="control-label">Data</label>
-                          <input type="text" class="form-control" id="dt_data" name="dt_data" placeholder="Data">
+                          <input readonly type="text" class="form-control" id="dt_data" name="dt_data" placeholder="Data">
                       </div>
                     
                       <div   class="form-group col-md-2">
@@ -79,7 +82,7 @@
                               <label class=" form-control-label">Horario de aula de:</label>
                           </div>
                           <div class="">
-                              <select name="nm_horade" id="nm_horade" class="form-control">
+                              <select  readonly name="nm_horade" id="nm_horade" class="form-control">
                                   <option value="">Selecione</option>
                                   <option value="01">01</option>
                                   <option value="02">02</option>
@@ -115,7 +118,7 @@
                             <label class=" form-control-label">Horario de aula até:</label>
                         </div>
                         <div class="">
-                            <select name="nm_horaate" id="nm_horaate" class="form-control">
+                            <select readonly name="nm_horaate" id="nm_horaate" class="form-control">
                                 <option value="">Selecione</option>
                                 <option value="01">01</option>
                                 <option value="02">02</option>
@@ -151,7 +154,7 @@
                         <label class=" form-control-label">Estúdio:</label>
                       </div>
                       <div class="">
-                        <select   class="form-control estudio">
+                        <select  readonly id="estudioform"  name="nm_estudio" class="form-control estudio">
                           <option value="">Selecione</option>
                         </select>
                       </div>
@@ -226,6 +229,7 @@
   <script src="../lib/tasks.js" type="text/javascript"></script>
   <link rel="stylesheet" href="../css/to-do.css">
   <script src="../js/calendario.js" type="text/javascript"></script>
+  <script src="../lib/jquery-ui/jquery-ui.min.js"></script>
 
 </body>
 

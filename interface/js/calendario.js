@@ -1,19 +1,32 @@
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
+           
+    var estudio = "5ac391f7-294c-a77a-276d-9fef8b1f2054"; //$("#nm_estudio").val();
+    var url = "http://" + window.location.hostname + ":3003/api/aulas/horariosdisponiveis/" + estudio
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      locale: 'pt',
-      plugins: ['dayGrid'],
-      defaultView: 'dayGridMonth',
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      success: function(doc) {
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          locale: 'pt',
+          plugins: ['dayGrid'],
+          defaultView: 'dayGridMonth',
+            events: doc
+        });
+    
+        calendar.render();        
+      }
     });
-
-    calendar.render();
 
     $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")
   });
 
 
   function horariosaulas(element) {
+    $("#aulaslista").show();
+    $("#editaraula").hide();
+    $("#listahorarios").show();
     var data = $(element).attr("data-date");
     var estudio = $("#nm_estudio").val();
 
@@ -30,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
       crossDomain: true,
     }).success(function (data) {
       $("#listahorarios").html("");
+      var estudio = $("#nm_estudio").val();
 
       if (data) {
         if (data.length) {
@@ -37,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
           htm += "<section class=\"task-panel tasks-widget\">";
           htm += "  <div class=\"panel-heading\">";
           htm += "  <div class=\"pull-left\">";
-          htm += "    <h4 style=\"display: inline;\"><i class=\"fa fa-tasks\"></i>  - " + data[0].data + "</h4><h3 style=\"display: inline;font-weight: bold;\"> - Horários</h3>";
+          htm += "    <h4 style=\"display: inline;\"><i id=\"dataselecionada\" data-dataselecionada=\"" + data[0].data +  "\" class=\"fa fa-tasks\"></i>  - " + data[0].data + "</h4><h3 style=\"display: inline;font-weight: bold;\"> - Horários</h3>";
           htm += "    </div>";
           htm += "    <br>";
           htm += "    </div>";
@@ -92,8 +106,8 @@ document.addEventListener('DOMContentLoaded', function () {
                       htm += "    <span style=\"font-size: 20x;\" class=\"task-title-sp\"> - Ocupado (" + quantidadealunos + ")</span>";
 
                       htm += "    <div class=\"pull-right hidden-phone\">";
-                      htm += "      <a href=\"#\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
-                      htm += "      <a href=\"#\" class=\"btn btn-danger btn-xs\"><i class=\"fa fa-trash-o \"></i></a>";
+                      htm += "      <a href=\"#\" onclick=\"novaaula('" + element.horade + "','" + element.horaate + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
+                      htm += "      <a href=\"#\" onclick=\"deleteaulas('" + element.horade + "','" + element.horaate + "','" + estudio + "')\" class=\"btn btn-danger btn-xs\"><i class=\"fa fa-trash-o \"></i></a>";
                       htm += "    </div>";
                       htm += "  </div>";
                       htm += "</a>";
@@ -117,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
                       htm += "    <span style=\"font-size: 20x;\" class=\"task-title-sp\"> - Disponível</span>";
 
                       htm += "    <div class=\"pull-right hidden-phone\">";
-                      htm += "      <a href=\"#\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
+                      htm += "      <a href=\"#\" onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
                       htm += "    </div>";
                       htm += "  </div>";
                       htm += "</li>";
@@ -135,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   htm += "    <span style=\"font-size: 20x;\" class=\"task-title-sp\"> - Disponível</span>";
 
                   htm += "    <div class=\"pull-right hidden-phone\">";
-                  htm += "      <a href=\"#\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
+                  htm += "      <a href=\"#\" onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
                   htm += "    </div>";
                   htm += "  </div>";
                   htm += "</li>";
@@ -160,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
 
-      var btnvoltar = "<button  onclick=\"voltar()\"  type=\"button\" class=\"btn btn-warning\">";
+      var btnvoltar = "<button id=\"btnvoltar\"  onclick=\"voltar()\"  type=\"button\" class=\"btn btn-warning\">";
       btnvoltar += "    <i class=\"fa fa-long-arrow-left\"></i>";
       btnvoltar += "</button>";
       $("#listahorarios").append(btnvoltar);
@@ -191,6 +205,8 @@ document.addEventListener('DOMContentLoaded', function () {
     $("#listahorarios").hide();
     $("#nm_estudio").show();
     $("#div_estudio").show();
+    $("#editaraula").hide();
+    $('#nm_estudio option:eq(0)').prop('selected', true);
   }
 
   function voltarhorarios(){
@@ -223,9 +239,109 @@ document.addEventListener('DOMContentLoaded', function () {
                 $("[name='nm_horade']").val(data[0].nm_horade);
                 $("[name='nm_horaate']").val(data[0].nm_horaate);
                 $("[name='dt_data']").val(data[0].dt_data);
+                $("[id='nm_alunos']").val(data[0].nomealuno);
             }
         }
 
     });
     
+  }
+
+  function novaaula(horade, horaate, estudio) {
+    $("#aulaslista").hide();
+    $("#editaraula").show();
+    $("#listahorarios").hide();
+    novo();
+
+    var dataselec = $("#dataselecionada").attr("data-dataselecionada");
+    $("#dt_data").val(dataselec);
+
+    if(horade.length == 1){
+      horade = "0" + horade;
+    }
+
+    if(horaate.length == 1){
+      horaate = "0" + horaate;
+    }
+    $("#nm_horade").val(horade);
+    $("#nm_horaate").val(horaate);
+
+    
+    $("#estudioform").val(estudio);
+  }
+
+
+  $( function() {
+    $( "#nm_alunos" ).autocomplete({
+      source: function( request, response ) {
+        var url = "http://" + window.location.hostname + ":3003/api/aulas/autocompletealunos/" + request.term
+        $.ajax({
+          url: url,
+          context: document.body
+        }).done(function (data) {   
+          response($.map(data, function (item) {
+              return {
+                  label: item.text,
+                  id: item.value
+              }
+          }));
+        });
+        
+      },
+      select: function( event, ui ) {
+        $("[name='nm_alunos']").val(ui.item.id);
+      }
+    });
+  } );
+
+
+  function deleteaulas(horade, horaate, estudio){
+        
+    iziToast.question({
+      timeout: 20000,
+      close: false,
+      overlay: true,
+      displayMode: 'once',
+      id: 'question',
+      zindex: 999,
+      title: '',
+      message: 'Deseja deletar este registro?',
+      position: 'center',
+      buttons: [
+        ['<button><b>SIM</b></button>', function (instance, toast) {
+  
+            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');    
+
+
+          var dataselec = $("#dataselecionada").attr("data-dataselecionada");
+          dataselec = dataselec.replace("/","-");
+          dataselec = dataselec.replace("/","-");
+          dataselec = dataselec.replace("/","-");
+
+          var url = "http://" + window.location.hostname + ":3003/api/aulas/deleteaulas/" + horade + "/" + horaate + "/" + estudio + "/" + dataselec
+          $.ajax({
+            url: url,
+            context: document.body
+          }).done(function (data) {   
+            iziToast.success({
+                title: '',
+                message: 'Registro deletado com sucesso!',
+            });
+          });
+
+        }, true],
+        ['<button>NÃO</button>', function (instance, toast) {
+
+            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+        }],
+      ],
+      onClosing: function(instance, toast, closedBy){
+        console.info('Closing | closedBy: ' + closedBy);
+      },
+      onClosed: function(instance, toast, closedBy){
+        console.info('Closed | closedBy: ' + closedBy);
+      }
+    });
+
   }
