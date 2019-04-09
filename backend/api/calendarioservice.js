@@ -129,27 +129,62 @@ router.route('/deleteaulas/:horade/:horaate/:estudio/:data').get(function(req, r
 router.route('/horariosdisponiveis/:estudio').get(function(req, res) {
     var estudio = req.param('estudio');
     
-    var sql = "SELECT * FROM estudios WHERE  ";
-    sql += " id='" + estudio + "' ";
+    var sql = "SELECT TO_CHAR(dt_data :: DATE, 'yyyy/mm/dd') AS dt_data, id AS id FROM aulas WHERE  ";
+    sql += " nm_estudio='" + estudio + "' ";
 
     general.select(sql, function(ret){
+        
         var array = [];
         var obj = {};
 
-
-
         obj.id = "a";
         obj.start = "2019-04-01";
-        obj.end = "2019-04-06";
+        obj.end = "2019-04-07";
         obj.title = "Disponível";
         array.push(obj);
 
         obj = {};
         obj.id = "b";
         obj.start = "2019-04-08";
-        obj.end = "2019-04-13";
+        obj.end = "2019-04-14";
         obj.title = "Disponível";
         array.push(obj);
+
+        obj = {};
+        obj.id = "c";
+        obj.start = "2019-04-15";
+        obj.end = "2019-04-21";
+        obj.title = "Disponível";
+        array.push(obj);
+
+        obj = {};
+        obj.id = "d";
+        obj.start = "2019-04-22";
+        obj.end = "2019-04-28";
+        obj.title = "Disponível";
+        array.push(obj);
+
+        obj = {};
+        obj.id = "d";
+        obj.start = "2019-04-29";
+        obj.end = "2019-05-01";
+        obj.title = "Disponível";
+        array.push(obj);
+
+        var arrayaulas = [];
+
+        for (let index = 0; index < ret.length; index++) {
+            const element = ret[index];
+            if(arrayaulas.indexOf(element.dt_data) == -1){
+                
+                obj = {};
+                obj.id = element.id;
+                obj.start = element.dt_data;
+                obj.title = "Aula(s) agendada(s)";
+                array.push(obj);
+                arrayaulas.push(element.dt_data);
+            }
+        }
 
         res.send(array);         
     })     

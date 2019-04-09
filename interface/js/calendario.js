@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     
         calendar.render();  
-        $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")      
+        $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")  
+        $(".fc-time").html("");  
       }
     });
 
@@ -203,12 +204,15 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function voltar() {
+    /*
     $("#calendar").show();
     $("#listahorarios").hide();
     $("#nm_estudio").show();
     $("#div_estudio").show();
     $("#editaraula").hide();
     $('#nm_estudio option:eq(0)').prop('selected', true);
+    */
+   document.location.reload();
   }
 
   function voltarhorarios(){
@@ -346,5 +350,20 @@ document.addEventListener('DOMContentLoaded', function () {
         console.info('Closed | closedBy: ' + closedBy);
       }
     });
+
+  }
+
+
+  function saveCalendario(table){
+    var id = $("[name='nm_alunos']").val();
+    
+    if(id){
+      save(table);
+    }else{
+      iziToast.warning({
+          title: '',
+          message: 'Selecione um aluno antes de salvar!',
+      });
+    }    
 
   }
