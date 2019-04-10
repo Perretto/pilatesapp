@@ -1,5 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
-  $('#nm_estudio option:eq(0)').prop('selected', true);
+  var options = "";
+  var url = "http://" + window.location.hostname + ":3003/api/estudios/carregarestudios"
+  $.ajax({
+    url: url,
+    context: document.body
+  }).done(function (data) {
+    for (let index = 0; index < data.length; index++) {
+      const element = data[index];
+      options += "<option value='" + element.id + "'>" + element.nm_nome + "</option>"
+    }
+    $("#nm_estudio").html(options);
+    $(".estudio").html(options);
+    $('#nm_estudio option:eq(0)').prop('selected', true);
+
+
            
     var estudio = $("#nm_estudio").val();
     var url = "http://" + window.location.hostname + ":3003/api/aulas/horariosdisponiveis/" + estudio
@@ -21,6 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
         $(".fc-time").html("");  
       }
     });
+
+  });
+
+
 
     
   });
@@ -189,20 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
     $("#div_estudio").hide();
   }
 
-  var options = "";
-  var url = "http://" + window.location.hostname + ":3003/api/estudios/carregarestudios"
-  $.ajax({
-    url: url,
-    context: document.body
-  }).done(function (data) {
-    for (let index = 0; index < data.length; index++) {
-      const element = data[index];
-      options += "<option value='" + element.id + "'>" + element.nm_nome + "</option>"
-    }
-    $("#nm_estudio").html(options);
-    $(".estudio").html(options);
-    $('#nm_estudio option:eq(0)').prop('selected', true);
-  });
+  
 
   function voltar() {
     /*
