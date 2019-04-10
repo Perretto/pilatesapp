@@ -23,6 +23,7 @@ var sql = "SELECT estudios.nm_horade AS horadefunc, estudios.nm_horaate AS horaa
     sql += " INNER JOIN estudios ON estudios.id=aulas.nm_estudio ";
     sql += " WHERE aulas.dt_data='" + data + "' AND estudios.id='" + estudio + "'";
     sql += " ORDER BY aulas.nm_horade ";
+
     general.select(sql, function(ret){
 
         if(ret.length > 0){
@@ -129,7 +130,7 @@ router.route('/deleteaulas/:horade/:horaate/:estudio/:data').get(function(req, r
 router.route('/horariosdisponiveis/:estudio').get(function(req, res) {
     var estudio = req.param('estudio');
     
-    var sql = "SELECT TO_CHAR(dt_data :: DATE, 'yyyy/mm/dd') AS dt_data, id AS id FROM aulas WHERE  ";
+    var sql = "SELECT TO_CHAR(dt_data :: DATE, 'yyyy-mm-dd') AS dt_data, id AS id FROM aulas WHERE  ";
     sql += " nm_estudio='" + estudio + "' ";
 
     general.select(sql, function(ret){
