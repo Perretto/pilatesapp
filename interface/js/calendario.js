@@ -373,3 +373,27 @@ document.addEventListener('DOMContentLoaded', function () {
     }    
 
   }
+
+  function changeestudio(){
+    
+    var estudio = $("#nm_estudio").val();
+    var url = "http://" + window.location.hostname + ":3003/api/aulas/horariosdisponiveis/" + estudio
+
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      success: function(doc) {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          locale: 'pt',
+          plugins: ['dayGrid'],
+          defaultView: 'dayGridMonth',
+            events: doc
+        });
+    
+        calendar.render();  
+        $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")  
+        $(".fc-time").html("");  
+      }
+    });
+  }
