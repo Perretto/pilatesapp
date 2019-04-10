@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-    
+  $('#nm_estudio option:eq(0)').prop('selected', true);
            
-    var estudio = "5ac391f7-294c-a77a-276d-9fef8b1f2054"; //$("#nm_estudio").val();
+    var estudio = $("#nm_estudio").val();
     var url = "http://" + window.location.hostname + ":3003/api/aulas/horariosdisponiveis/" + estudio
 
     $.ajax({
@@ -201,6 +201,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     $("#nm_estudio").html(options);
     $(".estudio").html(options);
+    $('#nm_estudio option:eq(0)').prop('selected', true);
   });
 
   function voltar() {
