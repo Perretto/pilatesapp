@@ -375,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function changeestudio(){
-    
+    $("#calendar").html("");
     var estudio = $("#nm_estudio").val();
     var url = "http://" + window.location.hostname + ":3003/api/aulas/horariosdisponiveis/" + estudio
 
