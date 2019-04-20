@@ -292,3 +292,22 @@ function savemodal(table, id,returns, returnid){
         }
     });    
 }
+
+
+
+function novoid(id){
+    var data = $("#" + id + " input");
+    for (let index = 0; index < data.length; index++) {
+        const element = data[index];
+        if($(element).attr("type") == "checkbox"){
+            $(element).attr("checked", false)
+            $(element).prop("checked", false)
+            $(element).val(false);
+            $(element).removeProp("checked")
+        }else{
+            $(element).val("");
+        }      
+    }
+    imagensPadrao()
+    $("textarea").val("");
+}
