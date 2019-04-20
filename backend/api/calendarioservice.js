@@ -88,6 +88,7 @@ router.route('/autocompletealunos/:id').get(function(req, res) {
     sql += " WHERE nm_nome LIKE '" + id + "%' ";
     console.log(sql)
     general.select(sql, function(ret){
+        ret.push({text: "ADICIONAR NOVO ALUNO", value: "-"});
         res.send(ret);         
     })    
 

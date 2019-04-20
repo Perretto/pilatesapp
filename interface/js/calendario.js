@@ -301,7 +301,13 @@ document.addEventListener('DOMContentLoaded', function () {
         
       },
       select: function( event, ui ) {
-        $("[name='nm_alunos']").val(ui.item.id);
+        if(ui.item.id == "-"){
+          $("#nm_nome").val($("#nm_alunos").val())
+          $("#modalcliente").modal('show');
+        }else{
+          $("[name='nm_alunos']").val(ui.item.id);
+        }
+        
       }
     });
   } );
@@ -364,7 +370,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var id = $("[name='nm_alunos']").val();
     
     if(id){
-      save(table);
+      saveid(table, "formcalendario");
     }else{
       iziToast.warning({
           title: '',
@@ -397,3 +403,25 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }
+
+  
+function novoaula(){
+  var data = $("#formcalendario input");
+  for (let index = 0; index < data.length; index++) {
+      const element = data[index];
+
+      if($(element).attr("readonly") != "readonly"){
+        if($(element).attr("type") == "checkbox"){
+            $(element).attr("checked", false)
+            $(element).prop("checked", false)
+            $(element).val(false);
+            $(element).removeProp("checked")
+        }else{
+            $(element).val("");
+        }  
+      }
+          
+  }
+  imagensPadrao()
+  $("textarea").val("");
+}

@@ -6,7 +6,7 @@ exports.select =  function (sql, callback){
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
-        port: 5432
+        port: 5434
     };
     const pool = new pg.Pool(config);
     pool.connect(function (err, client, done) {
@@ -51,7 +51,7 @@ exports.execute =  function (sql, callback){
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
-        port: 5432
+        port: 5434
     };
     const pool = new pg.Pool(config);
     pool.connect(function (err, client, done) {
@@ -196,7 +196,7 @@ exports.executeObj =  function (table, parametros, callback){
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
-        port: 5432
+        port: 5434
     };
     const pool = new pg.Pool(config);
     pool.connect(function (err, client, done) {

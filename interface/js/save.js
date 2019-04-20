@@ -156,3 +156,139 @@ function checkchange(element){
     }
     
 }
+
+
+
+function saveid(table, id){
+    iziToast.question({
+        timeout: 20000,
+        close: false,
+        overlay: true,
+        displayMode: 'once',
+        id: 'question',
+        zindex: 999,
+        title: '',
+        message: 'Deseja gravar este registro?',
+        position: 'center',
+        buttons: [
+            ['<button><b>SIM</b></button>', function (instance, toast) {
+     
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');                
+                
+                var url = "http://" + window.location.hostname + ":3003/api/" + table + "/gravar"
+                var data = $("#" + id).serialize();
+
+                for (let index = 0; index < $("[name][type='checkbox']").length; index++) {
+                    const element = $("[name][type='checkbox']")[index];
+                    if(!$(element).is(":checked")){
+                        var name = $(element).attr("name");
+                        data += "&" + name + "=false"
+                    }                    
+                }
+
+                
+                $.ajax({        
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function(data){
+                        if(data){
+                                if(data.lastID || data.lastID == 0){
+                                    $("#id").val(data.lastID);
+                                    iziToast.success({
+                                        title: '',
+                                        message: 'Registro salvo com sucesso!',
+                                    });
+                                }
+                            
+                        }                        
+                    }
+                
+                });
+            }, true],
+            ['<button>NÃO</button>', function (instance, toast) {
+     
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+     
+            }],
+        ],
+        onClosing: function(instance, toast, closedBy){
+            console.info('Closing | closedBy: ' + closedBy);
+        },
+        onClosed: function(instance, toast, closedBy){
+            console.info('Closed | closedBy: ' + closedBy);
+        }
+    });    
+}
+
+
+
+
+function savemodal(table, id,returns, returnid){
+    $("#modalcliente").modal("hide");
+    iziToast.question({
+        timeout: 20000,
+        close: false,
+        overlay: true,
+        displayMode: 'once',
+        id: 'question',
+        zindex: 999,
+        title: '',
+        message: 'Deseja gravar este registro?',
+        position: 'center',
+        buttons: [
+            ['<button><b>SIM</b></button>', function (instance, toast) {
+     
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');                
+                
+                var url = "http://" + window.location.hostname + ":3003/api/" + table + "/gravar"
+                var data = $("#" + id).serialize();
+
+                for (let index = 0; index < $("[name][type='checkbox']").length; index++) {
+                    const element = $("[name][type='checkbox']")[index];
+                    if(!$(element).is(":checked")){
+                        var name = $(element).attr("name");
+                        data += "&" + name + "=false"
+                    }                    
+                }
+
+                
+                $.ajax({        
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    success: function(data){
+                        if(data){
+                                if(data.lastID || data.lastID == 0){
+                                    $("#" + returnid).val(data.lastID);
+                                    var objreturn = JSON.parse(returns)
+                                    for (let index = 0; index < objreturn.length; index++) {
+                                        const element = objreturn[index];
+                                        $("#" + element.from).val($("#" + element.to).val());
+                                    }
+
+                                    iziToast.success({
+                                        title: '',
+                                        message: 'Registro salvo com sucesso!',
+                                    });
+                                }
+                            
+                        }                        
+                    }
+                
+                });
+            }, true],
+            ['<button>NÃO</button>', function (instance, toast) {
+     
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+     
+            }],
+        ],
+        onClosing: function(instance, toast, closedBy){
+            console.info('Closing | closedBy: ' + closedBy);
+        },
+        onClosed: function(instance, toast, closedBy){
+            console.info('Closed | closedBy: ' + closedBy);
+        }
+    });    
+}
