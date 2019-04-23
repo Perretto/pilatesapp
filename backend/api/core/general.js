@@ -116,8 +116,11 @@ exports.executeObj =  function (table, parametros, callback){
                         nome = "'" + parametros[index] + "'";
                         break; 
                     case "dt":
-                        console.log(parametros[index])
-                        nome = "'" + parametros[index] + "'";
+                        if(!parametros[index]){
+                            nome = "NULL";
+                        }else{
+                            nome = "'" + parametros[index] + "'";
+                        }
                         break;     
                     case "im":
                         nome = "'" + parametros[index] + "'";
@@ -157,8 +160,12 @@ exports.executeObj =  function (table, parametros, callback){
                         nome = "'" + parametros[index] + "'";
                         break; 
                     case "dt":
-                        nome =  "'" + parametros[index] + "'";
-                        break;      
+                        if(!parametros[index]){
+                            nome = "NULL";
+                        }else{
+                            nome = "'" + parametros[index] + "'";
+                        }
+                        break;        
                     case "im":
                         nome = "'" + parametros[index] + "'";
                         break;                                          
