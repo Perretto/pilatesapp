@@ -1,4 +1,4 @@
-function save(table){
+function save(table, callback){
     iziToast.question({
         timeout: 20000,
         close: false,
@@ -31,6 +31,10 @@ function save(table){
                     url: url,
                     data: data,
                     success: function(data){
+                        if(callback){
+                            callback(data);
+                        }
+
                         if(data){
                                 if(data.lastID || data.lastID == 0){
                                     $("#id").val(data.lastID);

@@ -191,3 +191,39 @@ router.route('/horariosdisponiveis/:estudio').get(function(req, res) {
         res.send(array);         
     })     
 })
+
+
+
+
+router.route('/horariosdisponiveisdatas/:estudio/:startdate/:enddate').get(function(req, res) {
+    var estudio = req.param('estudio');
+    var startdate = req.param('startdate');
+    var enddate = req.param('enddate');
+    
+    var sql = "SELECT TO_CHAR(dt_data :: DATE, 'yyyy-mm-dd') AS dt_data, id AS id FROM aulas WHERE  ";
+    sql += " nm_estudio='" + estudio + "' AND dt_data >= '" + startdate + "' AND dt_data <= '" + enddate + "'";
+    console.log(sql)
+    general.select(sql, function(ret){
+        
+        var array = [];
+        var obj = {};
+
+        var arrayaulas = [];
+
+        for (let index = 0; index < ret.length; index++) {
+            const element = ret[index];
+            if(arrayaulas.indexOf(element.dt_data) == -1){
+                
+                obj = {};
+                obj.id = element.id;
+                obj.start = element.dt_data;
+                obj.title = "Aula(s) agendada(s)";
+                array.push(obj);
+                arrayaulas.push(element.dt_data);
+            }
+        }
+
+        res.send(array);         
+    })     
+})
+

@@ -13,28 +13,35 @@ document.addEventListener('DOMContentLoaded', function () {
     $(".estudio").html(options);
     $('#nm_estudio option:eq(0)').prop('selected', true);
 
-
-           
-    var estudio = $("#nm_estudio").val();
-    var url = "http://" + window.location.hostname + ":3003/api/aulas/horariosdisponiveis/" + estudio
-
-    $.ajax({
-      url: url,
-      dataType: 'json',
-      success: function(doc) {
-        var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           locale: 'pt',
           plugins: ['dayGrid'],
           defaultView: 'dayGridMonth',
-            events: doc
+          events: function(fetchInfo, successCallback, failureCallback) {
+            var estudio = $("#nm_estudio").val();
+            var startStr = fetchInfo.startStr;
+            var endStr = fetchInfo.endStr;
+            var url = "http://" + window.location.hostname + ":3003/api/aulas/horariosdisponiveisdatas/" + estudio + "/" + startStr + "/" + endStr
+
+            $.ajax({
+              url: url,
+              dataType: 'json',
+              success: function(doc) {
+                $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")  
+                $(".fc-time").html(""); 
+                successCallback(doc);
+              }
+            });
+            
+          }
         });
     
         calendar.render();  
         $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")  
-        $(".fc-time").html("");  
-      }
-    });
+        $(".fc-time").html(""); 
+           
+    
 
   });
 

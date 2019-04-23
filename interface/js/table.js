@@ -152,6 +152,34 @@ function edit(id, table){
                                 imagensPadrao()
                             }
                         }
+
+                        if(index.indexOf("dt_") > -1){
+                            if(data[0][index]){
+                                var data = new Date(data[0][index]);
+                                var dataformat = "";
+
+                                
+                                if(String((data.getDate())).length == 1){
+                                    dataformat += "0" + (data.getDate()) + "/";
+                                }else{
+                                    dataformat += (data.getDate()) + "/";
+                                }
+
+                                if(String((data.getMonth() + 1)).length == 1){
+                                    dataformat += "0" + (data.getMonth() + 1) + "/";
+                                }else{
+                                    dataformat += (data.getMonth() + 1) + "/";
+                                }
+                                
+
+                                dataformat +=  data.getFullYear()
+                                
+                                
+                                $("[name='" + index + "']").val(dataformat);
+                            }else{
+
+                            }
+                        }
                     }
                     
                     $("#rowform").show();
