@@ -112,7 +112,7 @@ router.route('/geraraulasaluno/:id').get(function(req, res) {
 
         for (let index = 0; index < arrayretorno.length; index++) {
             const element = arrayretorno[index];
-
+            
             ins += "('" + guid() + "', ";
             ins += "'" + element.dataformat + "','" + element.aluno + "','" + element.estudio
             ins += "','" + element.horario + "','" + element.horarioate + "'";
@@ -122,7 +122,7 @@ router.route('/geraraulasaluno/:id').get(function(req, res) {
                 ins += ",";
             }
         }
-        
+        console.log(ins)
         general.execute(ins, function(ret){
             res.send(ret);
         }) 
@@ -146,7 +146,9 @@ function aulasAluno(id, callback){
 
         if(ret.length > 0){
             if(ret[0].dt_inicioplano){
-                datainicio = new Date(ret[0].dt_inicioplano);
+                var datainicioArray = ret[0].dt_inicioplano.split("/")
+                var datainicioStr = datainicioArray[1] + "/" + datainicioArray[0] + "/" + datainicioArray[2];
+                datainicio = new Date(datainicioStr);
                 var data = datainicio;
 
                 var nr_meses = ret[0].nr_meses;
