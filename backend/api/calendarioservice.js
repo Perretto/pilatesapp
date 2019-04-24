@@ -132,14 +132,30 @@ router.route('/horariosdisponiveis/:estudio').get(function(req, res) {
     var estudio = req.param('estudio');
     
     var sql = "SELECT TO_CHAR(dt_data :: DATE, 'yyyy-mm-dd') AS dt_data, id AS id FROM aulas   ";
-    //sql += " WHERE nm_estudio='" + estudio + "' ";
+    sql += " WHERE nm_estudio='" + estudio + "' ";
 
     general.select(sql, function(ret){
+        
         
         var array = [];
         var obj = {};
 
-        res.send(ret);         
+        var arrayaulas = [];
+
+        for (let index = 0; index < ret.length; index++) {
+            const element = ret[index];
+            if(arrayaulas.indexOf(element.dt_data) == -1){
+                
+                obj = {};
+                obj.id = element.id;
+                obj.start = element.dt_data;
+                obj.title = "Aula(s) agendada(s)";
+                array.push(obj);
+                arrayaulas.push(element.dt_data);
+            }
+        }
+
+        res.send(array);           
     })     
 })
 
