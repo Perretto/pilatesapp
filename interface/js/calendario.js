@@ -401,7 +401,23 @@ document.addEventListener('DOMContentLoaded', function () {
           locale: 'pt',
           plugins: ['dayGrid'],
           defaultView: 'dayGridMonth',
-            events: doc
+          events: function(fetchInfo, successCallback, failureCallback) {
+            var estudio = $("#nm_estudio").val();
+            var startStr = fetchInfo.startStr;
+            var endStr = fetchInfo.endStr;
+            var url = "http://" + window.location.hostname + ":3003/api/aulas/horariosdisponiveisdatas/" + estudio + "/" + startStr + "/" + endStr
+
+            $.ajax({
+              url: url,
+              dataType: 'json',
+              success: function(doc) {
+                $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")  
+                $(".fc-time").html(""); 
+                successCallback(doc);
+              }
+            });
+            
+          }
         });
     
         calendar.render();  
