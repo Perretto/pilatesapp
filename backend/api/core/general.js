@@ -3,7 +3,7 @@ var pg = require('pg');
 
 exports.select =  function (sql, callback){
     const config = {
-        host: '34.212.28.6',
+        //host: '34.212.28.6',
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
@@ -49,7 +49,7 @@ exports.select =  function (sql, callback){
 exports.execute =  function (sql, callback){
 
     const config = {
-        host: '34.212.28.6',
+        //host: '34.212.28.6',
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
@@ -202,7 +202,7 @@ exports.executeObj =  function (table, parametros, callback){
     console.log(sql)
 
     const config = {
-        host: '34.212.28.6',
+        //host: '34.212.28.6',
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
