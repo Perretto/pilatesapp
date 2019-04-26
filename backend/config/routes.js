@@ -17,4 +17,5 @@ module.exports = function(server) {
     const administrador = require('../api/administrador')
     const reports = require('../api/reports')
     const calendario = require('../api/calendarioservice')
+    const intervalo = require('../api/intervaloservice')
 }

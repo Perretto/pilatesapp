@@ -43,7 +43,7 @@
               <div class="col-md-12">
                 <div id="rowform" class="form-panel">
                   <h4 class="mb" style="padding-left:15px">Cadastro de Estúdios</h4>
-                  <form class="" role="form">
+                  <form class="" role="form" id="formestudios" >
                       <input type="hidden" name="id" id="id" class="form-control">
                       <div class="form-group col-md-12">
                           <label class="control-label">Nome</label>
@@ -333,12 +333,13 @@
                         </div>
 
                         
-                    <div class="row">
+                        <div class="row">
                             <div class="form-group col-md-12">
+                                
                                 <button onclick="novo()"  type="button" class="btn btn-primary">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button onclick="save('estudios')"  type="button" class="btn btn-success">
+                                <button onclick="saveid('estudios','formestudios')"  type="button" class="btn btn-success">
                                     <i class="fa fa-save"></i>
                                 </button>
                                 <button  onclick="ondelete('estudios')"  type="button" class="btn btn-danger">
@@ -346,6 +347,9 @@
                                 </button>
                                 <button onclick="createtable('estudios')" type="button" class="btn btn-warning">
                                     <i class="fa fa-search"></i>
+                                </button>
+                                <button  title="Intervalo" onclick="intervalo()"  type="button" class="btn btn-primary"> 
+                                    <i class="fa fa-asterisk"></i>
                                 </button>
                             </div>
                         </div>
@@ -369,6 +373,123 @@
         </div>
       </footer>
     </section>
+
+    
+<div id="modal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <h4 class="mb" style="padding-left:15px">Intervalo</h4>
+        <hr>
+        
+        <form id="intervaloestudio">
+            <div class="form-group col-md-3">
+                <div class="col">
+                    <label class=" form-control-label">Dia da semana:</label>
+                </div>
+                <div class="">
+                    <select name="nm_dia" id="nm_dia" class="form-control">
+                          <option value="Segunda">Segunda</option>
+                          <option value="Terça">Terça</option>
+                          <option value="Quarta">Quarta</option>
+                          <option value="Quinta">Quinta</option>
+                          <option value="Sexta">Sexta</option>
+                          <option value="Sábado">Sábado</option>
+                          <option value="Domingo">Domingo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <div class="col">
+                    <label class=" form-control-label">Horario de:</label>
+                </div>
+                <div class="">
+                    <select name="nm_horade" id="nm_horade" class="form-control">
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="00">00</option>
+                    </select>
+                </div>
+            </div>
+  
+            
+            <div class="form-group col-md-3">
+                <div class="col">
+                    <label class=" form-control-label">Horario até:</label>
+                </div>
+                <div class="">
+                    <select name="nm_horaate" id="nm_horaate" class="form-control">
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="00">00</option>
+                    </select>
+                </div>
+            </div>
+
+            <input type="hidden" name="nm_estudio" id="nm_estudio" class="form-control">
+
+          <div style="margin-left:2px" class="row">
+            <div class="form-group col-md-12">
+                <button onclick='$("#modal").modal("hide")'  type="button" class="btn btn-primary">
+                    <i class="fa fa-long-arrow-left"></i>
+                </button>
+                <button onclick='savemodal("intervalo","intervaloestudio", "", "")'  type="button" class="btn btn-success">
+                    <i class="fa fa-save"></i>
+                </button>
+            </div>
+        </div>
+        </form>
+        <hr>
+        <div id="conteudomodal"></div>
+
+      </div>
+    </div>
+  </div>
+  
+
+
     <script src="../lib/jquery/jquery.min.js"></script>
     <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="../lib/jquery.dcjqaccordion.2.7.js"></script>
@@ -384,6 +505,7 @@
     <script src="../js/generic.js" ></script>
     <script src="../js/table.js" ></script>
     <script src="../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+    <script src="../js/estudio.js" ></script>
   </body>
 
 </html>

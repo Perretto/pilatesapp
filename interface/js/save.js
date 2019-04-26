@@ -230,6 +230,8 @@ function saveid(table, id){
 
 function savemodal(table, id,returns, returnid){
     $("#modalcliente").modal("hide");
+    $("#modal").modal("hide");
+
     iziToast.question({
         timeout: 20000,
         close: false,
@@ -264,12 +266,19 @@ function savemodal(table, id,returns, returnid){
                     success: function(data){
                         if(data){
                                 if(data.lastID || data.lastID == 0){
-                                    $("#" + returnid).val(data.lastID);
-                                    var objreturn = JSON.parse(returns)
-                                    for (let index = 0; index < objreturn.length; index++) {
-                                        const element = objreturn[index];
-                                        $("#" + element.from).val($("#" + element.to).val());
+
+                                    if(returnid){
+                                        $("#" + returnid).val(data.lastID);
                                     }
+                                    
+                                    if(returns){
+                                        var objreturn = JSON.parse(returns)
+                                        for (let index = 0; index < objreturn.length; index++) {
+                                            const element = objreturn[index];
+                                            $("#" + element.from).val($("#" + element.to).val());
+                                        }
+                                    }
+                                    
 
                                     iziToast.success({
                                         title: '',
@@ -314,4 +323,71 @@ function novoid(id){
     }
     imagensPadrao()
     $("textarea").val("");
+}
+
+
+
+function ondeletegrid(table, id, callbackbefore){
+    if(callbackbefore){
+        callbackbefore()
+    } 
+    if(!id){
+        
+        iziToast.warning({
+            title: '',
+            message: 'Edite um registro antes de deletar!',
+        });
+        return;
+    }
+
+    iziToast.question({
+        timeout: 20000,
+        close: false,
+        overlay: true,
+        displayMode: 'once',
+        id: 'question',
+        zindex: 999,
+        title: '',
+        message: 'Deseja deletar este registro?',
+        position: 'center',
+        buttons: [
+            ['<button><b>SIM</b></button>', function (instance, toast) {
+     
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');                
+                
+                var url = "http://" + window.location.hostname + ":3003/api/" + table + "/delete/" + id
+                 
+                $.ajax({        
+                    type: "GET",
+                    url: url,
+                    success: function(data){
+                        if(data){
+                            if(data.command){
+                                if(data.command == "DELETE"){
+                                    
+
+                                    iziToast.success({
+                                        title: '',
+                                        message: 'Registro deletado com sucesso!',
+                                    });
+                                }
+                            }
+                        }                        
+                    }
+                
+                });
+            }, true],
+            ['<button>NÃO</button>', function (instance, toast) {
+     
+                instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+     
+            }],
+        ],
+        onClosing: function(instance, toast, closedBy){
+            console.info('Closing | closedBy: ' + closedBy);
+        },
+        onClosed: function(instance, toast, closedBy){
+            console.info('Closed | closedBy: ' + closedBy);
+        }
+    });
 }
