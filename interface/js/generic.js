@@ -86,54 +86,8 @@ function getBase64(file) {
   }
 
 
-function logar(){
-    var login = $("#login").val();
-    var senha = $("#senha").val();
-
-    if(!login && !senha){
-        iziToast.error({
-            title: '',
-            message: 'Digite um login e senha validos!',
-        });
-        return;
-    }
-
-    var url = "http://" + window.location.hostname + ":3003/api/administrador/login/" + login + "/" + senha
-                 
-    $.ajax({        
-        type: "GET",
-        url: url,
-        success: function(data){
-            if(data){
-                if(data.length > 0){
-                    if(data[0]){
-                        localStorage.setItem("username", data[0].nm_nome);
-                        localStorage.setItem("userid", data[0].id);
-
-                        localStorage.setItem("tipo", data[0].nm_tipousuario);
-                        localStorage.setItem("foto", data[0].img_foto);
-
-                        window.location.href = "http://" + window.location.host + "/pages/index.html";
-                    }else{
-                        iziToast.error({
-                            title: '',
-                            message: 'Login ou senha não localizado!',
-                        }); 
-                    }  
-                }else{
-                    iziToast.error({
-                        title: '',
-                        message: 'Login ou senha não localizado!',
-                    }); 
-                }
-            }                        
-        }
-    
-    });
-}
-
 function getuser(){
-    if(!localStorage.getItem("username")){
+    if(!localStorage.getItem("username") || localStorage.getItem("tipo") == "Aluno" ){
         window.location.href = "http://" + window.location.host + "/login.html";
         return;
     }
@@ -218,7 +172,6 @@ function dashtempo(){
     }
 
 }
-
 
 
 

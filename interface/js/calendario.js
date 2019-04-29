@@ -11,7 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     $("#nm_estudio").html(options);
     $(".estudio").html(options);
-    $('#nm_estudio option:eq(0)').prop('selected', true);
+
+    if(localStorage.getItem("idestudio")){
+      $('#nm_estudio').val(localStorage.getItem("idestudio"));
+    }else{
+      $('#nm_estudio option:eq(0)').prop('selected', true);
+    }
+    
 
     var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
