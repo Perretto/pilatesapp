@@ -4,10 +4,12 @@ var pg = require('pg');
 exports.select =  function (sql, callback){
     const config = {
         //host: '34.212.28.6',
+        host: 'localhost',
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
         port: 5432
+        //port: 5434
     };
     const pool = new pg.Pool(config);
     pool.connect(function (err, client, done) {
@@ -50,10 +52,12 @@ exports.execute =  function (sql, callback){
 
     const config = {
         //host: '34.212.28.6',
+        host: 'localhost',
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
         port: 5432
+        //port: 5434
     };
     const pool = new pg.Pool(config);
     pool.connect(function (err, client, done) {
@@ -203,10 +207,12 @@ exports.executeObj =  function (table, parametros, callback){
 
     const config = {
         //host: '34.212.28.6',
+        host: 'localhost',
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
         port: 5432
+        //port: 5434
     };
     const pool = new pg.Pool(config);
     pool.connect(function (err, client, done) {
