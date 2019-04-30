@@ -125,7 +125,10 @@ exports.executeObj =  function (table, parametros, callback){
                         if(!parametros[index]){
                             nome = "NULL";
                         }else{
-                            nome = "'" + parametros[index] + "'";
+                            var dataArray = parametros[index].split("/");
+                            var data = dataArray[1] + "/" + dataArray[0] + "/" + dataArray[2]
+
+                            nome = "'" + data + "'";
                         }
                         break;     
                     case "im":
@@ -169,7 +172,10 @@ exports.executeObj =  function (table, parametros, callback){
                         if(!parametros[index]){
                             nome = "NULL";
                         }else{
-                            nome = "'" + parametros[index] + "'";
+                            var dataArray = parametros[index].split("/");
+                            var data = dataArray[1] + "/" + dataArray[0] + "/" + dataArray[2]
+
+                            nome = "'" + data + "'";
                         }
                         break;        
                     case "im":
