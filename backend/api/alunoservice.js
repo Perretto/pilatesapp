@@ -235,19 +235,19 @@ function aulasAluno(id, callback){
                             dataanterior = new Date(String(data));
                             
                             var dataformat = "";
-                                    
+                                
+                            if(String((data.getMonth() + 1)).length == 1){
+                                dataformat += "0" + (data.getMonth() + 1) + "/";
+                            }else{
+                                dataformat += (data.getMonth() + 1) + "/";
+                            }
+                                
                             if(String((data.getDate())).length == 1){
                                 dataformat += "0" + (data.getDate()) + "/";
                             }else{
                                 dataformat += (data.getDate()) + "/";
                             }
     
-                            if(String((data.getMonth() + 1)).length == 1){
-                                dataformat += "0" + (data.getMonth() + 1) + "/";
-                            }else{
-                                dataformat += (data.getMonth() + 1) + "/";
-                            }
-                            
                             dataformat +=  data.getFullYear();  
     
                             var datahoje = new Date();
