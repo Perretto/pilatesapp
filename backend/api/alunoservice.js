@@ -101,7 +101,7 @@ router.route('/geraraulasaluno/:id').get(function(req, res) {
 
         ano = datahoje.getFullYear();
 
-        dataformathoje = dia + "/" + mes + "/" + ano;
+        dataformathoje = mes + "/" + dia + "/" + ano;
 
         var ins = "DELETE FROM aulas WHERE dt_data >= '" + dataformathoje +  "' ";
         ins += " AND nm_alunos='" + id + "';";
