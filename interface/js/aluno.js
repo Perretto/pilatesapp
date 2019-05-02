@@ -34,9 +34,14 @@ function savealuno(table){
                     html += "</tr>";
                     for (let index = 0; index < data.length; index++) {
                         const element = data[index];
+                        var dataArray = element.dataformat.split("/")
+                        var dia = dataArray[1];
+                        var mes = dataArray[0];
+                        var ano = dataArray[2];
+
                         html += "<tr>";
                         html += "<td>";
-                        html += element.diasemana + " - " + element.dataformat;
+                        html += element.diasemana + " - " + dia + "/" + mes + "/" + ano;
                         html += "</td>";
                         html += "<td>";
                         html += element.horario;
