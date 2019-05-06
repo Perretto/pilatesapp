@@ -4,7 +4,7 @@ var pg = require('pg');
 exports.select =  function (sql, callback){
     const config = {
         //host: '34.212.28.6',
-        host: 'localhost',
+        //host: 'localhost',
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
@@ -52,7 +52,7 @@ exports.execute =  function (sql, callback){
 
     const config = {
         //host: '34.212.28.6',
-        host: 'localhost',
+        //host: 'localhost',
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
@@ -173,7 +173,7 @@ exports.executeObj =  function (table, parametros, callback){
                             nome = "NULL";
                         }else{
                             var dataArray = parametros[index].split("/");
-                            var data = dataArray[1] + "/" + dataArray[0] + "/" + dataArray[2]
+                            var data = dataArray[0] + "/" + dataArray[1] + "/" + dataArray[2]
 
                             nome = "'" + data + "'";
                         }
@@ -213,7 +213,7 @@ exports.executeObj =  function (table, parametros, callback){
 
     const config = {
         //host: '34.212.28.6',
-        host: 'localhost',
+        //host: 'localhost',
         user: 'postgres',
         database: 'pilatesapp',
         password: 'Joao3:16',
