@@ -212,6 +212,28 @@ document.addEventListener('DOMContentLoaded', function () {
       btnvoltar += "    <i class=\"fa fa-long-arrow-left\"></i>";
       btnvoltar += "</button>";
       $("#listahorarios").append(btnvoltar);
+
+
+      var data = $(element).attr("data-date");
+    var estudio = $("#nm_estudio").val();
+      url = "http://" + window.location.hostname + ":3003/api/aulas/horariointervalos/" + data + "/" + estudio
+        $.ajax({
+          url: url,
+          type: "GET",
+          dataType: "json",
+          contentType: "application/json; charset=utf-8",
+          async: false,
+          crossDomain: true,
+        }).success(function (data) {
+          for (let index = 0; index < data.length; index++) {
+            const element = data[index];
+            $(".liid_" + element.nm_horade).remove();
+          }
+        })
+      
+
+
+
     });
 
     $("#calendar").hide();

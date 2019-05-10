@@ -3,43 +3,8 @@
     <div class="border-head">
       <h3>Aulas Marcadas</h3>
     </div>
-    <div class="custom-bar-chart">
-      <ul class="y-axis">
-        <li><span>10.000</span></li>
-        <li><span>8.000</span></li>
-        <li><span>6.000</span></li>
-        <li><span>4.000</span></li>
-        <li><span>2.000</span></li>
-        <li><span>0</span></li>
-      </ul>
-      <div class="bar">
-        <div class="title">JAN</div>
-        <div class="value tooltips" data-original-title="8.500" data-toggle="tooltip" data-placement="top">85%</div>
-      </div>
-      <div class="bar ">
-        <div class="title">FEB</div>
-        <div class="value tooltips" data-original-title="5.000" data-toggle="tooltip" data-placement="top">50%</div>
-      </div>
-      <div class="bar ">
-        <div class="title">MAR</div>
-        <div class="value tooltips" data-original-title="6.000" data-toggle="tooltip" data-placement="top">60%</div>
-      </div>
-      <div class="bar ">
-        <div class="title">ABR</div>
-        <div class="value tooltips" data-original-title="4.500" data-toggle="tooltip" data-placement="top">45%</div>
-      </div>
-      <div class="bar">
-        <div class="title">MAI</div>
-        <div class="value tooltips" data-original-title="3.200" data-toggle="tooltip" data-placement="top">32%</div>
-      </div>
-      <div class="bar ">
-        <div class="title">JUN</div>
-        <div class="value tooltips" data-original-title="6.200" data-toggle="tooltip" data-placement="top">62%</div>
-      </div>
-      <div class="bar">
-        <div class="title">JUL</div>
-        <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
-      </div>
+    <div id="aulasmarcadasmes" class="custom-bar-chart">
+      
     </div>
     <!--custom chart end-->
     <div class="row mt">
@@ -51,23 +16,13 @@
           </div>
           <canvas id="serverstatus01" height="120" width="120"></canvas>
           <script>
-            var doughnutData = [{
-                value: 70,
-                color: "#FF6B6B"
-              },
-              {
-                value: 30,
-                color: "#fdfdfd"
-              }
-            ];
-            var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
           </script>
           <div class="row">
             <div class="col-sm-6 col-xs-6 goleft">
               <p>Uso<br/>Atual:</p>
             </div>
             <div class="col-sm-6 col-xs-6">
-              <h2>21%</h2>
+              <h2 id="usoatual"></h2>
             </div>
           </div>
         </div>
@@ -81,24 +36,14 @@
           </div>
           <canvas id="serverstatus02" height="120" width="120"></canvas>
           <script>
-            var doughnutData = [{
-                value: 60,
-                color: "#1c9ca7"
-              },
-              {
-                value: 40,
-                color: "#f68275"
-              }
-            ];
-            var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
           </script>
-          <p>Abril, 2019</p>
+          <p id="dashmesano"></p>
           <footer>
             <div class="pull-left">
-              <h5><i class="fa fa-hdd-o"></i> 17</h5>
+              <h5 id="horasaulas"><i class="fa fa-hdd-o"></i></h5>
             </div>
             <div class="pull-right">
-              <h5>60% do uso total</h5>
+              <h5 id="aulaslivres"></h5>
             </div>
           </footer>
         </div>
@@ -183,18 +128,138 @@
 
       $("#my-calendar").zabuto_calendar({
         ajax: {
-            url: "../calendar.json",
-            modal: true,
+            url: "http://" + window.location.hostname + ":3003/api/aulas/aulasmesescalendario",
+            modal: false,
         },
         language: "pt",        
         legend: [{
             type: "text",
             label: "Aulas marcadas",
-            badge: "05"
+            badge: " "
           }
         ],
       })
 
+
+      var url = "http://" + window.location.hostname + ":3003/api/aulas/aulasmarcadas"
+      $.ajax({        
+          type: "GET",
+          url: url,
+          success: function(data){
+            if(data){
+              $("#dashmesano").html(data.month + ", " + data.year);
+              $("#horasaulas").html("<i class='fa fa-hdd-o'></i> " + data.horasaulas + " aulas marcadas");
+              $("#aulaslivres").html(data.horaslivres + " horas livres");
+              $("#usoatual").html(data.uso + "%");
+
+              
+              var doughnutData = [{
+                value: data.livre,
+                color: "#FF6B6B"
+              },
+              {
+                value: data.uso,
+                color: "#fdfdfd"
+              }
+              ];
+              var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
+
+              
+
+              var doughnutData = [{
+                value: data.uso,
+                color: "#1c9ca7"
+              },
+              {
+                value: data.livre,
+                color: "#f68275"
+              }
+              ];
+              var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
+
+              url = "http://" + window.location.hostname + ":3003/api/aulas/aulasmeses/" + (parseInt(data.horaslivres) + parseInt(data.horasaulas));
+              $.ajax({        
+                  type: "GET",
+                  url: url,
+                  success: function(element){
+                    console.log("dash")
+                    if(element){
+                      var html = "<ul class='y-axis'>";
+                      for (let index = (element.rows.length - 1); index >= 0; index--) {
+                        html += "<li><span>" + element.rows[index] + "</span></li>";                        
+                      }
+                      html += "</ul>";
+
+                      for (let index = 1; index <= 7; index++) {
+                        var month;
+                        var mes;
+                        var perc;
+
+                        html += "<div class='bar'> ";
+                        switch (index) {
+                          case 1:
+                            month = element.month1;
+                            mes = element.mes1
+                            perc = element.mes1perc;
+                            break; 
+                          case 2:
+                            month = element.month2;
+                            mes = element.mes2
+                            perc = element.mes2perc;
+                            break;                   
+                          case 3:
+                            month = element.month3;
+                            mes = element.mes3
+                            perc = element.mes3perc;
+                            break;                   
+                          case 4:
+                            month = element.month4;
+                            mes = element.mes4
+                            perc = element.mes4perc;
+                            break;                   
+                          case 5:
+                            month = element.month5;
+                            mes = element.mes5
+                            perc = element.mes5perc;
+                            break;                   
+                          case 6:
+                            month = element.month6;
+                            mes = element.mes6
+                            perc = element.mes6perc;
+                            break;                   
+                          case 7:
+                            month = element.month7;
+                            mes = element.mes7
+                            perc = element.mes7perc;
+                            break;                                          
+                        }
+                        html += "  <div class='title'>" + month + "</div> ";
+                        html += "  <div class='value tooltips' data-original-title='" + mes + "' data-toggle='tooltip' data-placement='top'>" + perc +  "%</div> ";
+
+                        html += "</div>  ";                  
+                      }
+
+                      $("#aulasmarcadasmes").html(html);
+
+                      $(".bar").each(function() {
+                        var i = $(this).find(".value").html();
+                        $(this).find(".value").html("");
+                        $(this).find(".value").animate({
+                          height: i
+                        }, 2000)
+                      })
+
+                    }
+                  }
+              })
+
+
+
+            }                        
+          }
+      
+      });
+      
 
     });
 

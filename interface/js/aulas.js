@@ -220,6 +220,27 @@ document.addEventListener('DOMContentLoaded', function () {
         btnvoltar += "    <i class=\"fa fa-long-arrow-left\"></i>";
         btnvoltar += "</button>";
         $("#listahorarios").append(btnvoltar);
+
+        data = $("#dataselecionada").attr("data-dataselecionada");
+        data = data.replace("/", "-").replace("/", "-")
+        var arrayData = data.split("-");
+
+        url = "http://" + window.location.hostname + ":3003/api/aulas/horariointervalos/" + arrayData[2] + "-" + arrayData[1] + "-" + arrayData[0] + "/" + estudio
+        $.ajax({
+          url: url,
+          type: "GET",
+          dataType: "json",
+          contentType: "application/json; charset=utf-8",
+          async: false,
+          crossDomain: true,
+        }).success(function (data) {
+          for (let index = 0; index < data.length; index++) {
+            const element = data[index];
+            $(".liid_" + element.nm_horade).remove();
+          }
+        })
+      
+
       });
   
       $("#calendar").hide();
