@@ -18,6 +18,7 @@ router.route('/listaaulas/:data/:estudio').get(function(req, res) {
     var sm = d.getDay();
     var semana = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"][sm];
     
+    console.log(semana)
     sm = diaSemanaComFim(semana);
    console.log(sm)
 
