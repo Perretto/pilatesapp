@@ -16,7 +16,7 @@ router.route('/listaaulas/:data/:estudio').get(function(req, res) {
     var estudio = req.param('estudio');
     var d = new Date(data);
     var sm = d.getDay();
-
+    console.log("dia = " + sm)
     if(req.host != "localhost"){
         sm -= 1;
     }
