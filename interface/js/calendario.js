@@ -81,6 +81,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (data) {
         if (data.length) {
+          if(!data[0].disponivel){
+            var indisponivel = "<h3 style='text-align: center;'>Data indisponível</h3>"
+            $("#listahorarios").append(indisponivel);
+          }else{
           var htm = "";
           htm += "<section class=\"task-panel tasks-widget\">";
           htm += "  <div class=\"panel-heading\">";
@@ -205,6 +209,23 @@ document.addEventListener('DOMContentLoaded', function () {
               $(".liid_" + index + ".disponivel").remove();
             }
           }
+          var data = $(element).attr("data-date");
+          var estudio = $("#nm_estudio").val();
+            url = "http://" + window.location.hostname + ":3003/api/aulas/horariointervalos/" + data + "/" + estudio
+              $.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                crossDomain: true,
+              }).success(function (data) {
+                for (let index = 0; index < data.length; index++) {
+                  const element = data[index];
+                  $(".liid_" + element.nm_horade).remove();
+                }
+              })
+        }
         }
       }
 
@@ -214,22 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
       $("#listahorarios").append(btnvoltar);
 
 
-      var data = $(element).attr("data-date");
-    var estudio = $("#nm_estudio").val();
-      url = "http://" + window.location.hostname + ":3003/api/aulas/horariointervalos/" + data + "/" + estudio
-        $.ajax({
-          url: url,
-          type: "GET",
-          dataType: "json",
-          contentType: "application/json; charset=utf-8",
-          async: false,
-          crossDomain: true,
-        }).success(function (data) {
-          for (let index = 0; index < data.length; index++) {
-            const element = data[index];
-            $(".liid_" + element.nm_horade).remove();
-          }
-        })
+     
       
 
 
