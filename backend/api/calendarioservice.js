@@ -44,11 +44,11 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
             diafimde = diaSemanaComFim(ret[0].nm_diafimde);
             diafimate = diaSemanaComFim(ret[0].nm_diafimate);
 
-            if(diade >= sm && diaate <= sm){
+            if(sm >= diade && sm <= diaate){
                 ret[0].disponivel = true;
             }
 
-            if(diafimde >= sm && diafimate <= sm){
+            if(sm >= diafimde && sm <= diafimate){
                 ret[0].disponivel = true;
             }
 
@@ -122,11 +122,11 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
             diafimde = diaSemanaComFim(ret[0].nm_diafimde);
             diafimate = diaSemanaComFim(ret[0].nm_diafimate);
 
-            if(diade >= sm && diaate <= sm){
+            if(sm >= diade && sm <= diaate){
                 ret[0].disponivel = true;
             }
 
-            if(diafimde >= sm && diafimate <= sm){
+            if(sm >= diafimde && sm <= diafimate){
                 ret[0].disponivel = true;
             }
 
