@@ -96,6 +96,7 @@ router.route('/listaaulasaluno/:data/:estudio/:id').get(function(req, res) {
     var semana = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"][sm];
     
     sm = diaSemanaComFim(semana);
+    console.log(semana)
    console.log(sm)
 
 var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, estudios.nm_diafimde, estudios.nm_diafimate , estudios.nm_horade AS horadefunc, estudios.nm_horaate AS horaatefunc, ";
