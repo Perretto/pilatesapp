@@ -18,7 +18,7 @@ router.route('/listaaulas/:data/:estudio').get(function(req, res) {
     var sm = d.getDay();
 
     if(req.host != "localhost"){
-        sm += 1;
+        sm -= 1;
     }
 
     var semana = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"][sm];
@@ -100,9 +100,9 @@ router.route('/listaaulasaluno/:data/:estudio/:id').get(function(req, res) {
     var d = new Date(data);
     var sm = d.getDay();
     if(req.host != "localhost"){
-        sm += 1;
+        sm -= 1;
     }
-    
+
     var semana = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"][sm];
     
     sm = diaSemanaComFim(semana);
