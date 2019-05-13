@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
               
               htm += "<div style='text-align:center' class='col-md-12'>"
-              htm += "    <h4 style=\"display: inline;\"><i id=\"dataselecionada\" data-dataselecionada=\"" + data[0].data +  "\" class=\"fa fa-tasks\"></i>  - " + data[0].data + "</h4>";
+              htm += "    <h4 style=\"display: inline;\"><i id=\"dataselecionada\" data-dataselecionada=\"" + data[0].data +  "\" ></i>" + data[0].semana + " - " + data[0].data + "</h4>";
               htm += "    </div>";
 
               htm += "    </div>";
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
  
               
               htm += "<div style='text-align:center' class='col-md-12'>"
-              htm += "    <h4 style=\"display: inline; \"><i id=\"dataselecionada\" data-dataselecionada=\"" + data[0].data +  "\" class=\"fa fa-tasks\"></i>  - " + data[0].data + "</h4>";
+              htm += "    <h4 style=\"display: inline; \"><i id=\"dataselecionada\" data-dataselecionada=\"" + data[0].data +  "\" ></i>" + data[0].semana + " - " + data[0].data + "</h4>";
               
               htm += "    </div>";
 

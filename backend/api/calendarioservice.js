@@ -156,6 +156,8 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
                 ret[0].disponivel = true;
             }
 
+            ret[0].semana = semana;
+
             res.send(ret);
         }else{
             sql = "SELECT false AS disponivel, estudios.nm_diade, estudios.nm_diaate, estudios.nm_diafimde, ";
@@ -190,6 +192,7 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
                 if(sm >= diafimde && sm <= diafimate){
                     ret[0].disponivel = true;
                 } 
+                ret[0].semana = semana;
                 res.send(ret);
             });
         }        
