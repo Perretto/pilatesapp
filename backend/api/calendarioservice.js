@@ -103,13 +103,13 @@ router.route('/listaaulasaluno/:data/:estudio/:id').get(function(req, res) {
     var estudio = req.param('estudio');
     var d = new Date(data);
     var sm = d.getDay();
-    if(req.host != "localhost"){
+    //if(req.host != "localhost"){
         if(sm == 0){
             sm = 6;
         }else{
             sm -= 1;
         }
-    }
+    //}
 
     var semana = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"][sm];
     
@@ -120,11 +120,18 @@ router.route('/listaaulasaluno/:data/:estudio/:id').get(function(req, res) {
 var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, estudios.nm_diafimde, estudios.nm_diafimate , estudios.nm_horade AS horadefunc, estudios.nm_horaate AS horaatefunc, ";
     sql += " aulas.id AS id, TO_CHAR(dt_data :: DATE, 'dd/mm/yyyy') AS data, ";
     sql += " aulas.nm_obs AS obs, alunos.nm_nome AS aluno, ";
-    sql += " estudios.nm_nome AS estudio, aulas.nm_horade AS horade, aulas.nm_horaate AS horaate ";
+    sql += " estudios.nm_nome AS estudio, aulas.nm_horade AS horade, aulas.nm_horaate AS horaate, ";
+
+
+    sql += " (SELECT (nr_meses * nr_aulasmes) - (SELECT COUNT(*) FROM aulas WHERE nm_alunos='" + id + "' AND ";
+    sql += " aulas.dt_data >= CURRENT_DATE)";
+    sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
+    sql += " WHERE alunos.id='" + id + "') AS reposicao ";
+
     sql += " FROM aulas ";
     sql += " INNER JOIN alunos ON alunos.id=aulas.nm_alunos ";
     sql += " INNER JOIN estudios ON estudios.id=aulas.nm_estudio ";
-    sql += " WHERE aulas.dt_data='" + data + "' AND aulas.nm_alunos='" + id + "'";
+    sql += " WHERE aulas.dt_data='" + data + "' AND aulas.nm_alunos='" + id + "' AND aulas.nm_estudio='" + estudio + "'";
     sql += " ORDER BY aulas.nm_horade ";
 
     console.log(sql)
@@ -151,11 +158,21 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
 
             res.send(ret);
         }else{
-            sql = "SELECT false AS disponivel, estudios.nm_diade, estudios.nm_diaate, estudios.nm_diafimde, estudios.nm_diafimate , estudios.nm_horade AS horadefunc, estudios.nm_horaate AS horaatefunc, TO_CHAR('" + data + "' :: DATE, 'dd/mm/yyyy') AS data FROM estudios ";
+            sql = "SELECT false AS disponivel, estudios.nm_diade, estudios.nm_diaate, estudios.nm_diafimde, ";
+            sql += "estudios.nm_diafimate , estudios.nm_horade AS horadefunc, estudios.nm_horaate AS horaatefunc, ";
+            sql += "TO_CHAR('" + data + "' :: DATE, 'dd/mm/yyyy') AS data, ";
+
+                    
+            sql += " (SELECT (nr_meses * nr_aulasmes) - (SELECT COUNT(*) FROM aulas WHERE nm_alunos='" + id + "' AND ";
+            sql += " aulas.dt_data >=  CURRENT_DATE)";
+            sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
+            sql += " WHERE alunos.id='" + id + "') AS reposicao";
+
+            sql += " FROM estudios ";
             sql += " WHERE estudios.id='" + estudio + "'";
 
             general.select(sql, function(ret){
- 
+                console.log(sql)
                 ret[0].disponivel = false;
 
                 
