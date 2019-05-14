@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
               var htm = "";
               htm += "<section class=\"task-panel tasks-widget\">";
               htm += "  <div class=\"panel-heading\">";
-              htm += "  <div class=\"pull-left col-md-12\">";
+              htm += "  <div class=\" col-md-12\">";
 
               var dia = d.getDate() - 1;
               var mes = d.getMonth() + 1;
@@ -139,14 +139,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
               var dataapos = mesapos + "/" + diaapos + "/" + anoapos;
 
-              htm += "<div class='col-md-6'>"
+              htm += "<div class='col-md-6 col-sx-6'>"
               htm += "<button id=\"btnvoltar\"  onclick=\"horariosaulas('','" + dataanterior + "')\"  type=\"button\" class=\"btn  btn-warning\" style=\"background-color:#8a12b1\">";
               htm += "    <i class=\"fa fa-long-arrow-left\"></i>";
               htm += "</button>";
               htm += "    </div>";
 
               
-              htm += "<div class='col-md-6'>"
+              htm += "<div class='col-md-6 col-sx-6'>"
               htm += "<button  style=\"float:right;background-color:#4ecdc4\" id=\"btnapos\"  onclick=\"horariosaulas('','" + dataapos + "')\"  type=\"button\" class=\"btn  btn-warning \">";
               htm += "    <i class=\"fa fa-long-arrow-right\"></i>";
               htm += "</button>";
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
               var htm = "";
               htm += "<section class=\"task-panel tasks-widget\">";
               htm += "  <div class=\"panel-heading\">";
-              htm += "  <div class=\"pull-left col-md-12\">";
+              htm += "  <div class=\"  col-md-12\">";
               
               var dia = d.getDate() - 1;
               var mes = d.getMonth() + 1;
@@ -201,18 +201,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
               var dataapos = mesapos + "/" + diaapos + "/" + anoapos;
 
-              htm += "<div class='col-md-6'>"
+              //htm += "<div class='col-md-6 col-sx-6'>"
               htm += "<button id=\"btnvoltar\"  onclick=\"horariosaulas('','" + dataanterior + "')\"  type=\"button\" class=\"btn  btn-warning\" style=\"background-color:#8a12b1\">";
               htm += "    <i class=\"fa fa-long-arrow-left\"></i>";
               htm += "</button>";
-              htm += "    </div>";
+              //htm += "    </div>";
               
              
-              htm += "<div class='col-md-6'>"
+              //htm += "<div class='col-md-6 col-sx-6'>"
               htm += "<button style=\"float:right;background-color:#4ecdc4\" id=\"btnapos\"  onclick=\"horariosaulas('','" + dataapos + "')\"  type=\"button\" class=\"btn btn-warning\">";
               htm += "    <i class=\"fa fa-long-arrow-right\"></i>";
               htm += "</button>";  
-              htm += "    </div>"; 
+              //htm += "    </div>"; 
               
               htm += "    </div>";
  
