@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
                               }
                               htmlAlunos += "<a href='#' onclick=\"deleteaulas('" + elementAluno.id + "','" + elementAluno.horade + "')\">";
                               htmlAlunos += "<div style=\"padding-top: 10px;\">";
-                              htmlAlunos += " <h4 style=\"display: inline;margin-left: 40%;font-weight: bold;padding-top:10px\"><i class=\"fa fa-external-link\"></i></h4><h4 style=\"display: inline;font-weight: bold;font-weight: bold;\"> - Estúdio: </h4><h4 style=\"display: inline;\">" + elementAluno.estudio + "</h4>";
+                              htmlAlunos += " <h4 style=\"display: inline;margin-left: 40%;font-weight: bold;padding-top:10px\"><i class=\"fa fa-close\"></i></h4><h4 style=\"display: inline;font-weight: bold;font-weight: bold;\"></h4><h4 style=\"display: inline;\">Cancelar aula</h4>";
                               
                               if(elementAluno.obs){
                                   htmlAlunos += "<h4 style=\"display: inline;font-weight: bold;\"> - Obs: </h4><h4 style=\"display: inline;\">" + elementAluno.obs + "</h4>";
@@ -280,13 +280,27 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
                           }
     
-                          htm += "<li class='liid_" + index + "'>";
+                          
+                          if(element.experimental){
+                            htm += "<li class='liid_" + index + " experimental '>";
     
-                          htm += "<a href=\"#\" onclick=\"opendiv('divid_" + index + "')\">";
-                          htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-down\"></i>";
-                          htm += "  <div  style=\"font-size: 20x;display: inline;\" class=\"task-title\">";
-                          htm += "    <span style=\"font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\"> " + element.horade + " - " + element.horaate + "</span>";
-                          htm += "    <span style=\"font-size: 20x;\" class=\"task-title-sp\"> - Você tem aula marcada</span>";
+                            htm += "<a href=\"#\" onclick=\"opendiv('divid_" + index + "')\">";
+                            htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-down\"></i>";
+                            htm += "  <div  style=\"font-size: 20x;display: inline;\" class=\"task-title\">";
+                            htm += "    <span style=\"font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\"> " + element.horade + " - " + element.horaate + "</span>";
+
+                            htm += "    <span style=\"font-size: 20x;\" class=\"task-title-sp\"> - Você tem uma aula experimental marcada</span>";
+                          }else{
+                            htm += "<li class='liid_" + index + " aulamarcada' >";
+      
+                            htm += "<a href=\"#\" onclick=\"opendiv('divid_" + index + "')\">";
+                            htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-down\"></i>";
+                            htm += "  <div  style=\"font-size: 20x;display: inline;\" class=\"task-title\">";
+                            htm += "    <span style=\"font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\"> " + element.horade + " - " + element.horaate + "</span>";
+
+                            htm += "    <span style=\"font-size: 20x;\" class=\"task-title-sp\"> - Você tem aula marcada</span>";
+                          }
+                          
     
                           htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
                           htm += "      <a href=\"#\" onclick=\"novaaula('" + element.horade + "','" + element.horaate + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
@@ -308,15 +322,31 @@ document.addEventListener('DOMContentLoaded', function () {
                       } else {
                         if (list.indexOf(index) == -1) {
                           htm += "<a href=\"#\"> ";
-                          htm += "<li onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\"  class='liid_" + index + " disponivel'>";
-                          htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
-                          htm += "  <div style=\"display: inline;\" class=\"task-title\">";
-                          htm += "    <span style=\"font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
-                          htm += "    <span style=\"font-size: 20x;\" class=\"task-title-sp\"> - Disponível</span>";
-    
-                          htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
-                          htm += "      <a href=\"#\" onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
-                          htm += "    </div>";
+                         
+                          
+
+                          if(data[0].capacidadehorario[index].horariodisponivel){ 
+                            htm += "<li onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\"  class='liid_" + index + " disponivel horadisponivel'>";
+                            htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
+                            htm += "  <div style=\"display: inline;\" class=\"task-title\">";
+                            htm += "    <span style=\"color: white;font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
+                            htm += "    <span style=\"color: white;font-size: 20x;\" class=\"task-title-sp\"> - Disponível</span>";    
+                            htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
+                            htm += "      <a href=\"#\" onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
+                            htm += "    </div>";
+                          }else{
+                            htm += "<li onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\"  class='liid_" + index + "   horaindisponivel'>";
+                            htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
+                            htm += "  <div style=\"display: inline;\" class=\"task-title\">";
+                            htm += "    <span style=\"color: white;font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
+                            htm += "    <span style=\"color: white;font-size: 20x;\" class=\"task-title-sp\"> - Indisponível</span>"; 
+                            htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
+                            htm += "      <a href=\"#\"  class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
+                            htm += "    </div>";
+                          }
+                          
+
+
                           htm += "  </div>";
                           htm += "</li>";
                           htm += "</a>";
@@ -327,16 +357,32 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                   } else {
                     if (list.indexOf(index) == -1) {
-                      htm += "<li class='liid_" + index + " disponivel'>";
-                      htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
-                      htm += "  <div style=\"display: inline;\" class=\"task-title\">";
-                      htm += "    <span style=\"font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
-                      htm += "    <span style=\"font-size: 20x;\" class=\"task-title-sp\"> - Disponível</span>";
-    
-                      htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
-                      htm += "      <a href=\"#\" onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
-                      htm += "    </div>";
-                      htm += "  </div>";
+                      
+                      
+                      if(data[0].capacidadehorario[index].horariodisponivel){
+                        htm += "<li class='liid_" + index + " disponivel horadisponivel'>";
+                        htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
+                        htm += "  <div style=\"display: inline;\" class=\"task-title \">";
+                        htm += "    <span style=\"color: white;font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
+                        htm += "    <span style=\"color: white;font-size: 20x;\" class=\"task-title-sp\"> - Disponível</span>";    
+                        htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
+                        htm += "      <a href=\"#\" onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
+                        htm += "    </div>";
+                        htm += "  </div>";
+                      }else{
+                        htm += "<li class='liid_" + index + "   horaindisponivel'>";
+                        htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
+                        htm += "  <div style=\"display: inline;\" class=\"task-title \">";
+                        htm += "    <span style=\"color: white;font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
+                        htm += "    <span style=\"color: white;font-size: 20x;\" class=\"task-title-sp\"> - Indisponível</span>"; 
+                        htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
+                        htm += "      <a href=\"#\"  class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
+                        htm += "    </div>";
+                        htm += "  </div>";
+                      }
+                      
+
+
                       htm += "</li>";
                       list.push(index);
                     }
@@ -349,6 +395,13 @@ document.addEventListener('DOMContentLoaded', function () {
               htm += "  </div>";
               htm += "</section>";
               $("#listahorarios").append(htm);
+
+              $(".horadisponivel a").attr("style", "color:white");
+              $(".horaindisponivel a").attr("style", "color:white");
+              $(".aulamarcada a").attr("style", "color:white");
+              $(".experimental a").attr("style", "color:white");
+
+
               $(".task-title-sp").attr("style", "font-size:20px");
     
               for (let index = 0; index < 24; index++) {
@@ -466,7 +519,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         var url = "http://" + window.location.hostname + ":3003/api/aulas/gravar"
                         var data = {};
                         data.id = "";
-                        data.dt_data = arrdata[1] + "/" +  arrdata[0] + "/" + arrdata[2]; //$("#dataselecionada").attr("data-dataselecionada");
+                        data.dt_data = arrdata[0] + "/" +  arrdata[1] + "/" + arrdata[2]; //$("#dataselecionada").attr("data-dataselecionada");
                         data.nm_obs = "";
                         data.nm_alunos = localStorage.getItem("userid");
                         data.nm_estudio = estudio;

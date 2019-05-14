@@ -147,7 +147,7 @@ function aulasAluno(id, callback){
         if(ret.length > 0){
             if(ret[0].dt_inicioplano){
                 var datainicioArray = ret[0].dt_inicioplano.split("/")
-                var datainicioStr = datainicioArray[0] + "/" + datainicioArray[1] + "/" + datainicioArray[2];
+                var datainicioStr = datainicioArray[1] + "/" + datainicioArray[0] + "/" + datainicioArray[2];
                 datainicio = new Date(datainicioStr);
                 var data = datainicio;
 

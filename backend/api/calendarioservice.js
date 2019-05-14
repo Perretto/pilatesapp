@@ -126,7 +126,13 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
     sql += " (SELECT (nr_meses * nr_aulasmes) - (SELECT COUNT(*) FROM aulas WHERE nm_alunos='" + id + "' AND ";
     sql += " aulas.dt_data >= CURRENT_DATE)";
     sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
-    sql += " WHERE alunos.id='" + id + "') AS reposicao ";
+    sql += " WHERE alunos.id='" + id + "') AS reposicao, ";
+
+    sql += " (SELECT sn_experimental FROM alunos a INNER JOIN planos ON planos.nm_nome=a.nm_plano WHERE a.id='" + id + "' ) AS experimental,";
+
+    sql += " estudios.nr_maxima AS capacidade";
+
+    
 
     sql += " FROM aulas ";
     sql += " INNER JOIN alunos ON alunos.id=aulas.nm_alunos ";
@@ -142,6 +148,10 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
         var diafimate;
 
         if(ret.length > 0){
+            if(!ret[0].capacidade){
+                ret[0].capacidade = 10000000;
+            }
+
             ret[0].disponivel = false;
             diade = diaSemanaComFim(ret[0].nm_diade);
             diaate = diaSemanaComFim(ret[0].nm_diaate);
@@ -158,7 +168,37 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
 
             ret[0].semana = semana;
 
-            res.send(ret);
+            sql = " SELECT (NULLIF(nm_horade, '')::int) AS hora , count(*) AS capacidade FROM aulas WHERE dt_data='" + data + "' AND aulas.nm_estudio='" + estudio + "' GROUP BY nm_horade ORDER BY NULLIF(nm_horade, '')::int";
+            general.select(sql, function(retorno){
+                var capacidadehorario = {}; 
+                ret[0].capacidadehorario = [];
+
+                for (let index = 0; index < 24; index++) {   
+                    capacidadehorario = {};                  
+                    capacidadehorario.hora = index;
+                    capacidadehorario.capacidade = 0;
+                    capacidadehorario.horariodisponivel = true;
+                                       
+                    for (let i = 0; i < retorno.length; i++) { 
+                        if(retorno[i].hora == index ){
+                            capacidadehorario.capacidade = parseInt(retorno[i].capacidade);
+                            if(ret[0].capacidade <= capacidadehorario.capacidade){
+                                capacidadehorario.horariodisponivel = false;
+                            }
+
+                            break;
+                        }
+                    }
+
+                    ret[0].capacidadehorario.push(capacidadehorario);
+
+                }
+
+                res.send(ret);
+            })
+            
+
+            
         }else{
             sql = "SELECT false AS disponivel, estudios.nm_diade, estudios.nm_diaate, estudios.nm_diafimde, ";
             sql += "estudios.nm_diafimate , estudios.nm_horade AS horadefunc, estudios.nm_horaate AS horaatefunc, ";
@@ -168,8 +208,11 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
             sql += " (SELECT (nr_meses * nr_aulasmes) - (SELECT COUNT(*) FROM aulas WHERE nm_alunos='" + id + "' AND ";
             sql += " aulas.dt_data >=  CURRENT_DATE)";
             sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
-            sql += " WHERE alunos.id='" + id + "') AS reposicao";
+            sql += " WHERE alunos.id='" + id + "') AS reposicao, ";
 
+            sql += " (SELECT sn_experimental FROM alunos a INNER JOIN planos ON planos.nm_nome=a.nm_plano WHERE a.id='" + id + "' ) AS experimental, ";
+
+            sql += " estudios.nr_maxima AS capacidade";
             sql += " FROM estudios ";
             sql += " WHERE estudios.id='" + estudio + "'";
 
@@ -193,7 +236,34 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
                     ret[0].disponivel = true;
                 } 
                 ret[0].semana = semana;
-                res.send(ret);
+                sql = " SELECT (NULLIF(nm_horade, '')::int) AS hora , count(*) AS capacidade FROM aulas WHERE dt_data='" + data + "' AND aulas.nm_estudio='" + estudio + "' GROUP BY nm_horade ORDER BY NULLIF(nm_horade, '')::int";
+                general.select(sql, function(retorno){
+                    var capacidadehorario = {}; 
+                    ret[0].capacidadehorario = [];
+
+                    for (let index = 0; index < 24; index++) {   
+                        capacidadehorario = {};                  
+                        capacidadehorario.hora = index;
+                        capacidadehorario.capacidade = 0;
+                        capacidadehorario.horariodisponivel = true;
+                                        
+                        for (let i = 0; i < retorno.length; i++) { 
+                            if(retorno[i].hora == index ){
+                                capacidadehorario.capacidade = parseInt(retorno[i].capacidade);
+                                if(ret[0].capacidade <= capacidadehorario.capacidade){
+                                    capacidadehorario.horariodisponivel = false;
+                                }
+
+                                break;
+                            }
+                        }
+
+                        ret[0].capacidadehorario.push(capacidadehorario);
+
+                    }
+
+                    res.send(ret);
+                })
             });
         }        
     })    
