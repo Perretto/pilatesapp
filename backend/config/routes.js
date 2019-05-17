@@ -18,4 +18,5 @@ module.exports = function(server) {
     const reports = require('../api/reports')
     const calendario = require('../api/calendarioservice')
     const intervalo = require('../api/intervaloservice')
+    const capacidade_estudios = require('../api/capacidadeestudioservice')
 }

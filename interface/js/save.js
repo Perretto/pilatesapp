@@ -231,6 +231,7 @@ function saveid(table, id){
 function savemodal(table, id,returns, returnid){
     $("#modalcliente").modal("hide");
     $("#modal").modal("hide");
+    $(".modal").modal("hide");
 
     iziToast.question({
         timeout: 20000,

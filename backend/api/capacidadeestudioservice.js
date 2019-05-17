@@ -1,15 +1,9 @@
 const server = require('../config/server');
 const express = require('express');
 const router = express.Router();
-server.use('/api/estudios', router);
+server.use('/api/capacidade_estudios', router);
 const general = require('./core/general');
-
-router.route('/listarusuarios').get(function(req, res) {
-    var sql = "SELECT id AS id, nm_nome AS nome FROM estudios";
-    general.select(sql, function(ret){
-        res.send(ret);
-    })    
-})
+ 
 
 router.route('/carregarestudios').get(function(req, res) {
     var sql = "SELECT * FROM estudios";
@@ -69,33 +63,6 @@ router.route('/search/:id').get(function(req, res) {
 })
 
 
-
-
-
-
-//=================================================================================
-
-router.route('/testeinsert').get(function(req, res) {
-    var sql = "INSERT INTO usuarios (id, nm_nome)";
-    sql += " VALUES";
-    for (let index = 0; index < 10000; index++) {
-        sql += "(" + index + ",'" + index + "'), ";
-    }
-    sql += "(20000, '0')";
-    sql += " ;";
-
-    general.execute(sql, function(ret){
-        res.send(ret);
-    })    
-})
-
-
-router.route('/testeupdate').get(function(req, res) {
-    var sql = "UPDATE usuarios SET nm_nome='PPERRETTO' WHERE nm_nome='1'";
-    general.execute(sql, function(ret){
-        res.send(ret);
-    })    
-})
 
 
 
