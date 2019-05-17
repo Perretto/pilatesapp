@@ -519,7 +519,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         var url = "http://" + window.location.hostname + ":3003/api/aulas/gravar"
                         var data = {};
                         data.id = "";
-                        data.dt_data = arrdata[0] + "/" +  arrdata[1] + "/" + arrdata[2]; //$("#dataselecionada").attr("data-dataselecionada");
+                        data.dt_data = arrdata[1] + "/" +  arrdata[0] + "/" + arrdata[2]; //$("#dataselecionada").attr("data-dataselecionada");
                         data.nm_obs = "";
                         data.nm_alunos = localStorage.getItem("userid");
                         data.nm_estudio = estudio;
