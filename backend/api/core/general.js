@@ -126,7 +126,7 @@ exports.executeObj =  function (table, parametros, callback){
                             nome = "NULL";
                         }else{
                             var dataArray = parametros[index].split("/");
-                            var data = dataArray[1] + "/" + dataArray[0] + "/" + dataArray[2]
+                            var data = dataArray[0] + "/" + dataArray[1] + "/" + dataArray[2]
 
                             nome = "'" + data + "'";
                         }
@@ -143,7 +143,14 @@ exports.executeObj =  function (table, parametros, callback){
                             parametros[index] = "0";
                         }
                         nome = "" + parametros[index] + "";
-                    break;         
+                    break;
+                    case "nr":  
+                                                 
+                        if(!parametros[index]){
+                            parametros[index] = "0";
+                        }
+                        nome = "" + parametros[index] + "";
+                    break;           
                     default:
                         nome = "" + parametros[index] + "";
                         break;
@@ -173,7 +180,7 @@ exports.executeObj =  function (table, parametros, callback){
                             nome = "NULL";
                         }else{
                             var dataArray = parametros[index].split("/");
-                            var data = dataArray[0] + "/" + dataArray[1] + "/" + dataArray[2]
+                            var data = dataArray[1] + "/" + dataArray[0] + "/" + dataArray[2]
 
                             nome = "'" + data + "'";
                         }
