@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt">
-  <head>
+
+<head>
     <meta charset="utf-8">
- 
+
     <title>PilatesApp</title>
     <link href="../img/favicon.png" rel="icon">
     <link href="../img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -16,7 +17,7 @@
     <link href="../lib/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet">
     <link href="../lib/jquery-ui/jquery-ui.min.css" rel="stylesheet">
     <script src="../lib/chart-master/Chart.js"></script>
-    
+
     <style>
         #conteudomodal {
             width: 100%;
@@ -26,854 +27,1027 @@
             width: 800px;
         }
     </style>
-    
-  </head>
 
-  <body>
+</head>
+
+<body>
     <section id="container">
-      <header class="header black-bg">
-        <div class="sidebar-toggle-box">
-          <div class="fa fa-bars tooltips" data-placement="right" data-original-title=""></div>
-        </div>
-        <a href="../index.html" class="logo"><b>PILATES<span>APP</span></b></a>
-        <div class="nav notify-row" id="top_menu"></div>
-        <div class="top-menu">
-          <ul class="nav pull-right top-menu">
-            <li><a class="logout" href="../login.html">Sair</a></li>
-          </ul>
-        </div>
-      </header>
-      <aside>
-        <div id="sidebar" class="nav-collapse "></div>
-      </aside>
-      <section id="main-content">
-        <section class="wrapper">
-              <div class="row" id="gridsearch"></div>
-          <div class="row mt">
-              <div class="col-md-12">
-                <div id="rowform" class="form-panel">
-                  <h4 class="mb" style="padding-left:15px">Cadastro de Alunos</h4>
-                  <form class="" role="form">
-                    <input type="hidden" name="id" id="id" class="form-control">
-                    <div class="image image-product col-md-1">                                                    
-                        <img   style="width: 100%;" src="" >                                                    
-                        <input type="hidden" id='img_foto' name='img_foto' class="form-control">
-                        <input type="file" style="display:none"  />                                                    
-                    </div> 
-                    <div class="form-group col-md-11">
-                        <label class="control-label">Nome</label>
-                        <input type="text" class="form-control" id="nm_nome" name="nm_nome" placeholder="Nome">
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label class="control-label">CPF</label>
-                        <input type="text" class="form-control" id="nm_cpf" name="nm_cpf" placeholder="CPF">
-                    </div>
-
-                    <div class="form-group col-md-2">
-                        <label class="control-label">RG</label>
-                        <input type="text" class="form-control" id="nm_rg" name="nm_rg" placeholder="RG">
-                    </div>
-
-                    
-                    <div class="form-group col-md-3">
-                            <div class="col">
-                                <label class=" form-control-label">Plano:</label>
-                            </div>
-                            <div class="">
-                                <select onchange="changeplano()"  name="nm_plano" id="nm_plano" class="form-control">
-                                        <option value="">Selecione</option>
-                                        
-                                </select>
-                            </div>
-                        </div>
-    
-                        <div class="form-group col-md-3">
-                            <div class="col">
-                                <label class=" form-control-label">Estúdio utilizado:</label>
-                            </div>
-                            <div class="">
-                                <select name="nm_estudio" id="nm_estudio" class="form-control">
-                                        <option value="">Selecione</option>
-                                        
-                                </select>
-                            </div>
-                        </div>
-
-                    <div class="form-group col-md-8">
-                        <label class="control-label">Logradouro</label>
-                        <input type="text" class="form-control" id="nm_logradouro" name="nm_logradouro" placeholder="Logradouro">
-                    </div>  
-                      
-                    <div class="form-group col-md-4">
-                        <label class="control-label">Número</label>
-                        <input type="text" class="form-control" id="nm_numero" name="nm_numero" placeholder="Número">
-                    </div>  
-                    <div class="form-group col-md-6">
-                        <label class="control-label">Complemento</label>
-                        <input type="text" class="form-control" name="nm_complemento" id="nm_complemento" placeholder="Complemento">
-                    </div>  
-                    <div class="form-group col-md-3">
-                        <label class="control-label">Bairro</label>
-                        <input type="text" class="form-control" name="nm_bairro" id="nm_bairro" placeholder="Bairro">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label class="control-label">Cidade</label>
-                        <input type="text" class="form-control" name="nm_cidade" id="nm_cidade" placeholder="Cidade">
-                    </div>
+        <header class="header black-bg">
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars tooltips" data-placement="right" data-original-title=""></div>
+            </div>
+            <a href="../index.html" class="logo"><b>PILATES<span>APP</span></b></a>
+            <div class="nav notify-row" id="top_menu"></div>
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="../login.html">Sair</a></li>
+                </ul>
+            </div>
+        </header>
+        <aside>
+            <div id="sidebar" class="nav-collapse "></div>
+        </aside>
+        <section id="main-content">
+            <section class="wrapper">
+                <div class="row" id="gridsearch"></div>
+                <div class="row mt">
+                    <div class="col-md-12">
+                        <div id="rowform" class="form-panel">
+                            <h4 class="mb" style="padding-left:15px">Cadastro de Alunos</h4>
 
 
 
-                      <div class="form-group col-md-2">
-                          <div class="col">
-                              <label class=" form-control-label">Estado</label>
-                          </div>
-                          <div class="">
-                              <select name="nm_estado" id="nm_estado" class="form-control">
-                                    <option value="">Selecione</option>
-                                    <option value="AC">AC</option>
-                                    <option value="AL">AL</option>
-                                    <option value="AM">AM</option>
-                                    <option value="AP">AP</option>
-                                    <option value="BA">BA</option>
-                                    <option value="CE">CE</option>
-                                    <option value="DF">DF</option>
-                                    <option value="ES">ES</option>
-                                    <option value="GO">GO</option>
-                                    <option value="MA">MA</option>
-                                    <option value="MG">MG</option>
-                                    <option value="MS">MS</option>
-                                    <option value="MT">MT</option>
-                                    <option value="PA">PA</option>
-                                    <option value="PB">PB</option>
-                                    <option value="PE">PE</option>
-                                    <option value="PI">PI</option>
-                                    <option value="PR">PR</option>
-                                    <option value="RJ">RJ</option>
-                                    <option value="RN">RN</option>
-                                    <option value="RO">RO</option>
-                                    <option value="RR">RR</option>
-                                    <option value="RS">RS</option>
-                                    <option value="SC">SC</option>
-                                    <option value="SE">SE</option>
-                                    <option value="SP">SP</option>
-                                    <option value="TO">TO</option>
-                              </select>
-                          </div>
-                      </div>
-
-                      
-                      <div class="form-group col-md-3">
-                        <label class="control-label">Telefone</label>
-                        <input type="telefone" class="form-control" name="nm_telefone" id="nm_telefone" placeholder="Telefone">
-                      </div>
-                      
-                      <div class="form-group col-md-3">
-                            <label class="control-label">Celular</label>
-                            <input type="celular" class="form-control" name="nm_celular" id="nm_celular" placeholder="Celular">
-                          </div>
-                      <div class="form-group col-md-4">
-                        <label class="control-label">Email</label>
-                        <input type="email" class="form-control" name="nm_email" id="nm_email" placeholder="Email">
-                      </div>
-
-                      <div class="form-group col-md-2">
-                        <label class="control-label">Data inicio das aulas</label>
-                        <input type="text" class="form-control" id="dt_inicioplano" name="dt_inicioplano" placeholder="Data inicio das aulas">
-                    </div>  
-
-                      <div class="col-md-12">                          
-                        <h4 class="mb" style="padding-left:15px">Dias e horarios das aulas</h4>
-                      </div>
-                    
-                            <!-- Aula 1-->
-                    <div style="display:none"  aula="1" class="form-group col-md-4">
-                        <div class="col">
-                            <label class=" form-control-label">Dia de aula:</label>
-                        </div>
-                        <div class="">
-                            <select name="nm_dia1" id="nm_dia1" class="form-control">
-                                    <option value="">Selecione</option>
-                                    <option value="Segunda">Segunda</option>
-                                    <option value="Terça">Terça</option>
-                                    <option value="Quarta">Quarta</option>
-                                    <option value="Quinta">Quinta</option>
-                                    <option value="Sexta">Sexta</option>
-                                    <option value="Sábado">Sábado</option>
-                                    <option value="Domingo">Domingo</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div style="display:none"  aula="1" class="form-group col-md-4">
-                            <div class="col">
-                                <label class=" form-control-label">Horario de aula de:</label>
-                            </div>
-                            <div class="">
-                                <select name="nm_horade1" id="nm_horade1" class="form-control">
-                                    <option value="">Selecione</option>
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                    <option value="18">18</option>
-                                    <option value="19">19</option>
-                                    <option value="20">20</option>
-                                    <option value="21">21</option>
-                                    <option value="22">22</option>
-                                    <option value="23">23</option>
-                                    <option value="00">00</option>
-                                </select>
-                            </div>
-                        </div>
-
-
-                        <div  style="display:none" aula="1"  class="form-group col-md-4">
-                                <div class="col">
-                                    <label class=" form-control-label">Horario de aula até:</label>
+                            <form class="" role="form">
+                                <input type="hidden" name="id" id="id" class="form-control">
+                                <div class="image image-product col-md-1 cadaluno">
+                                    <img style="width: 100%;" src="">
+                                    <input type="hidden" id='img_foto' name='img_foto' class="form-control">
+                                    <input type="file" style="display:none" />
                                 </div>
-                                <div class="">
-                                    <select name="nm_horaate1" id="nm_horaate1" class="form-control">
-                                        <option value="">Selecione</option>
-                                        <option value="01">01</option>
-                                        <option value="02">02</option>
-                                        <option value="03">03</option>
-                                        <option value="04">04</option>
-                                        <option value="05">05</option>
-                                        <option value="06">06</option>
-                                        <option value="07">07</option>
-                                        <option value="08">08</option>
-                                        <option value="09">09</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                        <option value="17">17</option>
-                                        <option value="18">18</option>
-                                        <option value="19">19</option>
-                                        <option value="20">20</option>
-                                        <option value="21">21</option>
-                                        <option value="22">22</option>
-                                        <option value="23">23</option>
-                                        <option value="00">00</option>
-                                    </select>
+                                <div class="form-group col-md-11 cadaluno">
+                                    <label class="control-label">Nome</label>
+                                    <input type="text" class="form-control" id="nm_nome" name="nm_nome" placeholder="Nome">
                                 </div>
-                            </div>
 
-                            <!-- Aula 2-->
-                            <div  style="display:none"  aula="2" class="form-group col-md-4">
+                                <div class="form-group col-md-3 cadaluno">
+                                    <label class="control-label">CPF</label>
+                                    <input type="text" class="form-control" id="nm_cpf" name="nm_cpf" placeholder="CPF">
+                                </div>
+
+                                <div class="form-group col-md-2 cadaluno">
+                                    <label class="control-label">RG</label>
+                                    <input type="text" class="form-control" id="nm_rg" name="nm_rg" placeholder="RG">
+                                </div>
+
+
+                                <div class="form-group col-md-3 cadaluno">
+                                    <div class="col">
+                                        <label class=" form-control-label">Plano:</label>
+                                    </div>
+                                    <div class="">
+                                        <select onchange="changeplano()" name="nm_plano" id="nm_plano" class="form-control">
+                                            <option value="">Selecione</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-3 cadaluno">
+                                    <div class="col">
+                                        <label class=" form-control-label">Estúdio utilizado:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_estudio" id="nm_estudio" class="form-control">
+                                            <option value="">Selecione</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-8 cadaluno">
+                                    <label class="control-label">Logradouro</label>
+                                    <input type="text" class="form-control" id="nm_logradouro" name="nm_logradouro"
+                                        placeholder="Logradouro">
+                                </div>
+
+                                <div class="form-group col-md-4 cadaluno">
+                                    <label class="control-label">Número</label>
+                                    <input type="text" class="form-control" id="nm_numero" name="nm_numero" placeholder="Número">
+                                </div>
+                                <div class="form-group col-md-6 cadaluno">
+                                    <label class="control-label">Complemento</label>
+                                    <input type="text" class="form-control" name="nm_complemento" id="nm_complemento"
+                                        placeholder="Complemento">
+                                </div>
+                                <div class="form-group col-md-3 cadaluno">
+                                    <label class="control-label">Bairro</label>
+                                    <input type="text" class="form-control" name="nm_bairro" id="nm_bairro" placeholder="Bairro">
+                                </div>
+                                <div class="form-group col-md-3 cadaluno">
+                                    <label class="control-label">Cidade</label>
+                                    <input type="text" class="form-control" name="nm_cidade" id="nm_cidade" placeholder="Cidade">
+                                </div>
+
+
+
+                                <div class="form-group col-md-2 cadaluno">
+                                    <div class="col">
+                                        <label class=" form-control-label">Estado</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_estado" id="nm_estado" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="AC">AC</option>
+                                            <option value="AL">AL</option>
+                                            <option value="AM">AM</option>
+                                            <option value="AP">AP</option>
+                                            <option value="BA">BA</option>
+                                            <option value="CE">CE</option>
+                                            <option value="DF">DF</option>
+                                            <option value="ES">ES</option>
+                                            <option value="GO">GO</option>
+                                            <option value="MA">MA</option>
+                                            <option value="MG">MG</option>
+                                            <option value="MS">MS</option>
+                                            <option value="MT">MT</option>
+                                            <option value="PA">PA</option>
+                                            <option value="PB">PB</option>
+                                            <option value="PE">PE</option>
+                                            <option value="PI">PI</option>
+                                            <option value="PR">PR</option>
+                                            <option value="RJ">RJ</option>
+                                            <option value="RN">RN</option>
+                                            <option value="RO">RO</option>
+                                            <option value="RR">RR</option>
+                                            <option value="RS">RS</option>
+                                            <option value="SC">SC</option>
+                                            <option value="SE">SE</option>
+                                            <option value="SP">SP</option>
+                                            <option value="TO">TO</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-md-3 cadaluno">
+                                    <label class="control-label">Telefone</label>
+                                    <input type="telefone" class="form-control" name="nm_telefone" id="nm_telefone"
+                                        placeholder="Telefone">
+                                </div>
+
+                                <div class="form-group col-md-3 cadaluno">
+                                    <label class="control-label">Celular</label>
+                                    <input type="celular" class="form-control" name="nm_celular" id="nm_celular"
+                                        placeholder="Celular">
+                                </div>
+                                <div class="form-group col-md-4 cadaluno">
+                                    <label class="control-label">Email</label>
+                                    <input type="email" class="form-control" name="nm_email" id="nm_email" placeholder="Email">
+                                </div>
+
+                                <div class="form-group col-md-2 cadaluno">
+                                    <label class="control-label">Data inicio das aulas</label>
+                                    <input type="text" class="form-control" id="dt_inicioplano" name="dt_inicioplano"
+                                        placeholder="Data inicio das aulas">
+                                </div>
+
+                                <div class="form-group col-md-2 cadaluno">
+                                    <label class="control-label">Quantidade de créditos</label>
+                                    <input type="number" class="form-control" name="nr_creditos" id="nr_creditos"
+                                        placeholder="Quantidade de créditos">
+                                </div>
+
+                                <div class="col-md-12 cadaluno">
+                                    <h4 class="mb" style="padding-left:15px">Dias e horarios das aulas</h4>
+                                </div>
+
+                                <!-- Aula 1-->
+                                <div style="display:none" aula="1" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Dia de aula:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_dia1" id="nm_dia1" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="Segunda">Segunda</option>
+                                            <option value="Terça">Terça</option>
+                                            <option value="Quarta">Quarta</option>
+                                            <option value="Quinta">Quinta</option>
+                                            <option value="Sexta">Sexta</option>
+                                            <option value="Sábado">Sábado</option>
+                                            <option value="Domingo">Domingo</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div style="display:none" aula="1" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula de:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horade1" id="nm_horade1" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div style="display:none" aula="1" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula até:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horaate1" id="nm_horaate1" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Aula 2-->
+                                <div style="display:none" aula="2" class="form-group col-md-4 cadalunodiahora">
                                     <div class="col">
                                         <label class=" form-control-label">Dia de aula:</label>
                                     </div>
                                     <div class="">
                                         <select name="nm_dia2" id="nm_dia2" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <option value="AC">Segunda</option>
-                                                <option value="Terça">Terça</option>
-                                                <option value="Quarta">Quarta</option>
-                                                <option value="Quinta">Quinta</option>
-                                                <option value="Sexta">Sexta</option>
-                                                <option value="Sábado">Sábado</option>
-                                                <option value="Domingo">Domingo</option>
+                                            <option value="">Selecione</option>
+                                            <option value="AC">Segunda</option>
+                                            <option value="Terça">Terça</option>
+                                            <option value="Quarta">Quarta</option>
+                                            <option value="Quinta">Quinta</option>
+                                            <option value="Sexta">Sexta</option>
+                                            <option value="Sábado">Sábado</option>
+                                            <option value="Domingo">Domingo</option>
                                         </select>
                                     </div>
                                 </div>
-            
-                                <div  style="display:none"  aula="2" class="form-group col-md-4">
-                                        <div class="col">
-                                            <label class=" form-control-label">Horario de aula de:</label>
-                                        </div>
-                                        <div class="">
-                                            <select name="nm_horade2" id="nm_horade2" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                                <option value="00">00</option>
-                                            </select>
-                                        </div>
-                                    </div>
-            
-            
-                                    <div  style="display:none" aula="2" class="form-group col-md-4">
-                                            <div class="col">
-                                                <label class=" form-control-label">Horario de aula até:</label>
-                                            </div>
-                                            <div class="">
-                                                <select name="nm_horaate2" id="nm_horaate2" class="form-control">
-                                                    <option value="">Selecione</option>
-                                                    <option value="01">01</option>
-                                                    <option value="02">02</option>
-                                                    <option value="03">03</option>
-                                                    <option value="04">04</option>
-                                                    <option value="05">05</option>
-                                                    <option value="06">06</option>
-                                                    <option value="07">07</option>
-                                                    <option value="08">08</option>
-                                                    <option value="09">09</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
-                                                    <option value="13">13</option>
-                                                    <option value="14">14</option>
-                                                    <option value="15">15</option>
-                                                    <option value="16">16</option>
-                                                    <option value="17">17</option>
-                                                    <option value="18">18</option>
-                                                    <option value="19">19</option>
-                                                    <option value="20">20</option>
-                                                    <option value="21">21</option>
-                                                    <option value="22">22</option>
-                                                    <option value="23">23</option>
-                                                    <option value="00">00</option>
-                                                </select>
-                                            </div>
-                                        </div>
 
-                            <!-- Aula 3-->
-                            <div style="display:none"  aula="3"  class="form-group col-md-4">
+                                <div style="display:none" aula="2" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula de:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horade2" id="nm_horade2" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div style="display:none" aula="2" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula até:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horaate2" id="nm_horaate2" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Aula 3-->
+                                <div style="display:none" aula="3" class="form-group col-md-4 cadalunodiahora">
                                     <div class="col">
                                         <label class=" form-control-label">Dia de aula:</label>
                                     </div>
                                     <div class="">
                                         <select name="nm_dia3" id="nm_dia3" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <option value="Segunda">Segunda</option>
-                                                <option value="Terça">Terça</option>
-                                                <option value="Quarta">Quarta</option>
-                                                <option value="Quinta">Quinta</option>
-                                                <option value="Sexta">Sexta</option>
-                                                <option value="Sábado">Sábado</option>
-                                                <option value="Domingo">Domingo</option>
+                                            <option value="">Selecione</option>
+                                            <option value="Segunda">Segunda</option>
+                                            <option value="Terça">Terça</option>
+                                            <option value="Quarta">Quarta</option>
+                                            <option value="Quinta">Quinta</option>
+                                            <option value="Sexta">Sexta</option>
+                                            <option value="Sábado">Sábado</option>
+                                            <option value="Domingo">Domingo</option>
                                         </select>
                                     </div>
                                 </div>
-            
-                                <div style="display:none"  aula="3" class="form-group col-md-4">
-                                        <div class="col">
-                                            <label class=" form-control-label">Horario de aula de:</label>
-                                        </div>
-                                        <div class="">
-                                            <select name="nm_horade3" id="nm_horade3" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                                <option value="00">00</option>
-                                            </select>
-                                        </div>
-                                    </div>
-            
-            
-                                    <div  style="display:none" aula="3" class="form-group col-md-4">
-                                            <div class="col">
-                                                <label class=" form-control-label">Horario de aula até:</label>
-                                            </div>
-                                            <div class="">
-                                                <select name="nm_horaate3" id="nm_horaate3" class="form-control">
-                                                    <option value="">Selecione</option>
-                                                    <option value="01">01</option>
-                                                    <option value="02">02</option>
-                                                    <option value="03">03</option>
-                                                    <option value="04">04</option>
-                                                    <option value="05">05</option>
-                                                    <option value="06">06</option>
-                                                    <option value="07">07</option>
-                                                    <option value="08">08</option>
-                                                    <option value="09">09</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
-                                                    <option value="13">13</option>
-                                                    <option value="14">14</option>
-                                                    <option value="15">15</option>
-                                                    <option value="16">16</option>
-                                                    <option value="17">17</option>
-                                                    <option value="18">18</option>
-                                                    <option value="19">19</option>
-                                                    <option value="20">20</option>
-                                                    <option value="21">21</option>
-                                                    <option value="22">22</option>
-                                                    <option value="23">23</option>
-                                                    <option value="00">00</option>
-                                                </select>
-                                            </div>
-                                        </div>
 
-                            <!-- Aula 4-->
-                            <div  style="display:none" aula="4" class="form-group col-md-4">
+                                <div style="display:none" aula="3" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula de:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horade3" id="nm_horade3" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div style="display:none" aula="3" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula até:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horaate3" id="nm_horaate3" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Aula 4-->
+                                <div style="display:none" aula="4" class="form-group col-md-4 cadalunodiahora">
                                     <div class="col">
                                         <label class=" form-control-label">Dia de aula:</label>
                                     </div>
                                     <div class="">
                                         <select name="nm_dia4" id="nm_dia4" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <option value="Segunda">Segunda</option>
-                                                <option value="Terça">Terça</option>
-                                                <option value="Quarta">Quarta</option>
-                                                <option value="Quinta">Quinta</option>
-                                                <option value="Sexta">Sexta</option>
-                                                <option value="Sábado">Sábado</option>
-                                                <option value="Domingo">Domingo</option>
+                                            <option value="">Selecione</option>
+                                            <option value="Segunda">Segunda</option>
+                                            <option value="Terça">Terça</option>
+                                            <option value="Quarta">Quarta</option>
+                                            <option value="Quinta">Quinta</option>
+                                            <option value="Sexta">Sexta</option>
+                                            <option value="Sábado">Sábado</option>
+                                            <option value="Domingo">Domingo</option>
                                         </select>
                                     </div>
                                 </div>
-            
-                                <div  style="display:none" aula="4" class="form-group col-md-4">
-                                        <div class="col">
-                                            <label class=" form-control-label">Horario de aula de:</label>
-                                        </div>
-                                        <div class="">
-                                            <select name="nm_horade4" id="nm_horade4" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                                <option value="00">00</option>
-                                            </select>
-                                        </div>
-                                    </div>
-            
-            
-                                    <div  style="display:none" aula="4" class="form-group col-md-4">
-                                            <div class="col">
-                                                <label class=" form-control-label">Horario de aula até:</label>
-                                            </div>
-                                            <div class="">
-                                                <select name="nm_horaate4" id="nm_horaate4" class="form-control">
-                                                    <option value="">Selecione</option>
-                                                    <option value="01">01</option>
-                                                    <option value="02">02</option>
-                                                    <option value="03">03</option>
-                                                    <option value="04">04</option>
-                                                    <option value="05">05</option>
-                                                    <option value="06">06</option>
-                                                    <option value="07">07</option>
-                                                    <option value="08">08</option>
-                                                    <option value="09">09</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
-                                                    <option value="13">13</option>
-                                                    <option value="14">14</option>
-                                                    <option value="15">15</option>
-                                                    <option value="16">16</option>
-                                                    <option value="17">17</option>
-                                                    <option value="18">18</option>
-                                                    <option value="19">19</option>
-                                                    <option value="20">20</option>
-                                                    <option value="21">21</option>
-                                                    <option value="22">22</option>
-                                                    <option value="23">23</option>
-                                                    <option value="00">00</option>
-                                                </select>
-                                            </div>
-                                        </div>
 
-                            <!-- Aula 5-->
-                            <div style="display:none"  aula="5" class="form-group col-md-4">
+                                <div style="display:none" aula="4" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula de:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horade4" id="nm_horade4" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div style="display:none" aula="4" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula até:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horaate4" id="nm_horaate4" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Aula 5-->
+                                <div style="display:none" aula="5" class="form-group col-md-4 cadalunodiahora">
                                     <div class="col">
                                         <label class=" form-control-label">Dia de aula:</label>
                                     </div>
                                     <div class="">
                                         <select name="nm_dia5" id="nm_dia5" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <option value="Segunda">Segunda</option>
-                                                <option value="Terça">Terça</option>
-                                                <option value="Quarta">Quarta</option>
-                                                <option value="Quinta">Quinta</option>
-                                                <option value="Sexta">Sexta</option>
-                                                <option value="Sábado">Sábado</option>
-                                                <option value="Domingo">Domingo</option>
+                                            <option value="">Selecione</option>
+                                            <option value="Segunda">Segunda</option>
+                                            <option value="Terça">Terça</option>
+                                            <option value="Quarta">Quarta</option>
+                                            <option value="Quinta">Quinta</option>
+                                            <option value="Sexta">Sexta</option>
+                                            <option value="Sábado">Sábado</option>
+                                            <option value="Domingo">Domingo</option>
                                         </select>
                                     </div>
                                 </div>
-            
-                                <div style="display:none"  aula="5" class="form-group col-md-4">
-                                        <div class="col">
-                                            <label class=" form-control-label">Horario de aula de:</label>
-                                        </div>
-                                        <div class="">
-                                            <select name="nm_horade5" id="nm_horade5" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                                <option value="00">00</option>
-                                            </select>
-                                        </div>
-                                    </div>
-            
-            
-                                    <div style="display:none"  aula="5" class="form-group col-md-4">
-                                            <div class="col">
-                                                <label class=" form-control-label">Horario de aula até:</label>
-                                            </div>
-                                            <div class="">
-                                                <select name="nm_horaate5" id="nm_horaate5" class="form-control">
-                                                    <option value="">Selecione</option>
-                                                    <option value="01">01</option>
-                                                    <option value="02">02</option>
-                                                    <option value="03">03</option>
-                                                    <option value="04">04</option>
-                                                    <option value="05">05</option>
-                                                    <option value="06">06</option>
-                                                    <option value="07">07</option>
-                                                    <option value="08">08</option>
-                                                    <option value="09">09</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
-                                                    <option value="13">13</option>
-                                                    <option value="14">14</option>
-                                                    <option value="15">15</option>
-                                                    <option value="16">16</option>
-                                                    <option value="17">17</option>
-                                                    <option value="18">18</option>
-                                                    <option value="19">19</option>
-                                                    <option value="20">20</option>
-                                                    <option value="21">21</option>
-                                                    <option value="22">22</option>
-                                                    <option value="23">23</option>
-                                                    <option value="00">00</option>
-                                                </select>
-                                            </div>
-                                        </div>
 
-                            <!-- Aula 6-->
-                            <div style="display:none"  aula="6" class="form-group col-md-4">
+                                <div style="display:none" aula="5" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula de:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horade5" id="nm_horade5" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div style="display:none" aula="5" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula até:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horaate5" id="nm_horaate5" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Aula 6-->
+                                <div style="display:none" aula="6" class="form-group col-md-4 cadalunodiahora">
                                     <div class="col">
                                         <label class=" form-control-label">Dia de aula:</label>
                                     </div>
                                     <div class="">
                                         <select name="nm_dia6" id="nm_dia6" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <option value="Segunda">Segunda</option>
-                                                <option value="Terça">Terça</option>
-                                                <option value="Quarta">Quarta</option>
-                                                <option value="Quinta">Quinta</option>
-                                                <option value="Sexta">Sexta</option>
-                                                <option value="Sábado">Sábado</option>
-                                                <option value="Domingo">Domingo</option>
+                                            <option value="">Selecione</option>
+                                            <option value="Segunda">Segunda</option>
+                                            <option value="Terça">Terça</option>
+                                            <option value="Quarta">Quarta</option>
+                                            <option value="Quinta">Quinta</option>
+                                            <option value="Sexta">Sexta</option>
+                                            <option value="Sábado">Sábado</option>
+                                            <option value="Domingo">Domingo</option>
                                         </select>
                                     </div>
                                 </div>
-            
-                                <div style="display:none"  aula="6" class="form-group col-md-4">
-                                        <div class="col">
-                                            <label class=" form-control-label">Horario de aula de:</label>
-                                        </div>
-                                        <div class="">
-                                            <select name="nm_horade6" id="nm_horade6" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                                <option value="00">00</option>
-                                            </select>
-                                        </div>
-                                    </div>
-            
-            
-                                    <div style="display:none"  aula="6" class="form-group col-md-4">
-                                            <div class="col">
-                                                <label class=" form-control-label">Horario de aula até:</label>
-                                            </div>
-                                            <div class="">
-                                                <select name="nm_horaate6" id="nm_horaate6" class="form-control">
-                                                    <option value="">Selecione</option>
-                                                    <option value="01">01</option>
-                                                    <option value="02">02</option>
-                                                    <option value="03">03</option>
-                                                    <option value="04">04</option>
-                                                    <option value="05">05</option>
-                                                    <option value="06">06</option>
-                                                    <option value="07">07</option>
-                                                    <option value="08">08</option>
-                                                    <option value="09">09</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
-                                                    <option value="13">13</option>
-                                                    <option value="14">14</option>
-                                                    <option value="15">15</option>
-                                                    <option value="16">16</option>
-                                                    <option value="17">17</option>
-                                                    <option value="18">18</option>
-                                                    <option value="19">19</option>
-                                                    <option value="20">20</option>
-                                                    <option value="21">21</option>
-                                                    <option value="22">22</option>
-                                                    <option value="23">23</option>
-                                                    <option value="00">00</option>
-                                                </select>
-                                            </div>
-                                        </div>
 
-                            <!-- Aula 7-->
-                            <div style="display:none"  aula="7" class="form-group col-md-4">
+                                <div style="display:none" aula="6" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula de:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horade6" id="nm_horade6" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div style="display:none" aula="6" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula até:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horaate6" id="nm_horaate6" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Aula 7-->
+                                <div style="display:none" aula="7" class="form-group col-md-4 cadalunodiahora">
                                     <div class="col">
                                         <label class=" form-control-label">Dia de aula:</label>
                                     </div>
                                     <div class="">
                                         <select name="nm_dia7" id="nm_dia7" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <option value="Segunda">Segunda</option>
-                                                <option value="Terça">Terça</option>
-                                                <option value="Quarta">Quarta</option>
-                                                <option value="Quinta">Quinta</option>
-                                                <option value="Sexta">Sexta</option>
-                                                <option value="Sábado">Sábado</option>
-                                                <option value="Domingo">Domingo</option>
+                                            <option value="">Selecione</option>
+                                            <option value="Segunda">Segunda</option>
+                                            <option value="Terça">Terça</option>
+                                            <option value="Quarta">Quarta</option>
+                                            <option value="Quinta">Quinta</option>
+                                            <option value="Sexta">Sexta</option>
+                                            <option value="Sábado">Sábado</option>
+                                            <option value="Domingo">Domingo</option>
                                         </select>
                                     </div>
                                 </div>
-            
-                                <div  style="display:none" aula="7" class="form-group col-md-4">
-                                        <div class="col">
-                                            <label class=" form-control-label">Horario de aula de:</label>
-                                        </div>
-                                        <div class="">
-                                            <select name="nm_horade7" id="nm_horade7" class="form-control">
-                                                <option value="">Selecione</option>
-                                                <option value="01">01</option>
-                                                <option value="02">02</option>
-                                                <option value="03">03</option>
-                                                <option value="04">04</option>
-                                                <option value="05">05</option>
-                                                <option value="06">06</option>
-                                                <option value="07">07</option>
-                                                <option value="08">08</option>
-                                                <option value="09">09</option>
-                                                <option value="10">10</option>
-                                                <option value="11">11</option>
-                                                <option value="12">12</option>
-                                                <option value="13">13</option>
-                                                <option value="14">14</option>
-                                                <option value="15">15</option>
-                                                <option value="16">16</option>
-                                                <option value="17">17</option>
-                                                <option value="18">18</option>
-                                                <option value="19">19</option>
-                                                <option value="20">20</option>
-                                                <option value="21">21</option>
-                                                <option value="22">22</option>
-                                                <option value="23">23</option>
-                                                <option value="00">00</option>
-                                            </select>
-                                        </div>
+
+                                <div style="display:none" aula="7" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula de:</label>
                                     </div>
-            
-            
-                                    <div style="display:none" aula="7" class="form-group col-md-4">
-                                            <div class="col">
-                                                <label class=" form-control-label">Horario de aula até:</label>
-                                            </div>
-                                            <div class="">
-                                                <select name="nm_horaate7" id="nm_horaate7" class="form-control">
-                                                    <option value="">Selecione</option>
-                                                    <option value="01">01</option>
-                                                    <option value="02">02</option>
-                                                    <option value="03">03</option>
-                                                    <option value="04">04</option>
-                                                    <option value="05">05</option>
-                                                    <option value="06">06</option>
-                                                    <option value="07">07</option>
-                                                    <option value="08">08</option>
-                                                    <option value="09">09</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
-                                                    <option value="13">13</option>
-                                                    <option value="14">14</option>
-                                                    <option value="15">15</option>
-                                                    <option value="16">16</option>
-                                                    <option value="17">17</option>
-                                                    <option value="18">18</option>
-                                                    <option value="19">19</option>
-                                                    <option value="20">20</option>
-                                                    <option value="21">21</option>
-                                                    <option value="22">22</option>
-                                                    <option value="23">23</option>
-                                                    <option value="00">00</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                    
-                                        
-                        
-                        
-                    <div class="row">
-                            <div class="form-group col-md-12">
-                                <button onclick="novo()"  type="button" class="btn btn-primary">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                <button onclick="savealuno('alunos')"  type="button" class="btn btn-success">
-                                    <i class="fa fa-save"></i>
-                                </button>
-                                <button  onclick="ondelete('alunos')"  type="button" class="btn btn-danger">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                <button onclick="createtable('alunos')" type="button" class="btn btn-warning">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
+                                    <div class="">
+                                        <select name="nm_horade7" id="nm_horade7" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div style="display:none" aula="7" class="form-group col-md-4 cadalunodiahora">
+                                    <div class="col">
+                                        <label class=" form-control-label">Horario de aula até:</label>
+                                    </div>
+                                    <div class="">
+                                        <select name="nm_horaate7" id="nm_horaate7" class="form-control">
+                                            <option value="">Selecione</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="00">00</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!--  Campos das Informações sobre saúde  -->
+                                <h4 style="display:none" class='cadsaude'>Informações sobre saúde</h4>
+
+                                <div style="display:none" class="cadsaude col-md-4" >
+                                    <label class="control-label ">Pratica algum tipo de atividade física?</label>
+                                    <input name="sn_praticaatividade" id="sn_praticaatividade"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
+                                </div>
+                                
+                                <div style="display:none" class="form-group col-md-4 cadsaude">
+                                    <label class="control-label">Qual?</label>
+                                    <input type="text" class="form-control" name="nm_qualatividade" id="nm_qualatividade" placeholder="Qual?">
+                                </div>
+
+                                <div style="display:none" class="form-group col-md-4 cadsaude">
+                                    <label class="control-label">Com que frequencia?</label>
+                                    <input type="text" class="form-control" name="nm_quefrequencia" id="nm_quefrequencia" placeholder="Com que frequencia?">
+                                </div>
+                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                    <hr>
+                                </div>
+
+                                <div style="display:none" class='cadsaude col-md-6' >
+                                    <label class="control-label ">Fumante?</label>
+                                    <input name="sn_fumante" id="sn_fumante"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
+                                </div>
+                                
+                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                    <label class="control-label">Quantos cigarros por dia?</label>
+                                    <input type="number" class="form-control" name="nr_quantospordia" id="nr_quantospordia" placeholder="Quantos por dia?">
+                                </div>
+
+                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                    <hr>
+                                </div>
+
+                                <div style="display:none" class='cadsaude col-md-6' >
+                                    <label class="control-label ">Problemas cardíacos?</label>
+                                    <input name="sn_problemascardiacos" id="sn_problemascardiacos"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
+                                </div>
+                                    
+                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                    <label class="control-label">Qual?</label>
+                                    <input type="text" class="form-control" name="nm_qualproblema" id="nm_qualproblema" placeholder="Qual?">
+                                </div>
+
+                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                    <hr>
+                                </div>
+
+                                <div style="display:none" style="display:none" class='cadsaude col-md-6' >
+                                    <label class="control-label ">Problemas respiratórios?</label>
+                                    <input name="sn_problemasrespiratorios" id="sn_problemasrespiratorios"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
+                                </div>
+                                    
+                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                    <label class="control-label">Qual?</label>
+                                    <input type="text" class="form-control" name="nm_qualproblemarespiratorio" id="nm_qualproblemarespiratorio" placeholder="Qual?">
+                                </div>
+
+                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                    <hr>
+                                </div>
+
+                                <div style="display:none" class='cadsaude col-md-4' >
+                                    <label class="control-label ">Diabétes?</label>
+                                    <input name="sn_diabetes" id="sn_diabetes"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
+                                </div>
+
+                                <div style="display:none" class='cadsaude col-md-4' >
+                                    <label class="control-label ">Problemas ósseos ou articular?</label>
+                                    <input name="sn_problemasosseos" id="sn_problemasosseos"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
+                                </div>
+                                    
+                                <div style="display:none" class="form-group col-md-4 cadsaude">
+                                    <label class="control-label">Qual?</label>
+                                    <input type="text" class="form-control" name="nm_qualproblemaosseo" id="nm_qualproblemaosseo" placeholder="Qual?">
+                                </div>
+
+                                
+                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                    <hr>
+                                </div>
+    
+
+                                <div style="display:none" class='cadsaude col-md-6' >
+                                    <label class="control-label ">Sente dores musculares ou articulares?</label>
+                                    <input name="sn_doresmusculares" id="sn_doresmusculares"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
+                                </div>
+                                    
+                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                    <label class="control-label">Onde?</label>
+                                    <input type="text" class="form-control" name="nm_ondedoi" id="nm_ondedoi" placeholder="Onde?">
+                                </div>
+
+                                
+                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                    <hr>
+                                </div>
+    
+
+                                <div style="display:none" class='cadsaude col-md-6' >
+                                    <label class="control-label ">Fratura, traumatismo ou lesão?</label>
+                                    <input name="sn_lesoes" id="sn_lesoes"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
+                                </div>
+                                    
+                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                    <label class="control-label">Onde?</label>
+                                    <input type="text" class="form-control" name="nm_ondelesoes" id="nm_ondelesoes" placeholder="Onde?">
+                                </div>
+
+                                
+                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                    <hr>
+                                </div>
+    
+
+                                <div style="display:none" class='cadsaude col-md-6' >
+                                    <label class="control-label ">Cirurgia?</label>
+                                    <input name="sn_cirurgia" id="sn_cirurgia"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
+                                </div>
+                                    
+                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                    <label class="control-label">Onde?</label>
+                                    <input type="text" class="form-control" name="nm_ondecirurgia" id="nm_ondecirurgia" placeholder="Onde?">
+                                </div>
+
+                                
+                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                    <hr>
+                                </div>
+    
+
+                                <div style="display:none" class='cadsaude col-md-6' >
+                                    <label class="control-label ">Toma algum medicamento?</label>
+                                    <input name="sn_medicamento" id="sn_medicamento"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
+                                </div>
+                                    
+                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                    <label class="control-label">Para qual finalidade?</label>
+                                    <input type="text" class="form-control" name="nm_qualfinalidade" id="nm_qualfinalidade" placeholder="Para qual finalidade?">
+                                </div>
+                                
+                                
+                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                    <hr>
+                                </div>
+    
+
+                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                    <label class="control-label">Qual é o seu objetivo?</label>
+                                    <input type="text" class="form-control" name="nm_qualobjetivo" id="nm_qualobjetivo" placeholder="Qual é o seu objetivo?">
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <button onclick="novo()" type="button" class="btn btn-primary">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                        <button onclick="savealuno('alunos')" type="button" class="btn btn-success">
+                                            <i class="fa fa-save"></i>
+                                        </button>
+                                        <button onclick="ondelete('alunos')" type="button" class="btn btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        <button onclick="createtable('alunos')" type="button" class="btn btn-warning">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                        <button onclick="abasaude()" type="button" class="btn btn-default">
+                                            Inf. Saúde
+                                        </button>
+                                        <button style="display:none" onclick="voltar()" type="button" class="btn btn-primary cadsaude">
+                                            <i class="fa fa-long-arrow-left"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                  </form>
+                    </div>
                 </div>
-              </div>
-            </div>
+            </section>
         </section>
-      </section>
-      <footer class="site-footer">
-        <div class="text-center">
-          <p>
-            &copy; Copyrights <strong>Perretto</strong>. All Rights Reserved
-          </p>
-          <div class="credits">
-            Criado por André Perretto
-          </div>
-          <a href="../pages/index.html" class="go-top">
-            <i class="fa fa-angle-up"></i>
-            </a>
-        </div>
-      </footer>
+        <footer class="site-footer">
+            <div class="text-center">
+                <p>
+                    &copy; Copyrights <strong>Perretto</strong>. All Rights Reserved
+                </p>
+                <div class="credits">
+                    Criado por André Perretto
+                </div>
+                <a href="../pages/index.html" class="go-top">
+                    <i class="fa fa-angle-up"></i>
+                </a>
+            </div>
+        </footer>
     </section>
 
-    
-    
-    <div id="modalaluno" style="width: 100%;" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+
+    <div id="modalaluno" style="width: 100%;" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                
-                <h4 class="mb" style="padding-left:15px;text-align: center;">Deseja gerar as aulas abaixo para este aluno?</h4>
-                <div style="padding: 2%;text-align: center;" >
-                    <a onclick="geraraulas()" href="#"  style="padding-left:2px" class="btn btn-success" ><b>SIM</b></a> 
-                    <a onclick="sairaulas()" href="#" style="padding-left:2px"  type="button" class="btn btn-danger" >NÃO</a>
+
+                <h4 class="mb" style="padding-left:15px;text-align: center;">Deseja gerar as aulas abaixo para este
+                    aluno?</h4>
+                <div style="padding: 2%;text-align: center;">
+                    <a onclick="geraraulas()" href="#" style="padding-left:2px" class="btn btn-success"><b>SIM</b></a>
+                    <a onclick="sairaulas()" href="#" style="padding-left:2px" type="button" class="btn btn-danger">NÃO</a>
                 </div>
-                
+
                 <hr>
-                <div id="conteudomodal" style="width: 100%;padding: 2%;" ></div>
-            
+                <div id="conteudomodal" style="width: 100%;padding: 2%;"></div>
+
             </div>
 
-            
+
         </div>
     </div>
 
@@ -887,69 +1061,69 @@
     <script type="text/javascript" src="../lib/gritter/js/jquery.gritter.js"></script>
     <script type="text/javascript" src="../lib/gritter-conf.js"></script>
     <script src="../lib/common-scripts.js"></script>
-    <script src="../js/save.js" ></script>
+    <script src="../js/save.js"></script>
     <script src="../node_modules/izitoast/dist/js/iziToast.min.js"></script>
-    <script src="../js/generic.js" ></script>
-    <script src="../js/table.js" ></script>
+    <script src="../js/generic.js"></script>
+    <script src="../js/table.js"></script>
     <script src="../node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
-    <script src="../js/aluno.js" ></script>
+    <script src="../js/aluno.js"></script>
     <!--<script src="../lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>-->
-    <script src="../lib/jquery-ui-1.9.2.custom.min.js" ></script>
-  
-<script>
-    console.log("start")
-    var url = "http://" + window.location.hostname + ":3003/api/planos/carregarplanos"
-     $.ajax({
-        url: url,
-        context: document.body
-      }).done(function(data) {
-          var options = "<option>Selecione</option>";
-          for (let index = 0; index < data.length; index++) {
-              const element = data[index];
-              options += "<option data-aula=" + element.nr_aulassemana + " value='" + element.nm_nome + "'>" + element.nm_nome + "</option>"
-          }
-            $("#nm_plano").html(options);
-      });
+    <script src="../lib/jquery-ui-1.9.2.custom.min.js"></script>
 
-      var options = "<option>Selecione</option>";
-    var url = "http://" + window.location.hostname + ":3003/api/estudios/carregarestudios"
-     $.ajax({
-        url: url,
-        context: document.body
-      }).done(function(data) {
-          
-          for (let index = 0; index < data.length; index++) {
-              const element = data[index];
-              options += "<option value='" + element.nm_nome + "'>" + element.nm_nome + "</option>"
-          }
-            $("#nm_estudio").html(options);
-      });
-
-      function changeplano(){
-
-        if(document.getElementById("nm_plano")){
-            if(document.getElementById("nm_plano").options){
-                if(document.getElementById("nm_plano").options.length > 0){
-                    var optid = document.getElementById("nm_plano").options.selectedIndex;
-                    var numero = document.getElementById("nm_plano").options[optid].getAttribute("data-aula");
-                    for (let index = 0; index < 7; index++) {
-                        var nind = parseInt(numero);
-                        if(nind > index){
-                            $("[aula='" + (index + 1) + "']").show();  
-                        }else{
-                            $("[aula='" + (index + 1) + "']").hide(); 
-                        }
-                                    
-                    }
-                }   
+    <script>
+        console.log("start")
+        var url = "http://" + window.location.hostname + ":3003/api/planos/carregarplanos"
+        $.ajax({
+            url: url,
+            context: document.body
+        }).done(function (data) {
+            var options = "<option>Selecione</option>";
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                options += "<option data-aula=" + element.nr_aulassemana + " value='" + element.nm_nome + "'>" + element.nm_nome + "</option>"
             }
+            $("#nm_plano").html(options);
+        });
+
+        var options = "<option>Selecione</option>";
+        var url = "http://" + window.location.hostname + ":3003/api/estudios/carregarestudios"
+        $.ajax({
+            url: url,
+            context: document.body
+        }).done(function (data) {
+
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                options += "<option value='" + element.nm_nome + "'>" + element.nm_nome + "</option>"
+            }
+            $("#nm_estudio").html(options);
+        });
+
+        function changeplano() {
+
+            if (document.getElementById("nm_plano")) {
+                if (document.getElementById("nm_plano").options) {
+                    if (document.getElementById("nm_plano").options.length > 0) {
+                        var optid = document.getElementById("nm_plano").options.selectedIndex;
+                        var numero = document.getElementById("nm_plano").options[optid].getAttribute("data-aula");
+                        for (let index = 0; index < 7; index++) {
+                            var nind = parseInt(numero);
+                            if (nind > index) {
+                                $("[aula='" + (index + 1) + "']").show();
+                            } else {
+                                $("[aula='" + (index + 1) + "']").hide();
+                            }
+
+                        }
+                    }
+                }
+            }
+
+
+
+
         }
-        
-          
-          
-          
-      }
-</script>
+    </script>
 </body>
 
 

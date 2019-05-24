@@ -135,6 +135,7 @@ function edit(id, table){
             if(data){
                 if(data.length > 0){
                     for (index in data[0]) {
+                        
                         $("[name='" + index + "']").val(data[0][index]);
 
                         if($("[name='" + index + "']").attr("type") == "checkbox"){
@@ -155,24 +156,24 @@ function edit(id, table){
 
                         if(index.indexOf("dt_") > -1){
                             if(data[0][index]){
-                                var data = new Date(data[0][index]);
+                                var date = new Date(data[0][index]);
                                 var dataformat = "";
 
                                 
-                                if(String((data.getDate())).length == 1){
-                                    dataformat += "0" + (data.getDate()) + "/";
+                                if(String((date.getDate())).length == 1){
+                                    dataformat += "0" + (date.getDate()) + "/";
                                 }else{
-                                    dataformat += (data.getDate()) + "/";
+                                    dataformat += (date.getDate()) + "/";
                                 }
 
-                                if(String((data.getMonth() + 1)).length == 1){
-                                    dataformat += "0" + (data.getMonth() + 1) + "/";
+                                if(String((date.getMonth() + 1)).length == 1){
+                                    dataformat += "0" + (date.getMonth() + 1) + "/";
                                 }else{
-                                    dataformat += (data.getMonth() + 1) + "/";
+                                    dataformat += (date.getMonth() + 1) + "/";
                                 }
                                 
 
-                                dataformat +=  data.getFullYear()
+                                dataformat +=  date.getFullYear()
                                 
                                 
                                 $("[name='" + index + "']").val(dataformat);

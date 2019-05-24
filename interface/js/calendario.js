@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+  
+
   var options = "";
   var url = "http://" + window.location.hostname + ":3003/api/estudios/carregarestudios"
   $.ajax({
@@ -34,9 +37,55 @@ document.addEventListener('DOMContentLoaded', function () {
               url: url,
               dataType: 'json',
               success: function(doc) {
-                $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")  
-                $(".fc-time").html(""); 
                 successCallback(doc);
+
+                var url = "http://" + window.location.hostname + ":3003/api/aulas/datasbloqueio/" + estudio + "/" + startStr + "/" + endStr
+
+                $.ajax({
+                  url: url,
+                  dataType: 'json',
+                  success: function(ret) {
+
+                    for (let index = 0; index < ret.length; index++) {
+                      const element = ret[index];
+                      var htm = "<a  style=\"background-color:red\"  class=\"fc-day-grid-event fc-h-event fc-event fc-start fc-end\"><div class=\"fc-content\"> <span style=\"background-color:red\" class=\"fc-title\">" + element.title + "</span></div></a>"
+                      
+                      $("[data-date='" + element.start + "']").html(htm)
+
+                      $("[data-date='" + element.start + "'] .fc-content").attr("style","background-color:red")
+                      $("[data-date='" + element.start + "']").removeClass("fc-day");
+                      $("[data-date='" + element.start + "']").removeClass("fc-widget-content");
+                      $("[data-date='" + element.start + "']").removeClass("fc-day-top");
+                      $("[data-date='" + element.start + "']").attr("onclick","desbloqueardia(this)");
+
+                      
+                    }
+
+                    $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")  
+                    $(".fc-time").html(""); 
+                    $(".fc-day").prepend("<br><br><br><button onclick='cancelardia(this)' style=\"display:none\"  class='fc-day data-trash  btn btn-danger'><i class=\"fa fa-trash\"></i></button>");
+
+                    
+
+                    $(".fc-day").hover(function(){
+                      $(this).children(".data-trash").show();
+                      console.log("show")
+                      }, function(){
+                        $(this).children(".data-trash").hide();
+                        console.log("hide")
+                    });
+
+                    $(".fc-day-top").hover(function(){
+                      $(this).children(".data-trash").show();
+                      console.log("show")
+                      }, function(){
+                        $(this).children(".data-trash").hide();
+                        console.log("hide")
+                    });
+                  }
+                });
+                
+
               }
             });
             
@@ -441,13 +490,60 @@ document.addEventListener('DOMContentLoaded', function () {
             var endStr = fetchInfo.endStr;
             var url = "http://" + window.location.hostname + ":3003/api/aulas/horariosdisponiveisdatas/" + estudio + "/" + startStr + "/" + endStr
 
+            
             $.ajax({
               url: url,
               dataType: 'json',
               success: function(doc) {
-                $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")  
-                $(".fc-time").html(""); 
                 successCallback(doc);
+
+                var url = "http://" + window.location.hostname + ":3003/api/aulas/datasbloqueio/" + estudio + "/" + startStr + "/" + endStr
+
+                $.ajax({
+                  url: url,
+                  dataType: 'json',
+                  success: function(ret) {
+
+                    for (let index = 0; index < ret.length; index++) {
+                      const element = ret[index];
+                      var htm = "<a  style=\"background-color:red\"  class=\"fc-day-grid-event fc-h-event fc-event fc-start fc-end\"><div class=\"fc-content\"> <span style=\"background-color:red\" class=\"fc-title\">" + element.title + "</span></div></a>"
+                      
+                      $("[data-date='" + element.start + "']").html(htm)
+
+                      $("[data-date='" + element.start + "'] .fc-content").attr("style","background-color:red")
+                      $("[data-date='" + element.start + "']").removeClass("fc-day");
+                      $("[data-date='" + element.start + "']").removeClass("fc-widget-content");
+                      $("[data-date='" + element.start + "']").removeClass("fc-day-top");
+                      $("[data-date='" + element.start + "']").attr("onclick","desbloqueardia(this)");
+
+                      
+                    }
+
+                    $(".fc-day.fc-widget-content").attr("onclick", "horariosaulas(this)")  
+                    $(".fc-time").html(""); 
+                    $(".fc-day").prepend("<br><br><br><button onclick='cancelardia(this)' style=\"display:none\"  class='fc-day data-trash  btn btn-danger'><i class=\"fa fa-trash\"></i></button>");
+
+                    
+
+                    $(".fc-day").hover(function(){
+                      $(this).children(".data-trash").show();
+                      console.log("show")
+                      }, function(){
+                        $(this).children(".data-trash").hide();
+                        console.log("hide")
+                    });
+
+                    $(".fc-day-top").hover(function(){
+                      $(this).children(".data-trash").show();
+                      console.log("show")
+                      }, function(){
+                        $(this).children(".data-trash").hide();
+                        console.log("hide")
+                    });
+                  }
+                });
+                
+
               }
             });
             
@@ -481,4 +577,114 @@ function novoaula(){
   }
   imagensPadrao()
   $("textarea").val("");
+}
+
+function cancelardia(element){
+  
+  iziToast.question({
+    timeout: 20000,
+    close: false,
+    overlay: true,
+    displayMode: 'once',
+    id: 'question',
+    zindex: 999,
+    title: '',
+    message: 'Deseja bloquear este dia?',
+    position: 'center',
+    buttons: [
+      ['<button><b>SIM</b></button>', function (instance, toast) {
+
+          instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');    
+
+
+        var dataselec = $("#dataselecionada").attr("data-dataselecionada");
+        dataselec = dataselec.replace("/","-");
+        dataselec = dataselec.replace("/","-");
+        dataselec = dataselec.replace("/","-");
+        var estudio = $('#nm_estudio').val();
+        
+        var url = "http://" + window.location.hostname + ":3003/api/aulas/bloqueardia/" + estudio + "/" + dataselec
+        $.ajax({
+          url: url,
+          context: document.body
+        }).done(function (data) {   
+          iziToast.success({
+              title: '',
+              message: 'Registro deletado com sucesso!',
+          });
+          voltar();
+        });
+
+      }, true],
+      ['<button>NÃO</button>', function (instance, toast) {
+
+          instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+      }],
+    ],
+    onClosing: function(instance, toast, closedBy){
+      console.info('Closing | closedBy: ' + closedBy);
+    },
+    onClosed: function(instance, toast, closedBy){
+      console.info('Closed | closedBy: ' + closedBy);
+    }
+  });
+}
+
+
+
+
+
+function desbloqueardia(element){
+  
+  var dataselec = $(element).attr("data-date");
+        dataselec = dataselec.replace("/","-");
+        dataselec = dataselec.replace("/","-");
+        dataselec = dataselec.replace("/","-");
+
+  iziToast.question({
+    timeout: 20000,
+    close: false,
+    overlay: true,
+    displayMode: 'once',
+    id: 'question',
+    zindex: 999,
+    title: '',
+    message: 'Deseja desbloquear este dia?',
+    position: 'center',
+    buttons: [
+      ['<button><b>SIM</b></button>', function (instance, toast) {
+
+          instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');    
+
+
+        
+        var estudio = $('#nm_estudio').val();
+        
+        var url = "http://" + window.location.hostname + ":3003/api/aulas/desbloqueardia/" + estudio + "/" + dataselec
+        $.ajax({
+          url: url,
+          context: document.body
+        }).done(function (data) {   
+          iziToast.success({
+              title: '',
+              message: 'Registro desbloqueado com sucesso!',
+          });
+          voltar();
+        });
+
+      }, true],
+      ['<button>NÃO</button>', function (instance, toast) {
+
+          instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+      }],
+    ],
+    onClosing: function(instance, toast, closedBy){
+      console.info('Closing | closedBy: ' + closedBy);
+    },
+    onClosed: function(instance, toast, closedBy){
+      console.info('Closed | closedBy: ' + closedBy);
+    }
+  });
 }

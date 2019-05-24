@@ -791,3 +791,77 @@ router.route('/horariointervalos/:data/:estudio').get(function(req, res) {
         res.send(ret);
     })
 })
+
+
+
+
+router.route('/bloqueardia/:estudio/:data').get(function(req, res) {
+    var estudio = req.param('estudio'); 
+    var dia = req.param('data'); 
+
+    var array = dia.split("-");
+    dia = array[1] + "/" +  array[0] + "/" + array[2];
+    var id = guid();
+
+    var sql = "DELETE FROM aulas WHERE nm_estudio='" + estudio + "' AND dt_data='" + dia + "'; ";
+    sql += " INSERT INTO bloquear_dia (id, nm_estudio, dt_data) VALUES('" + id + "', '" + estudio + "', '" + dia + "');";
+    general.execute(sql, function(ret){
+        res.send(ret);
+    })    
+})
+
+
+router.route('/desbloqueardia/:estudio/:data').get(function(req, res) {
+    var estudio = req.param('estudio'); 
+    var dia = req.param('data'); 
+
+    var sql = "DELETE FROM bloquear_dia WHERE nm_estudio='" + estudio + "' AND dt_data='" + dia + "'";
+    general.execute(sql, function(ret){
+        res.send(ret);
+    })    
+})
+
+function guid() {
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+  }
+  
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+
+
+  
+router.route('/datasbloqueio/:estudio/:startdate/:enddate').get(function(req, res) {
+    var estudio = req.param('estudio');
+    var startdate = req.param('startdate');
+    var enddate = req.param('enddate');
+    
+    var sql = "SELECT TO_CHAR(dt_data :: DATE, 'yyyy-mm-dd') AS dt_data, id AS id FROM bloquear_dia WHERE  ";
+    sql += " nm_estudio='" + estudio + "' AND dt_data >= '" + startdate + "' AND dt_data <= '" + enddate + "'";
+    console.log(sql)
+    general.select(sql, function(ret){
+        
+        var array = [];
+        var obj = {};
+
+        var arrayaulas = [];
+
+        for (let index = 0; index < ret.length; index++) {
+            const element = ret[index];
+            if(arrayaulas.indexOf(element.dt_data) == -1){
+                
+                obj = {};
+                obj.id = element.id;
+                obj.start = element.dt_data;
+                obj.title = "Dia indisponível";
+                array.push(obj);
+                arrayaulas.push(element.dt_data);
+            }
+        }
+
+        res.send(array);         
+    })     
+})
