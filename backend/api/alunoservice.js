@@ -335,3 +335,15 @@ function guid() {
       .toString(16)
       .substring(1);
   }
+
+
+
+
+  router.route('/deletaraulas/:id').get(function(req, res) {
+    var id = req.param('id');
+    
+    var sql = "DELETE FROM aulas WHERE nm_alunos='" + id + "' AND dt_data >= CURRENT_DATE";
+    general.execute(sql, function(ret){
+        res.send(ret);
+    })    
+})

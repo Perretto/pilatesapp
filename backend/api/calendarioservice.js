@@ -123,16 +123,35 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
     sql += " estudios.nm_nome AS estudio, aulas.nm_horade AS horade, aulas.nm_horaate AS horaate, ";
 
 
-    sql += " (SELECT (nr_meses * nr_aulasmes) - (SELECT COUNT(*) FROM aulas WHERE nm_alunos='" + id + "' AND ";
+
+    sql += " (SELECT  ";
+			
+    sql += "     (CASE alunos.nr_creditos ";
+    sql += "        WHEN 0 THEN (nr_meses * nr_aulasmes) ";
+    sql += "        ELSE alunos.nr_creditos ";
+    sql += "       END) - ";
+
+
+
+    sql += "(SELECT COUNT(*) FROM aulas WHERE nm_alunos='" + id + "' AND ";
     sql += " aulas.dt_data >= CURRENT_DATE)";
     sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
     sql += " WHERE alunos.id='" + id + "') AS reposicao, ";
 
     sql += " (SELECT sn_experimental FROM alunos a INNER JOIN planos ON planos.nm_nome=a.nm_plano WHERE a.id='" + id + "' ) AS experimental,";
 
-    sql += " estudios.nr_maxima AS capacidade";
+    sql += " estudios.nr_maxima AS capacidade, ";
 
+    sql += "( SELECT bloquear_dia.id FROM bloquear_dia WHERE nm_estudio='" + estudio + "' AND dt_data='" + data + "' ) AS bloquear,  "
+
+    sql += " (SELECT dt_inicioplano ";
+    sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
+    sql += " WHERE alunos.id='" + id + "') AS dt_inicioplano, ";
     
+    
+    sql += " (SELECT nr_meses ";
+    sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
+    sql += " WHERE alunos.id='" + id + "') AS numeromeses ";
 
     sql += " FROM aulas ";
     sql += " INNER JOIN alunos ON alunos.id=aulas.nm_alunos ";
@@ -158,11 +177,17 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
             diafimde = diaSemanaComFim(ret[0].nm_diafimde);
             diafimate = diaSemanaComFim(ret[0].nm_diafimate);
 
-            if(sm >= diade && sm <= diaate){
+            var dateinicio = new Date(arraydate[2] + "-" + arraydate[0] + "-" + arraydate[1]);    
+            var month = dateinicio.getMonth() + 1 + ret[0].numeromeses;
+            
+            var dateatual = new Date(data);  
+            var monthatual = dateatual.getMonth() + 1;
+
+            if((sm >= diade && sm <= diaate) && !ret[0].bloquear && monthatual < month){
                 ret[0].disponivel = true;
             }
 
-            if(sm >= diafimde && sm <= diafimate){
+            if((sm >= diafimde && sm <= diafimate) && !ret[0].bloquear && monthatual < month){
                 ret[0].disponivel = true;
             }
 
@@ -205,14 +230,36 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
             sql += "TO_CHAR('" + data + "' :: DATE, 'dd/mm/yyyy') AS data, ";
 
                     
-            sql += " (SELECT (nr_meses * nr_aulasmes) - (SELECT COUNT(*) FROM aulas WHERE nm_alunos='" + id + "' AND ";
+            
+            sql += " (SELECT  ";
+			
+            sql += "     (CASE alunos.nr_creditos ";
+            sql += "        WHEN 0 THEN (nr_meses * nr_aulasmes) ";
+            sql += "        ELSE alunos.nr_creditos ";
+            sql += "       END) - ";
+
+            sql += " (SELECT COUNT(*) FROM aulas WHERE nm_alunos='" + id + "' AND ";
             sql += " aulas.dt_data >=  CURRENT_DATE)";
             sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
             sql += " WHERE alunos.id='" + id + "') AS reposicao, ";
 
             sql += " (SELECT sn_experimental FROM alunos a INNER JOIN planos ON planos.nm_nome=a.nm_plano WHERE a.id='" + id + "' ) AS experimental, ";
 
-            sql += " estudios.nr_maxima AS capacidade";
+            sql += " estudios.nr_maxima AS capacidade, ";
+
+            
+            sql += "( SELECT bloquear_dia.id FROM bloquear_dia WHERE nm_estudio='" + estudio + "' AND dt_data='" + data + "' ) AS bloquear, "
+
+            
+            sql += " (SELECT dt_inicioplano ";
+            sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
+            sql += " WHERE alunos.id='" + id + "') AS dt_inicioplano, ";
+            
+            sql += " (SELECT nr_meses ";
+            sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
+            sql += " WHERE alunos.id='" + id + "') AS numeromeses ";
+
+
             sql += " FROM estudios ";
             sql += " WHERE estudios.id='" + estudio + "'";
 
@@ -226,13 +273,19 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
                 diafimde = diaSemanaComFim(ret[0].nm_diafimde);
                 diafimate = diaSemanaComFim(ret[0].nm_diafimate);
                 
-                    
+                var arraydate = ret[0].dt_inicioplano.split("/")
+                var dateinicio = new Date(arraydate[2] + "-" + arraydate[0] + "-" + arraydate[1]);   
+                var month = dateinicio.getMonth() + 1 + ret[0].numeromeses;
                 
-                if(sm >= diade && sm <= diaate){
+                var dateatual = new Date(data);  
+                var monthatual = dateatual.getMonth() + 1;
+
+
+                if((sm >= diade && sm <= diaate) && !ret[0].bloquear && monthatual < month){
                     ret[0].disponivel = true;
                 }
 
-                if(sm >= diafimde && sm <= diafimate){
+                if((sm >= diafimde && sm <= diafimate) && !ret[0].bloquear && monthatual < month){
                     ret[0].disponivel = true;
                 } 
                 ret[0].semana = semana;

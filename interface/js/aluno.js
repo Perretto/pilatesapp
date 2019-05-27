@@ -2,9 +2,9 @@ function savealuno(table){
     save(table, function(data){
 
         var creditos = $("#nr_creditos").val();
+        var id = $("#id").val();
 
         if(creditos <= 0){
-            var id = $("#id").val();
             var url = "http://" + window.location.hostname + ":3003/api/alunos/pregeraraulasaluno/" + id
     
             $.ajax({        
@@ -68,6 +68,20 @@ function savealuno(table){
                 }
             
             });
+        }else{
+
+            var url = "http://" + window.location.hostname + ":3003/api/alunos/deletaraulas/" + id
+    
+            $.ajax({        
+                type: "GET",
+                url: url,
+                success: function(data){
+
+                }
+            })
+
+
+
         }
         
     })

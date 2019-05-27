@@ -84,7 +84,8 @@ document.addEventListener('DOMContentLoaded', function () {
       
       var estudio = $("#nm_estudio").val();
       var id = localStorage.getItem("userid");
-  
+      var diaselecionado = dia;
+
       //Swal.fire(data)
       var htmllista = "";
   
@@ -137,6 +138,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 anoapos = dataapos.getFullYear();
               }
 
+              if(diaselecionado == diaapos){
+                diaapos += 1
+              }
+
               var dataapos = mesapos + "/" + diaapos + "/" + anoapos;
 
               htm += "<div class='col-md-6 col-sx-6'>"
@@ -179,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 dia = d.getDate();
                 mes = d.getMonth() + 1;
                 ano = d.getFullYear();
-                dataant.setDate(dataant.getDate() + 1);
+                //dataant.setDate(dataant.getDate() + 1);
               }
 
               var dataanterior = mes + "/" + dia + "/" + ano;
@@ -199,6 +204,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 anoapos = dataapos.getFullYear();
               }
 
+              
+              if(diaselecionado == diaapos){
+                diaapos += 1
+              }
+              
               var dataapos = mesapos + "/" + diaapos + "/" + anoapos;
 
               //htm += "<div class='col-md-6 col-sx-6'>"
@@ -225,9 +235,9 @@ document.addEventListener('DOMContentLoaded', function () {
               htm += "    <br>";
               htm += "    <div >";
               if(data[0].reposicao > 0){
-                htm += "        <h5 style='text-align: center;'>Você tem " + data[0].reposicao + " aulas para reposição</h5>";
+                htm += "        <h5 data-aulascreditos=" + data[0].reposicao + " style='text-align: center;'>Você tem " + data[0].reposicao + " aulas para reposição</h5>";
               }else{
-                htm += "        <h5 style='text-align: center;'>Você não tem aulas para reposição</h5>";
+                htm += "        <h5 data-aulascreditos=0 style='text-align: center;'>Você não tem aulas para reposição</h5>";
               }
               
               htm += "    </div>";
@@ -497,6 +507,15 @@ document.addEventListener('DOMContentLoaded', function () {
         var arrdata = strdata.split("/");
         var dataselect = new Date(arrdata[1] + "/" +  arrdata[0] + "/" + arrdata[2] + " " + (horade - 1) + ":30")
 
+
+        var cred = $("[data-aulascreditos]").attr("data-aulascreditos");
+        if(cred <= 0){
+            iziToast.warning({
+              title: 'Não é possível marcar a aula! ',
+              message: 'Você não tem créditos no momento. Renove seu plano antes de marcar a aula',
+          });
+          return
+        }
         console.log(dataselect);
         console.log(dataatual);
         if(dataselect >= dataatual){
@@ -519,7 +538,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         var url = "http://" + window.location.hostname + ":3003/api/aulas/gravar"
                         var data = {};
                         data.id = "";
-                        data.dt_data = arrdata[1] + "/" +  arrdata[0] + "/" + arrdata[2]; //$("#dataselecionada").attr("data-dataselecionada");
+                        data.dt_data = arrdata[0] + "/" +  arrdata[1] + "/" + arrdata[2]; //$("#dataselecionada").attr("data-dataselecionada");
                         data.nm_obs = "";
                         data.nm_alunos = localStorage.getItem("userid");
                         data.nm_estudio = estudio;
