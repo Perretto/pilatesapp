@@ -177,6 +177,8 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
             diafimde = diaSemanaComFim(ret[0].nm_diafimde);
             diafimate = diaSemanaComFim(ret[0].nm_diafimate);
 
+            
+            var arraydate = ret[0].dt_inicioplano.split("/")
             var dateinicio = new Date(arraydate[2] + "-" + arraydate[0] + "-" + arraydate[1]);    
             var month = dateinicio.getMonth() + 1 + ret[0].numeromeses;
             
