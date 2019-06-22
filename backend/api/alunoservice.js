@@ -154,6 +154,7 @@ function aulasAluno(id, callback){
                 var nr_meses = ret[0].nr_meses;
                 var nr_aulassemana = ret[0].nr_aulassemana;
                 var diasemana = datainicio.getDay();
+                var nr_aulasmes = ret[0].nr_aulasmes;
 
                 if(diasemana == 0){
                     diasemana = 7;
@@ -222,11 +223,15 @@ function aulasAluno(id, callback){
                                 meses += 1;
                                 mes = data.getMonth();
                             }
-    
+    /*
                             if(meses == nr_meses){
                                 break;
                             }
-    
+    */
+                            if(arrayretorno.length == (nr_aulasmes * nr_meses)){
+                                break;
+                            }
+
                             if(data <= dataanterior){
                                 meses += 1;
                                 break;

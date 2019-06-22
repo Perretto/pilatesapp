@@ -159,7 +159,7 @@ function edit(id, table){
                                 var date = new Date(data[0][index]);
                                 var dataformat = "";
 
-                                
+                                /*
                                 if(String((date.getDate())).length == 1){
                                     dataformat += "0" + (date.getDate()) + "/";
                                 }else{
@@ -176,7 +176,9 @@ function edit(id, table){
                                 dataformat +=  date.getFullYear()
                                 
                                 
-                                $("[name='" + index + "']").val(dataformat);
+                                $("[name='" + index + "']").val(dataformat);*/
+                                $("[name='" + index + "']").val(data[0][index]);
+
                             }else{
 
                             }

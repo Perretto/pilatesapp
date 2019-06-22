@@ -179,7 +179,7 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
 
             
             var arraydate = ret[0].dt_inicioplano.split("/")
-            var dateinicio = new Date(arraydate[2] + "-" + arraydate[0] + "-" + arraydate[1]);    
+            var dateinicio = new Date(arraydate[2] + "-" + arraydate[1] + "-" + arraydate[0]);    
             var month = dateinicio.getMonth() + 1 + ret[0].numeromeses;
             
             var dateatual = new Date(data);  
