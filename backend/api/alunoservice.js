@@ -237,6 +237,7 @@ function aulasAluno(id, callback){
                                 break;
                             }
     
+                            
                             dataanterior = new Date(String(data));
                             
                             var dataformat = "";
