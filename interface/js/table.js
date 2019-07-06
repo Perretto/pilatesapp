@@ -48,7 +48,7 @@ function createtable(table){
                                 tds += "</button>";
                                 tds += "</td>";
                             }else{
-                                tds += "<td>" + element[index] + "</td>";     
+                                tds += "<td data-valuetd='" + element[index]  + "'>" + element[index] + "</td>";     
                             }                   
                         }
                         tds += "</tr>";
@@ -58,6 +58,9 @@ function createtable(table){
                     html += "   <div class=\"form-panel\">";
                     html += "       <div class=\"card-body\">   ";                    
                     html += "           <div class=\"table-responsive\">";
+
+                    html += "<div style='margin-left: 83%;'>Buscar: <input type='text' onkeyup='changeSeach(this)' /></div>";
+
                     html += "               <table class=\"table table-striped\">";
                     html += "                   <thead>";
                     html += ths;
@@ -193,4 +196,22 @@ function edit(id, table){
             }
         }
     })
+}
+
+function changeSeach(element){
+    var value = $(element).val();
+
+    if(value){
+        $("[data-valuetd]").parents("tr").hide();
+        $("[data-valuetd*='" + value + "']").parents("tr").show();
+
+    }else{
+        $("[data-valuetd]").parents("tr").hide();
+            
+            var page = $("#numeracao").html();
+            page = parseInt(page);
+            page -= 1;
+            $("[page='" + page + "']").show();
+    }
+   
 }
