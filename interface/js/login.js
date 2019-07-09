@@ -14,6 +14,17 @@ function logar(tipo){
             });
             return;
         }
+    }else if(tipo == "aluno"){
+        login = $("#loginaluno").val();
+        senha = $("#senhaaluno").val();
+
+        if(!login && !senha){
+            iziToast.error({
+                title: '',
+                message: 'Digite um login e senha validos!',
+            });
+            return;
+        }
     }else{
         login = $("#loginaluno").val();
         login = login.replace(".","").replace(".","").replace(".","").replace("-","")

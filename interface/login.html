@@ -35,8 +35,9 @@
     <div class="container">
       <form class="form-login"  action="index.html">
         <h2 class="form-login-heading">PILATES APP</h2>
-        <div id="frmadmin" style="display:none" class="login-wrap">
-          <input name="login" id="login" type="text" class="form-control" placeholder="Usuário" autofocus>
+        <div id="frmadmin" style="display:none;background-color: aliceblue;" class="login-wrap">
+          <h5>Administrador</h5>
+          <input name="login" id="login" type="text" class="form-control" placeholder="Usuário" >
           <br>
           <input name="senha" id="senha" type="password" class="form-control" placeholder="Senha">          
             <br>
@@ -52,19 +53,38 @@
         </div>
         
         <div id="frmaluno" class="login-wrap">
-            <input name="loginaluno" id="loginaluno" type="text" class="form-control" placeholder="CPF" autofocus>
+            <h5>Aluno</h5>
+          <input name="loginaluno" id="loginaluno" type="text" class="form-control" placeholder="Login" autofocus>
+          <br>
+          <input name="senhaaluno" id="senhaaluno" type="password" class="form-control" placeholder="Senha">          
             <br>
-            
-            <button onclick="logar('aluno')" class="btn btn-theme btn-block" href="index.html" type="button"><i class="fa fa-lock"></i> ENTRAR</button>
-            <hr>    
-            
-            <button onclick="verificarAmbiente('Admin')" class="col-md-6 btn btn-theme  " href="index.html" type="button">
-              <i class="fa fa-lock"></i> Admin</button>
-              <button onclick="verificarAmbiente('Aluno')" class="col-md-6 btn btn-theme " href="index.html" type="button">
-                  <i class="fa fa-lock"></i> Aluno</button>
-                  <br>
-                  <br>
-          </div>
+          
+          <button onclick="logar('aluno')" class="btn btn-theme btn-block" href="index.html" type="button"><i class="fa fa-lock"></i> ENTRAR</button>
+          <hr>    
+          
+          <button onclick="verificarAmbiente('Admin')" class="col-md-6 btn btn-theme  " href="index.html" type="button">
+            <i class="fa fa-lock"></i> Admin</button>
+            <button onclick="verificarAmbiente('Aluno')" class="col-md-6 btn btn-theme " href="index.html" type="button">
+                <i class="fa fa-lock"></i> Aluno</button>
+                <br>
+                <br>
+        </div>
+
+        <!-- Login por CPF -->
+        <div style="display:none" id="frmalunocpf" class="login-wrap">
+          <input name="loginalunocpf" id="loginalunocpf" type="text" class="form-control" placeholder="CPF" autofocus>
+          <br>
+          
+          <button onclick="logar('alunocpf')" class="btn btn-theme btn-block" href="index.html" type="button"><i class="fa fa-lock"></i> ENTRAR</button>
+          <hr>    
+          
+          <button onclick="verificarAmbiente('Admin')" class="col-md-6 btn btn-theme  " href="index.html" type="button">
+            <i class="fa fa-lock"></i> Admin</button>
+            <button onclick="verificarAmbiente('Aluno')" class="col-md-6 btn btn-theme " href="index.html" type="button">
+                <i class="fa fa-lock"></i> Aluno</button>
+                <br>
+                <br>
+        </div>
       </form>
 
 
@@ -81,7 +101,7 @@
       speed: 500
     });
 
-    $("#loginaluno").mask("000.000.000-00");
+    //$("#loginaluno").mask("000.000.000-00");
   </script>
 </body>
 

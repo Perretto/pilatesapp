@@ -12,6 +12,8 @@ router.route('/login/:login/:senha/:tipo').get(function(req, res) {
 
     if(tipo == "admin"){
         sql = "SELECT * FROM usuarios WHERE nm_login='" + login + "' AND nm_senha='" + senha + "'";
+    }else if(tipo == "aluno"){
+        sql = "SELECT * FROM alunos WHERE nm_login='" + login + "' AND nm_senha='" + senha + "'";
     }else{
         sql = "SELECT *,alunos.id AS id, 'Aluno' AS nm_tipousuario, estudios.id AS idestudio  FROM alunos LEFT JOIN estudios ON estudios.nm_nome=alunos.nm_estudio WHERE nm_cpf='" + login + "' AND alunos.sn_desativar=false";
     }
