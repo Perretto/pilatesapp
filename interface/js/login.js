@@ -46,6 +46,9 @@ function logar(tipo){
                         localStorage.setItem("tipo", data[0].nm_tipousuario);
                         localStorage.setItem("foto", data[0].img_foto);
 
+                        
+                        localStorage.setItem("semreposicao", data[0].sn_semreposicao);
+
                         if(data[0].idestudio){
                             localStorage.setItem("idestudio", data[0].idestudio);
                         }else{

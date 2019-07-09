@@ -234,10 +234,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
               htm += "    <br>";
               htm += "    <div >";
-              if(data[0].reposicao > 0){
-                htm += "        <h5 data-aulascreditos=" + data[0].reposicao + " style='text-align: center;'>Você tem " + data[0].reposicao + " aulas para reposição</h5>";
+
+              if(localStorage.getItem("semreposicao") == true || localStorage.getItem("semreposicao") == "true"){
+                htm += "        <h5 data-aulascreditos=0 style='text-align: center;'><br></h5> <br>";
               }else{
-                htm += "        <h5 data-aulascreditos=0 style='text-align: center;'>Você não tem aulas para reposição</h5>";
+                if(data[0].reposicao > 0){
+                  htm += "        <h5 data-aulascreditos=" + data[0].reposicao + " style='text-align: center;'>Você tem " + data[0].reposicao + " aulas para reposição</h5>";
+                }else{
+                  htm += "        <h5 data-aulascreditos=0 style='text-align: center;'>Você não tem aulas para reposição</h5>";
+                }
               }
               
               htm += "    </div>";
@@ -502,6 +507,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   
     function novaaula(horade, horaate, estudio) {
+
+        if(localStorage.getItem("semreposicao") == true || localStorage.getItem("semreposicao") == "true"){
+          iziToast.warning({
+              title: 'Não é possível marcar a aula! ',
+              message: 'Você não tem permissão para marcar aulas.',
+          });
+        return
+        }
+
         var dataatual = new Date();
         var strdata = $("#dataselecionada").attr("data-dataselecionada");
         var arrdata = strdata.split("/");
