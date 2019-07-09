@@ -80,12 +80,15 @@
             
       });
         
-      $.ajax({
-        url: "dashadmin.html",
-        context: document.body
-      }).done(function(data) {
-        $("#dash").html(data);
-      }); 
+      var tipo = localStorage.getItem("tipo");
+
+    
+        $.ajax({
+          url: "dashadmin.html",
+          context: document.body
+        }).done(function(data) {
+          $("#dash").html(data);
+        }); 
 
       return false;
     });

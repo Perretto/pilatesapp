@@ -2,13 +2,13 @@
 <ul class="sidebar-menu" id="nav-accordion">
     <p class="centered"><a href="#"><img id="foto" src="../img/usuario.jpg" class="img-circle" width="80"></a></p>
     <h5 id="username" class="centered">André Perretto de Andrade</h5>
-    <li class="mt">
+    <li data-access="administrador"  class="mt">
       <a class="active" href="../pages/index.html">
         <i class="fa fa-dashboard"></i>
         <span>Dashboard</span>
         </a>
     </li>
-    <li class="sub-menu">
+    <li  data-access="administrador" class="sub-menu">
       <a href="javascript:;">
         <i class="fa fa-desktop"></i>
         <span>Administrador</span>
@@ -24,13 +24,13 @@
         <span>Cadastros</span>
         </a>
       <ul class="sub">
-        <li><a href="alunos.html">Alunos</a></li>
-        <li><a href="professores.html">Professor</a></li>
-        <li><a href="planos.html">Planos</a></li>
-        <li><a href="tiposaulas.html">Tipos de aulas</a></li>
+        <li data-access="professor"><a href="alunos.html">Alunos</a></li>
+        <li  data-access="administrador"><a href="professores.html">Professor</a></li>
+        <li data-access="administrador"><a href="planos.html">Planos</a></li>
+        <li data-access="administrador"><a href="tiposaulas.html">Tipos de aulas</a></li>
       </ul>
     </li>
-    <li class="sub-menu">
+    <li  data-access="professor" class="sub-menu">
         <a href="calendario.html">
           <i class="fa fa-book"></i>
           <span>Calendário</span>

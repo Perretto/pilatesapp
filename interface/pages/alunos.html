@@ -1003,13 +1003,13 @@
 
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <button onclick="novo()" type="button" class="btn btn-primary">
+                                        <button id="novo" onclick="novo()" type="button" class="btn btn-primary">
                                             <i class="fa fa-edit"></i>
                                         </button>
-                                        <button onclick="savealuno('alunos')" type="button" class="btn btn-success">
+                                        <button id="gravar" onclick="savealuno('alunos')" type="button" class="btn btn-success">
                                             <i class="fa fa-save"></i>
                                         </button>
-                                        <button onclick="ondelete('alunos')" type="button" class="btn btn-danger">
+                                        <button id="deletar" onclick="ondelete('alunos')" type="button" class="btn btn-danger">
                                             <i class="fa fa-trash"></i>
                                         </button>
                                         <button onclick="createtable('alunos')" type="button" class="btn btn-warning">
@@ -1088,6 +1088,15 @@
     <script src="../lib/jquery-ui-1.9.2.custom.min.js"></script>
 
     <script>
+        var tipo = localStorage.getItem("tipo");
+        if(tipo == "Professor"){
+            $("#deletar").remove();
+            $("#gravar").remove();
+            $("#novo").remove();
+            $("input").prop('disabled', true);
+            $("select").prop('disabled', true);
+        }
+
         console.log("start")
         var url = "http://" + window.location.hostname + ":3003/api/planos/carregarplanos"
         $.ajax({

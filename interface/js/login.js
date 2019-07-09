@@ -52,12 +52,18 @@ function logar(tipo){
                             localStorage.setItem("idestudio", "");
                         }
                         
-
-                        if(tipo == "admin"){
-                            window.location.href = "http://" + window.location.host + "/pages/index.html";
-                        }else{
-                            window.location.href = "http://" + window.location.host + "/pages/aulas.html";
-                        }
+                        
+                            if(tipo == "admin"){
+                                if(data[0].nm_tipousuario == "Administrador"){
+                                    window.location.href = "http://" + window.location.host + "/pages/index.html";
+                                }else{
+                                    window.location.href = "http://" + window.location.host + "/pages/calendario.html";
+                                }
+                            }else{
+                                window.location.href = "http://" + window.location.host + "/pages/aulas.html";
+                            }
+                        
+                        
                     }else{
                         iziToast.error({
                             title: '',

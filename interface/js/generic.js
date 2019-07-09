@@ -99,6 +99,16 @@ function getuser(){
 
     //$("#tipousuario").html(tipo);
     
+    var tipo = localStorage.getItem("tipo");
+
+    switch (tipo) {
+        case "Professor":
+            $("[data-access='administrador']").hide();
+            break;    
+        default:
+            break;
+    }
+    
 
     dashtempo()
 }

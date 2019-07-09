@@ -241,6 +241,16 @@
 
                       $("#aulasmarcadasmes").html(html);
 
+                      var tipo = localStorage.getItem("tipo");
+
+                      switch (tipo) {
+                          case "Professor":
+                              $("[data-access='administrador']").hide();
+                              break;    
+                          default:
+                              break;
+                      }
+
                       $(".bar").each(function() {
                         var i = $(this).find(".value").html();
                         $(this).find(".value").html("");
