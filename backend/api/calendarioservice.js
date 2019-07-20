@@ -364,13 +364,51 @@ router.route('/gravar').post(function(req, res) {
         table = atable[atable.length - 1]
     }
     var parametros = req.body;
-    general.executeObj(table,parametros, function(ret){
-        res.send(ret);
-    })
+
+    verificarRemarcacao(parametros.dt_data, 0,parametros.nm_alunos, function(ver){
+        if(ver.length > 0){
+            res.send(ver);
+        }else{
+            verificarRemarcacao(parametros.dt_data, 1,parametros.nm_alunos, function(ver){
+                general.executeObj(table,parametros, function(ret){
+                    res.send(ret);
+                })
+            })
+        }        
+    })  
       
 })
 
-
+function verificarRemarcacao(data, quantidade,aluno, callback){
+    var arradata = data.split('/');
+    data = arradata[1] + "/" + arradata[0] + "/" + arradata[2];
+    var sql = "";
+    
+    if(quantidade == 0){
+        sql = "SELECT to_char(dt_data, 'DD-MM-YYYY') AS dt_data FROM aulas_canceladas ";
+        sql += "WHERE dt_data > CURRENT_DATE ";
+        sql += "AND nr_remarcacao IS NULL AND dt_data <> '" + data + "' AND nm_alunos='" + aluno + "'";
+        console.log(sql)
+        general.select(sql, function(ret){
+            callback(ret);               
+        }) 
+    }else if(quantidade == 1){
+        sql = "UPDATE aulas_canceladas SET nr_remarcacao=1 ";
+        sql += "WHERE dt_data > CURRENT_DATE ";
+        sql += "AND nr_remarcacao IS NULL AND dt_data = '" + data + "' AND nm_alunos='" + aluno + "'";
+        general.execute(sql, function(ret){
+            callback(ret); 
+        }) 
+    }else if(quantidade == 2){
+        sql = "SELECT to_char(dt_data, 'DD-MM-YYYY') AS dt_data FROM aulas_canceladas ";
+        sql += "WHERE dt_data > CURRENT_DATE ";
+        sql += "AND nr_remarcacao IS NULL OR (dt_data = '" + data + "' AND nr_remarcacao=1 ) AND nm_alunos='" + aluno + "'";
+        console.log(sql)
+        general.select(sql, function(ret){
+            callback(ret);               
+        }) 
+    }
+}
 
 router.route('/autocompletealunos/:id').get(function(req, res) {   
     var id = req.param('id');
@@ -385,19 +423,56 @@ router.route('/autocompletealunos/:id').get(function(req, res) {
 })
 
 
-router.route('/delete/:id').get(function(req, res) {
+router.route('/delete/:id/:data/:aluno').get(function(req, res) {
     var id = req.param('id');
+    var data = req.param('data');
+    var aluno = req.param('aluno');
     var atable = req.baseUrl.split("/");
     var table = "";
     if(atable.length > 0){
         table = atable[atable.length - 1]
     }
 
-    var sql = "DELETE FROM " + table + " WHERE id='" + id + "'";
-    general.execute(sql, function(ret){
-        res.send(ret);
-    })    
+    data = data.replace("-","/");
+    data = data.replace("-","/");
+
+    verificarRemarcacao(data,2 ,aluno, function(ver){
+        if(ver.length > 0){
+            ver.remarcacao = true;
+            res.send(ver);
+        }else{
+            insertAulaCancelada(id, function(){
+                var sql = "DELETE FROM " + table + " WHERE id='" + id + "'";
+                general.execute(sql, function(ret){
+                    res.send(ret);
+                }) 
+            })  
+        }
+    })     
 })
+
+function insertAulaCancelada(id, callback){
+    var sql = "SELECT * FROM aulas WHERE id='" + id + "'";
+    
+    general.select(sql, function(ret){
+
+        if(ret){
+            if(ret.length > 0){
+
+                var data = new Date(ret[0].dt_data)
+
+                var ins = "INSERT INTO aulas_canceladas (id, dt_data, nm_horade, nm_horaate, nm_alunos)";
+                ins += " VALUES('" + id + "','" + data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate() + "', '" + ret[0].nm_horade + "', '" + ret[0].nm_horaate + "','" + ret[0].nm_alunos + "' )";
+                console.log(ins)
+                general.execute(ins, function(ret){
+                    //res.send(ret);
+                    callback();
+                })                
+            }
+        }
+        
+    })  
+}
 
 
 router.route('/deleteaulas/:horade/:horaate/:estudio/:data').get(function(req, res) {

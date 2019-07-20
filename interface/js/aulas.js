@@ -571,6 +571,19 @@ document.addEventListener('DOMContentLoaded', function () {
                                             message: 'Registro salvo com sucesso!',
                                         });
                                         voltar();
+                                    }else if(data.length > 0){
+                                      var mensagem = "";
+                                      for (let index = 0; index < data.length; index++) {
+                                        const element = data[index];
+                                        
+                                        iziToast.warning({
+                                          title: 'Não é possível marcar a aula! ',
+                                          message:  "Você tem aula(s) no dia " + element.dt_data + " que só poderão ser repostas no mesmo dia.",
+                                        });
+                                    
+                                        
+                                      }
+                                      
                                     }                                
                                 }                        
                             }
@@ -654,23 +667,39 @@ document.addEventListener('DOMContentLoaded', function () {
             ['<button><b>SIM</b></button>', function (instance, toast) {
       
               instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');    
-    
-    
+        
               var dataselec = $("#dataselecionada").attr("data-dataselecionada");
               dataselec = dataselec.replace("/","-");
               dataselec = dataselec.replace("/","-");
               dataselec = dataselec.replace("/","-");
+
+              var aluno = localStorage.getItem("userid");
     
-              var url = "http://" + window.location.hostname + ":3003/api/aulas/delete/" + id
+              var url = "http://" + window.location.hostname + ":3003/api/aulas/delete/" + id + "/" + dataselec + "/" + aluno
               $.ajax({
                 url: url,
                 context: document.body
-              }).done(function (data) {   
-                iziToast.success({
+              }).done(function (data) {  
+                if(data.length){
+                  if(data.length > 0){
+                    var mensagem = "";
+                    for (let index = 0; index < data.length; index++) {
+                      const element = data[index];
+                      
+                      iziToast.warning({
+                        title: 'Não é possível desmarcar a aula! ',
+                        message:  "Você tem aula(s) no dia " + element.dt_data + " que só poderão ser repostas no mesmo dia.",
+                      });
+                    }
+                  }     
+                }else{
+                  iziToast.success({
                     title: '',
                     message: 'Registro deletado com sucesso!',
-                });
-                voltar();
+                  });
+                  voltar();
+                }
+                
               });
     
             }, true],
