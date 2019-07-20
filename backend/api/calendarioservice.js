@@ -402,7 +402,7 @@ function verificarRemarcacao(data, quantidade,aluno, callback){
     }else if(quantidade == 2){
         sql = "SELECT to_char(dt_data, 'DD-MM-YYYY') AS dt_data FROM aulas_canceladas ";
         sql += "WHERE dt_data > CURRENT_DATE ";
-        sql += "AND nr_remarcacao IS NULL OR (dt_data = '" + data + "' AND nr_remarcacao=1 ) AND nm_alunos='" + aluno + "'";
+        sql += "AND nr_remarcacao IS NULL AND nm_alunos='" + aluno + "' OR (dt_data = '" + data + "' AND nr_remarcacao=1 AND nm_alunos='" + aluno + "') ";
         console.log(sql)
         general.select(sql, function(ret){
             callback(ret);               
