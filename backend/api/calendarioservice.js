@@ -410,6 +410,24 @@ function verificarRemarcacao(data, quantidade,aluno, callback){
     }
 }
 
+router.route('/dataexpiracao/:aluno').get(function(req, res) {     
+    var aluno = req.param('aluno');
+
+    sql = "SELECT to_char(dt_data + 14, 'DD-MM-YYYY') AS dt_data FROM aulas_canceladas ";
+    sql += "WHERE dt_data > CURRENT_DATE ";
+    sql += "AND nr_remarcacao IS NULL AND nm_alunos='" + aluno + "'";
+    console.log(sql)
+    general.select(sql, function(ret){
+        var data;
+        if(ret){
+            if(ret.length > 0){
+                data = ret[0].dt_data;
+            }
+        }
+        res.send(data);              
+    }) 
+})
+
 router.route('/autocompletealunos/:id').get(function(req, res) {   
     var id = req.param('id');
     var sql = "SELECT nm_nome AS text, id AS value FROM alunos ";

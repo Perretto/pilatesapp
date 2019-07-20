@@ -88,376 +88,410 @@ document.addEventListener('DOMContentLoaded', function () {
 
       //Swal.fire(data)
       var htmllista = "";
-  
-      var url = "http://" + window.location.hostname + ":3003/api/aulas/listaaulasaluno/" + data + "/" + estudio + "/" + id
+
+      var url = "http://" + window.location.hostname + ":3003/api/aulas/dataexpiracao/" + id
       $.ajax({
         url: url,
         type: "GET",
-        dataType: "json",
+        dataType: "text",
         contentType: "application/json; charset=utf-8",
         async: false,
         crossDomain: true,
-      }).success(function (data) {
-        $("#listahorarios").html("");
-        var estudio = $("#nm_estudio").val();
+      }).success(function (dataexpiracao) {
+        
+
+
+
   
-        if (data) {
-          if (data.length) {
-            if(!data[0].disponivel){
-              var htm = "";
-              htm += "<section class=\"task-panel tasks-widget\">";
-              htm += "  <div class=\"panel-heading\">";
-              htm += "  <div class=\" col-md-12\">";
+        var url = "http://" + window.location.hostname + ":3003/api/aulas/listaaulasaluno/" + data + "/" + estudio + "/" + id
+        $.ajax({
+          url: url,
+          type: "GET",
+          dataType: "json",
+          contentType: "application/json; charset=utf-8",
+          async: false,
+          crossDomain: true,
+        }).success(function (data) {
+          $("#listahorarios").html("");
+          var estudio = $("#nm_estudio").val();
+    
+          if (data) {
+            if (data.length) {
+              if(!data[0].disponivel){
+                var htm = "";
+                htm += "<section class=\"task-panel tasks-widget\">";
+                htm += "  <div class=\"panel-heading\">";
+                htm += "  <div class=\" col-md-12\">";
 
-              var dia = d.getDate() - 1;
-              var mes = d.getMonth() + 1;
-              var ano = d.getFullYear();
-              var dataant = d;
-              if(dia == 0){
-                dataant.setDate(dataant.getDate() - 1);
-                dia = dataant.getDate();
-                mes = dataant.getMonth() + 1;
-                ano = dataant.getFullYear();
-                dataant.setDate(dataant.getDate() + 1);
-              }
-
-              var dataanterior = mes + "/" + dia + "/" + ano;
-              
-              var diaapos = d.getDate() + 1;
-              var mesapos = d.getMonth() + 1;
-              var anoapos = d.getFullYear();
-              var dataapos = d;
-              var ultimoDia = new Date(dataapos.getFullYear(), dataapos.getMonth() + 1, 0);
-              if(diaapos > ultimoDia.getDate()){
-                diaapos = 1;
-                mesapos += 1;
-                if(mesapos == 13){
-                  mesapos = 1;
-                  anoapos += 1;
+                var dia = d.getDate() - 1;
+                var mes = d.getMonth() + 1;
+                var ano = d.getFullYear();
+                var dataant = d;
+                if(dia == 0){
+                  dataant.setDate(dataant.getDate() - 1);
+                  dia = dataant.getDate();
+                  mes = dataant.getMonth() + 1;
+                  ano = dataant.getFullYear();
+                  dataant.setDate(dataant.getDate() + 1);
                 }
-                anoapos = dataapos.getFullYear();
-              }
 
-              if(diaselecionado == diaapos){
-                diaapos += 1
-              }
-
-              var dataapos = mesapos + "/" + diaapos + "/" + anoapos;
-
-              htm += "<div class='col-md-6 col-sx-6'>"
-              htm += "<button id=\"btnvoltar\"  onclick=\"horariosaulas('','" + dataanterior + "')\"  type=\"button\" class=\"btn  btn-warning\" style=\"background-color:#8a12b1\">";
-              htm += "    <i class=\"fa fa-long-arrow-left\"></i>";
-              htm += "</button>";
-              htm += "    </div>";
-
-              
-              htm += "<div class='col-md-6 col-sx-6'>"
-              htm += "<button  style=\"float:right;background-color:#4ecdc4\" id=\"btnapos\"  onclick=\"horariosaulas('','" + dataapos + "')\"  type=\"button\" class=\"btn  btn-warning \">";
-              htm += "    <i class=\"fa fa-long-arrow-right\"></i>";
-              htm += "</button>";
-              htm += "    </div>";
-              
-              htm += "    </div>";
-
-              
-              htm += "<div style='text-align:center' class='col-md-12'>"
-              htm += "    <h4 style=\"display: inline;\"><i id=\"dataselecionada\" data-dataselecionada=\"" + data[0].data +  "\" ></i>" + data[0].semana + " - " + data[0].data + "</h4>";
-              htm += "    </div>";
-
-              htm += "    </div>";
-              var indisponivel = "<h3 style='text-align: center;'>Data indisponível</h3>"
-              htm += indisponivel 
-              htm += "    </section>";
-              $("#listahorarios").append(htm);              
-            }else{
-              var htm = "";
-              htm += "<section class=\"task-panel tasks-widget\">";
-              htm += "  <div class=\"panel-heading\">";
-              htm += "  <div class=\"  col-md-12\">";
-              
-              var dia = d.getDate() - 1;
-              var mes = d.getMonth() + 1;
-              var ano = d.getFullYear();
-              
-              if(dia == 0){
-                d.setDate(d.getDate() - 1);
-                dia = d.getDate();
-                mes = d.getMonth() + 1;
-                ano = d.getFullYear();
-                //dataant.setDate(dataant.getDate() + 1);
-              }
-
-              var dataanterior = mes + "/" + dia + "/" + ano;
-              
-              var diaapos = d.getDate() + 1;
-              var mesapos = d.getMonth() + 1;
-              var anoapos = d.getFullYear();
-              var dataapos = d;
-              var ultimoDia = new Date(dataapos.getFullYear(), dataapos.getMonth() + 1, 0);
-              if(diaapos > ultimoDia.getDate()){
-                diaapos = 1;
-                mesapos += 1;
-                if(mesapos == 13){
-                  mesapos = 1;
-                  anoapos += 1;
+                var dataanterior = mes + "/" + dia + "/" + ano;
+                
+                var diaapos = d.getDate() + 1;
+                var mesapos = d.getMonth() + 1;
+                var anoapos = d.getFullYear();
+                var dataapos = d;
+                var ultimoDia = new Date(dataapos.getFullYear(), dataapos.getMonth() + 1, 0);
+                if(diaapos > ultimoDia.getDate()){
+                  diaapos = 1;
+                  mesapos += 1;
+                  if(mesapos == 13){
+                    mesapos = 1;
+                    anoapos += 1;
+                  }
+                  anoapos = dataapos.getFullYear();
                 }
-                anoapos = dataapos.getFullYear();
-              }
 
-              
-              if(diaselecionado == diaapos){
-                diaapos += 1
-              }
-              
-              var dataapos = mesapos + "/" + diaapos + "/" + anoapos;
+                if(diaselecionado == diaapos){
+                  diaapos += 1
+                }
 
-              //htm += "<div class='col-md-6 col-sx-6'>"
-              htm += "<button id=\"btnvoltar\"  onclick=\"horariosaulas('','" + dataanterior + "')\"  type=\"button\" class=\"btn  btn-warning\" style=\"background-color:#8a12b1\">";
-              htm += "    <i class=\"fa fa-long-arrow-left\"></i>";
-              htm += "</button>";
-              //htm += "    </div>";
-              
-             
-              //htm += "<div class='col-md-6 col-sx-6'>"
-              htm += "<button style=\"float:right;background-color:#4ecdc4\" id=\"btnapos\"  onclick=\"horariosaulas('','" + dataapos + "')\"  type=\"button\" class=\"btn btn-warning\">";
-              htm += "    <i class=\"fa fa-long-arrow-right\"></i>";
-              htm += "</button>";  
-              //htm += "    </div>"; 
-              
-              htm += "    </div>";
- 
-              
-              htm += "<div style='text-align:center' class='col-md-12'>"
-              htm += "    <h4 style=\"display: inline; \"><i id=\"dataselecionada\" data-dataselecionada=\"" + data[0].data +  "\" ></i>" + data[0].semana + " - " + data[0].data + "</h4>";
-              
-              htm += "    </div>";
+                var dataapos = mesapos + "/" + diaapos + "/" + anoapos;
 
-              htm += "    <br>";
-              htm += "    <div >";
+                htm += "<div class='col-md-6 col-sx-6'>"
+                htm += "<button id=\"btnvoltar\"  onclick=\"horariosaulas('','" + dataanterior + "')\"  type=\"button\" class=\"btn  btn-warning\" style=\"background-color:#8a12b1\">";
+                htm += "    <i class=\"fa fa-long-arrow-left\"></i>";
+                htm += "</button>";
+                htm += "    </div>";
 
-              if(localStorage.getItem("semreposicao") == true || localStorage.getItem("semreposicao") == "true"){
-                htm += "        <h5 data-aulascreditos=0 style='text-align: center;'><br></h5> <br>";
+                
+                htm += "<div class='col-md-6 col-sx-6'>"
+                htm += "<button  style=\"float:right;background-color:#4ecdc4\" id=\"btnapos\"  onclick=\"horariosaulas('','" + dataapos + "')\"  type=\"button\" class=\"btn  btn-warning \">";
+                htm += "    <i class=\"fa fa-long-arrow-right\"></i>";
+                htm += "</button>";
+                htm += "    </div>";
+                
+                htm += "    </div>";
+
+                
+                htm += "<div style='text-align:center' class='col-md-12'>"
+                htm += "    <h4 style=\"display: inline;\"><i id=\"dataselecionada\" data-dataselecionada=\"" + data[0].data +  "\" ></i>" + data[0].semana + " - " + data[0].data + "</h4>";
+                htm += "    </div>";
+
+                
+                if(dataexpiracao){
+                  htm += "<div style='text-align:center' class='col-md-12'>"
+                  htm += "    <h5 style=\"display: inline;\">Data de expiração da aula: ";
+                  htm +=  dataexpiracao;
+                  htm += "    </h5>";
+                  htm += "    </div>";
+                }
+
+                htm += "    </div>";
+                var indisponivel = "<h3 style='text-align: center;'>Data indisponível</h3>"
+                htm += indisponivel 
+                htm += "    </section>";
+                $("#listahorarios").append(htm);              
               }else{
-                if(data[0].reposicao > 0){
-                  htm += "        <h5 data-aulascreditos=" + data[0].reposicao + " style='text-align: center;'>Você tem " + data[0].reposicao + " aulas para reposição</h5>";
-                }else{
-                  htm += "        <h5 data-aulascreditos=0 style='text-align: center;'>Você não tem aulas para reposição</h5>";
+                var htm = "";
+                htm += "<section class=\"task-panel tasks-widget\">";
+                htm += "  <div class=\"panel-heading\">";
+                htm += "  <div class=\"  col-md-12\">";
+                
+                var dia = d.getDate() - 1;
+                var mes = d.getMonth() + 1;
+                var ano = d.getFullYear();
+                
+                if(dia == 0){
+                  d.setDate(d.getDate() - 1);
+                  dia = d.getDate();
+                  mes = d.getMonth() + 1;
+                  ano = d.getFullYear();
+                  //dataant.setDate(dataant.getDate() + 1);
                 }
-              }
+
+                var dataanterior = mes + "/" + dia + "/" + ano;
+                
+                var diaapos = d.getDate() + 1;
+                var mesapos = d.getMonth() + 1;
+                var anoapos = d.getFullYear();
+                var dataapos = d;
+                var ultimoDia = new Date(dataapos.getFullYear(), dataapos.getMonth() + 1, 0);
+                if(diaapos > ultimoDia.getDate()){
+                  diaapos = 1;
+                  mesapos += 1;
+                  if(mesapos == 13){
+                    mesapos = 1;
+                    anoapos += 1;
+                  }
+                  anoapos = dataapos.getFullYear();
+                }
+
+                
+                if(diaselecionado == diaapos){
+                  diaapos += 1
+                }
+                
+                var dataapos = mesapos + "/" + diaapos + "/" + anoapos;
+
+                //htm += "<div class='col-md-6 col-sx-6'>"
+                htm += "<button id=\"btnvoltar\"  onclick=\"horariosaulas('','" + dataanterior + "')\"  type=\"button\" class=\"btn  btn-warning\" style=\"background-color:#8a12b1\">";
+                htm += "    <i class=\"fa fa-long-arrow-left\"></i>";
+                htm += "</button>";
+                //htm += "    </div>";
+                
               
-              htm += "    </div>";
-              htm += "    <br>";
-              htm += "    </div>";
-              htm += "    <div class=\"panel-body\">";
-              htm += "    <div id=\"aulaslista\" class=\"task-content\">";
-              htm += "      <ul class=\"task-list\">";
-    
-              var horadefunc = data[0].horadefunc;
-              var horaatefunc = data[0].horaatefunc;
-    
-              var inthoradefunc = parseInt(horadefunc);
-              var inthoraatefunc = parseInt(horaatefunc);
-              var list = [];
-    
-              for (let index = 0; index < 24; index++) {
-                if (index >= inthoradefunc && index <= inthoraatefunc) {
-                  if (data.length > 0) {
-                    var disponivel = true;
-    
-                    for (let j = 0; j < data.length; j++) {
-                      const element = data[j];
-                      var intloophorade = parseInt(element.horade);
-    
-                      if (intloophorade == index) {
-                        if (disponivel) {
-                          var quantidadealunos = 0;
-                          var htmlAlunos = "";
-    
-                          for (let k = 0; k < data.length; k++) {
-                            const elementAluno = data[k];
-                            var intloophoradeAluno = parseInt(elementAluno.horade);
-                            if (intloophoradeAluno == index) {
-                              if (!elementAluno.obs) {
-                                elementAluno.obs = "";
-                              }
-                              htmlAlunos += "<a href='#' onclick=\"deleteaulas('" + elementAluno.id + "','" + elementAluno.horade + "')\">";
-                              htmlAlunos += "<div style=\"padding-top: 10px;\">";
-                              htmlAlunos += " <h4 style=\"display: inline;margin-left: 40%;font-weight: bold;padding-top:10px\"><i class=\"fa fa-close\"></i></h4><h4 style=\"display: inline;font-weight: bold;font-weight: bold;\"></h4><h4 style=\"display: inline;\">Cancelar aula</h4>";
-                              
-                              if(elementAluno.obs){
-                                  htmlAlunos += "<h4 style=\"display: inline;font-weight: bold;\"> - Obs: </h4><h4 style=\"display: inline;\">" + elementAluno.obs + "</h4>";
-                              }
+                //htm += "<div class='col-md-6 col-sx-6'>"
+                htm += "<button style=\"float:right;background-color:#4ecdc4\" id=\"btnapos\"  onclick=\"horariosaulas('','" + dataapos + "')\"  type=\"button\" class=\"btn btn-warning\">";
+                htm += "    <i class=\"fa fa-long-arrow-right\"></i>";
+                htm += "</button>";  
+                //htm += "    </div>"; 
+                
+                htm += "    </div>";
+  
+                
+                htm += "<div style='text-align:center' class='col-md-12'>"
+                htm += "    <h4 style=\"display: inline; \"><i id=\"dataselecionada\" data-dataselecionada=\"" + data[0].data +  "\" ></i>" + data[0].semana + " - " + data[0].data + "</h4>";
+                
+                htm += "    </div>";
+                htm += "    <br>";
 
-                              htmlAlunos += "<\div>";
-                              htmlAlunos += "<\a>";
-    
-                              quantidadealunos += 1;
-                            }
-                          }
-    
-                          
-                          if(element.experimental){
-                            htm += "<li class='liid_" + index + " experimental '>";
-    
-                            htm += "<a href=\"#\" onclick=\"opendiv('divid_" + index + "')\">";
-                            htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-down\"></i>";
-                            htm += "  <div  style=\"font-size: 20x;display: inline;\" class=\"task-title\">";
-                            htm += "    <span style=\"font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\"> " + element.horade + " - " + element.horaate + "</span>";
+                if(dataexpiracao){
+                  htm += "<div style='text-align:center' class='col-md-12'>"
+                  htm += "    <h5 style=\"display: inline;\">Data de expiração da aula: ";
+                  htm +=  dataexpiracao;
+                  htm += "    </h5>";
+                  htm += "    </div>";
+                }
+               
 
-                            htm += "    <span style=\"font-size: 20x;\" class=\"task-title-sp\"> - Você tem uma aula experimental marcada</span>";
-                          }else{
-                            htm += "<li class='liid_" + index + " aulamarcada' >";
+                htm += "    <div >";
+
+                if(localStorage.getItem("semreposicao") == true || localStorage.getItem("semreposicao") == "true"){
+                  htm += "        <h5 data-aulascreditos=0 style='text-align: center;'><br></h5> <br>";
+                }else{
+                  if(data[0].reposicao > 0){
+                    htm += "        <h5 data-aulascreditos=" + data[0].reposicao + " style='text-align: center;'>Você tem " + data[0].reposicao + " aulas para reposição</h5>";
+                  }else{
+                    htm += "        <h5 data-aulascreditos=0 style='text-align: center;'>Você não tem aulas para reposição</h5>";
+                  }
+                }
+                
+                htm += "    </div>";
+                htm += "    <br>";
+                htm += "    </div>";
+                htm += "    <div class=\"panel-body\">";
+                htm += "    <div id=\"aulaslista\" class=\"task-content\">";
+                htm += "      <ul class=\"task-list\">";
       
-                            htm += "<a href=\"#\" onclick=\"opendiv('divid_" + index + "')\">";
-                            htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-down\"></i>";
-                            htm += "  <div  style=\"font-size: 20x;display: inline;\" class=\"task-title\">";
-                            htm += "    <span style=\"font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\"> " + element.horade + " - " + element.horaate + "</span>";
+                var horadefunc = data[0].horadefunc;
+                var horaatefunc = data[0].horaatefunc;
+      
+                var inthoradefunc = parseInt(horadefunc);
+                var inthoraatefunc = parseInt(horaatefunc);
+                var list = [];
+      
+                for (let index = 0; index < 24; index++) {
+                  if (index >= inthoradefunc && index <= inthoraatefunc) {
+                    if (data.length > 0) {
+                      var disponivel = true;
+      
+                      for (let j = 0; j < data.length; j++) {
+                        const element = data[j];
+                        var intloophorade = parseInt(element.horade);
+      
+                        if (intloophorade == index) {
+                          if (disponivel) {
+                            var quantidadealunos = 0;
+                            var htmlAlunos = "";
+      
+                            for (let k = 0; k < data.length; k++) {
+                              const elementAluno = data[k];
+                              var intloophoradeAluno = parseInt(elementAluno.horade);
+                              if (intloophoradeAluno == index) {
+                                if (!elementAluno.obs) {
+                                  elementAluno.obs = "";
+                                }
+                                htmlAlunos += "<a href='#' onclick=\"deleteaulas('" + elementAluno.id + "','" + elementAluno.horade + "')\">";
+                                htmlAlunos += "<div style=\"padding-top: 10px;\">";
+                                htmlAlunos += " <h4 style=\"display: inline;margin-left: 40%;font-weight: bold;padding-top:10px\"><i class=\"fa fa-close\"></i></h4><h4 style=\"display: inline;font-weight: bold;font-weight: bold;\"></h4><h4 style=\"display: inline;\">Cancelar aula</h4>";
+                                
+                                if(elementAluno.obs){
+                                    htmlAlunos += "<h4 style=\"display: inline;font-weight: bold;\"> - Obs: </h4><h4 style=\"display: inline;\">" + elementAluno.obs + "</h4>";
+                                }
 
-                            htm += "    <span style=\"font-size: 20x;\" class=\"task-title-sp\"> - Você tem aula marcada</span>";
+                                htmlAlunos += "<\div>";
+                                htmlAlunos += "<\a>";
+      
+                                quantidadealunos += 1;
+                              }
+                            }
+      
+                            
+                            if(element.experimental){
+                              htm += "<li class='liid_" + index + " experimental '>";
+      
+                              htm += "<a href=\"#\" onclick=\"opendiv('divid_" + index + "')\">";
+                              htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-down\"></i>";
+                              htm += "  <div  style=\"font-size: 20x;display: inline;\" class=\"task-title\">";
+                              htm += "    <span style=\"font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\"> " + element.horade + " - " + element.horaate + "</span>";
+
+                              htm += "    <span style=\"font-size: 20x;\" class=\"task-title-sp\"> - Você tem uma aula experimental marcada</span>";
+                            }else{
+                              htm += "<li class='liid_" + index + " aulamarcada' >";
+        
+                              htm += "<a href=\"#\" onclick=\"opendiv('divid_" + index + "')\">";
+                              htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-down\"></i>";
+                              htm += "  <div  style=\"font-size: 20x;display: inline;\" class=\"task-title\">";
+                              htm += "    <span style=\"font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\"> " + element.horade + " - " + element.horaate + "</span>";
+
+                              htm += "    <span style=\"font-size: 20x;\" class=\"task-title-sp\"> - Você tem aula marcada</span>";
+                            }
+                            
+      
+                            htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
+                            htm += "      <a href=\"#\" onclick=\"novaaula('" + element.horade + "','" + element.horaate + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
+                            htm += "      <a href=\"#\" onclick=\"deleteaulas('" + element.horade + "','" + element.horaate + "','" + estudio + "')\" class=\"btn btn-danger btn-xs\"><i class=\"fa fa-trash-o \"></i></a>";
+                            htm += "    </div>";
+                            htm += "  </div>";
+                            htm += "</a>";
+      
+                            htm += "  <div style='display:none;padding: 10px;' id='divid_" + index + "'>";
+      
+                            htm += htmlAlunos
+                            htm += "  </div>";
+                            htm += "</li>";
+      
+      
+                            disponivel = false;
+                            list.push(index);
                           }
+                        } else {
+                          if (list.indexOf(index) == -1) {
+                            htm += "<a href=\"#\"> ";
                           
-    
+                            
+
+                            if(data[0].capacidadehorario[index].horariodisponivel){ 
+                              htm += "<li onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\"  class='liid_" + index + " disponivel horadisponivel'>";
+                              htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
+                              htm += "  <div style=\"display: inline;\" class=\"task-title\">";
+                              htm += "    <span style=\"color: white;font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
+                              htm += "    <span style=\"color: white;font-size: 20x;\" class=\"task-title-sp\"> - Disponível</span>";    
+                              htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
+                              htm += "      <a href=\"#\" onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
+                              htm += "    </div>";
+                            }else{
+                              htm += "<li onclick=\"aulaindisponivel('1')\"  class='liid_" + index + "   horaindisponivel'>";
+                              htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
+                              htm += "  <div style=\"display: inline;\" class=\"task-title\">";
+                              htm += "    <span style=\"color: white;font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
+                              htm += "    <span style=\"color: white;font-size: 20x;\" class=\"task-title-sp\"> - Indisponível</span>"; 
+                              htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
+                              htm += "      <a href=\"#\"  class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
+                              htm += "    </div>";
+                            }
+                            
+
+
+                            htm += "  </div>";
+                            htm += "</li>";
+                            htm += "</a>";
+                            list.push(index);
+                          }
+      
+                        }
+                      }
+                    } else {
+                      if (list.indexOf(index) == -1) {
+                        
+                        
+                        if(data[0].capacidadehorario[index].horariodisponivel){
+                          htm += "<li class='liid_" + index + " disponivel horadisponivel'>";
+                          htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
+                          htm += "  <div style=\"display: inline;\" class=\"task-title \">";
+                          htm += "    <span style=\"color: white;font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
+                          htm += "    <span style=\"color: white;font-size: 20x;\" class=\"task-title-sp\"> - Disponível</span>";    
                           htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
-                          htm += "      <a href=\"#\" onclick=\"novaaula('" + element.horade + "','" + element.horaate + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
-                          htm += "      <a href=\"#\" onclick=\"deleteaulas('" + element.horade + "','" + element.horaate + "','" + estudio + "')\" class=\"btn btn-danger btn-xs\"><i class=\"fa fa-trash-o \"></i></a>";
+                          htm += "      <a href=\"#\" onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
                           htm += "    </div>";
                           htm += "  </div>";
-                          htm += "</a>";
-    
-                          htm += "  <div style='display:none;padding: 10px;' id='divid_" + index + "'>";
-    
-                          htm += htmlAlunos
+                        }else{
+                          htm += "<li class='liid_" + index + "   horaindisponivel'>";
+                          htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
+                          htm += "  <div style=\"display: inline;\" class=\"task-title \">";
+                          htm += "    <span style=\"color: white;font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
+                          htm += "    <span style=\"color: white;font-size: 20x;\" class=\"task-title-sp\"> - Indisponível</span>"; 
+                          htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
+                          htm += "      <a href=\"#\"  class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
+                          htm += "    </div>";
                           htm += "  </div>";
-                          htm += "</li>";
-    
-    
-                          disponivel = false;
-                          list.push(index);
                         }
-                      } else {
-                        if (list.indexOf(index) == -1) {
-                          htm += "<a href=\"#\"> ";
-                         
-                          
-
-                          if(data[0].capacidadehorario[index].horariodisponivel){ 
-                            htm += "<li onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\"  class='liid_" + index + " disponivel horadisponivel'>";
-                            htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
-                            htm += "  <div style=\"display: inline;\" class=\"task-title\">";
-                            htm += "    <span style=\"color: white;font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
-                            htm += "    <span style=\"color: white;font-size: 20x;\" class=\"task-title-sp\"> - Disponível</span>";    
-                            htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
-                            htm += "      <a href=\"#\" onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
-                            htm += "    </div>";
-                          }else{
-                            htm += "<li onclick=\"aulaindisponivel('1')\"  class='liid_" + index + "   horaindisponivel'>";
-                            htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
-                            htm += "  <div style=\"display: inline;\" class=\"task-title\">";
-                            htm += "    <span style=\"color: white;font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
-                            htm += "    <span style=\"color: white;font-size: 20x;\" class=\"task-title-sp\"> - Indisponível</span>"; 
-                            htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
-                            htm += "      <a href=\"#\"  class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
-                            htm += "    </div>";
-                          }
-                          
+                        
 
 
-                          htm += "  </div>";
-                          htm += "</li>";
-                          htm += "</a>";
-                          list.push(index);
-                        }
-    
+                        htm += "</li>";
+                        list.push(index);
                       }
-                    }
-                  } else {
-                    if (list.indexOf(index) == -1) {
-                      
-                      
-                      if(data[0].capacidadehorario[index].horariodisponivel){
-                        htm += "<li class='liid_" + index + " disponivel horadisponivel'>";
-                        htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
-                        htm += "  <div style=\"display: inline;\" class=\"task-title \">";
-                        htm += "    <span style=\"color: white;font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
-                        htm += "    <span style=\"color: white;font-size: 20x;\" class=\"task-title-sp\"> - Disponível</span>";    
-                        htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
-                        htm += "      <a href=\"#\" onclick=\"novaaula('" + index + "','" + (index + 1) + "','" + estudio + "')\" class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
-                        htm += "    </div>";
-                        htm += "  </div>";
-                      }else{
-                        htm += "<li class='liid_" + index + "   horaindisponivel'>";
-                        htm += "  <i style=\"display: inline;font-size: large;\" class=\"fa fa-arrow-circle-right\"></i>";
-                        htm += "  <div style=\"display: inline;\" class=\"task-title \">";
-                        htm += "    <span style=\"color: white;font-size: 20x;padding-left: 10px;\" class=\"task-title-sp\">" + index + " - " + (index + 1) + "</span>";
-                        htm += "    <span style=\"color: white;font-size: 20x;\" class=\"task-title-sp\"> - Indisponível</span>"; 
-                        htm += "    <div style='display:none' class=\"pull-right hidden-phone\">";
-                        htm += "      <a href=\"#\"  class=\"btn btn-success btn-xs\"><i class=\" fa fa-check\"></i></a>";
-                        htm += "    </div>";
-                        htm += "  </div>";
-                      }
-                      
-
-
-                      htm += "</li>";
-                      list.push(index);
                     }
                   }
                 }
-              }
-    
-              htm += "      </ul>";
-              htm += "  </div>";
-              htm += "  </div>";
-              htm += "</section>";
-              $("#listahorarios").append(htm);
-
-              $(".horadisponivel a").attr("style", "color:white");
-              $(".horaindisponivel a").attr("style", "color:white");
-              $(".aulamarcada a").attr("style", "color:white");
-              $(".experimental a").attr("style", "color:white");
-
-
-              $(".task-title-sp").attr("style", "font-size:20px");
-    
-              for (let index = 0; index < 24; index++) {
-                if ($(".liid_" + index).length > 1) {
-                  $(".liid_" + index + ".disponivel").remove();
-                }
-              }
-
-              
       
-              data = $("#dataselecionada").attr("data-dataselecionada");
-              data = data.replace("/", "-").replace("/", "-")
-              var arrayData = data.split("-");
-      
-              url = "http://" + window.location.hostname + ":3003/api/aulas/horariointervalos/" + arrayData[2] + "-" + arrayData[1] + "-" + arrayData[0] + "/" + estudio
-              $.ajax({
-                url: url,
-                type: "GET",
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                async: false,
-                crossDomain: true,
-              }).success(function (data) {
-                for (let index = 0; index < data.length; index++) {
-                  const element = data[index];
-                  $(".liid_" + element.nm_horade).remove();
-                }
-              })
+                htm += "      </ul>";
+                htm += "  </div>";
+                htm += "  </div>";
+                htm += "</section>";
+                $("#listahorarios").append(htm);
 
+                $(".horadisponivel a").attr("style", "color:white");
+                $(".horaindisponivel a").attr("style", "color:white");
+                $(".aulamarcada a").attr("style", "color:white");
+                $(".experimental a").attr("style", "color:white");
+
+
+                $(".task-title-sp").attr("style", "font-size:20px");
+      
+                for (let index = 0; index < 24; index++) {
+                  if ($(".liid_" + index).length > 1) {
+                    $(".liid_" + index + ".disponivel").remove();
+                  }
+                }
+
+                
+        
+                data = $("#dataselecionada").attr("data-dataselecionada");
+                data = data.replace("/", "-").replace("/", "-")
+                var arrayData = data.split("-");
+        
+                url = "http://" + window.location.hostname + ":3003/api/aulas/horariointervalos/" + arrayData[2] + "-" + arrayData[1] + "-" + arrayData[0] + "/" + estudio
+                $.ajax({
+                  url: url,
+                  type: "GET",
+                  dataType: "json",
+                  contentType: "application/json; charset=utf-8",
+                  async: false,
+                  crossDomain: true,
+                }).success(function (data) {
+                  for (let index = 0; index < data.length; index++) {
+                    const element = data[index];
+                    $(".liid_" + element.nm_horade).remove();
+                  }
+                })
+
+              }
             }
           }
-        }
-  
-       /*
-        var btnvoltar = "<button id=\"btnvoltar\"  onclick=\"voltar()\"  type=\"button\" class=\"btn btn-warning\">";
-        btnvoltar += "    <i class=\"fa fa-long-arrow-left\"></i>";
-        btnvoltar += "</button>";
-        $("#listahorarios").append(btnvoltar);
-*/
+    
+        /*
+          var btnvoltar = "<button id=\"btnvoltar\"  onclick=\"voltar()\"  type=\"button\" class=\"btn btn-warning\">";
+          btnvoltar += "    <i class=\"fa fa-long-arrow-left\"></i>";
+          btnvoltar += "</button>";
+          $("#listahorarios").append(btnvoltar);
+  */
+        });
+        console.log(dataexpiracao)
       });
-  
+
       $("#calendar").hide();
       $("#listahorarios").show();
       //$("#nm_estudio").hide();
