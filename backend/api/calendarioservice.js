@@ -38,7 +38,7 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
     sql += " FROM aulas ";
     sql += " INNER JOIN alunos ON alunos.id=aulas.nm_alunos ";
     sql += " INNER JOIN estudios ON estudios.id=aulas.nm_estudio ";
-    sql += " WHERE aulas.dt_data='" + data + "' AND estudios.id='" + estudio + "'";
+    sql += " WHERE aulas.status IS NULL AND aulas.dt_data='" + data + "' AND estudios.id='" + estudio + "'";
     sql += " ORDER BY aulas.nm_horade ";
 
     general.select(sql, function(ret){
@@ -156,7 +156,7 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
     sql += " FROM aulas ";
     sql += " INNER JOIN alunos ON alunos.id=aulas.nm_alunos ";
     sql += " INNER JOIN estudios ON estudios.id=aulas.nm_estudio ";
-    sql += " WHERE aulas.dt_data='" + data + "' AND aulas.nm_alunos='" + id + "' AND aulas.nm_estudio='" + estudio + "'";
+    sql += " WHERE aulas.status IS NULL AND aulas.dt_data='" + data + "' AND aulas.nm_alunos='" + id + "' AND aulas.nm_estudio='" + estudio + "'";
     sql += " ORDER BY aulas.nm_horade ";
 
     console.log(sql)
@@ -189,9 +189,9 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
                 ret[0].disponivel = true;
             }
 
-            if((sm >= diafimde && sm <= diafimate) && !ret[0].bloquear && monthatual <= month){
+            //if((sm >= diafimde && sm <= diafimate) && !ret[0].bloquear && monthatual <= month){
                 ret[0].disponivel = true;
-            }
+            //}
 
             ret[0].semana = semana;
 
@@ -469,6 +469,27 @@ router.route('/delete/:id/:data/:aluno').get(function(req, res) {
     })     
 })
 
+router.route('/anula/:id').get(function(req, res) {
+    var id = req.param('id');
+    
+    var atable = req.baseUrl.split("/");
+    var table = "";
+    if(atable.length > 0){
+        table = atable[atable.length - 1]
+    }
+
+
+     
+    var up = "UPDATE aulas SET status='anulado' WHERE id='" + id + "'";
+    console.log(up)
+    general.execute(up, function(ret){
+        res.send(ret);
+        //callback();
+    })               
+          
+})
+
+
 function insertAulaCancelada(id, callback){
     var sql = "SELECT * FROM aulas WHERE id='" + id + "'";
     
@@ -508,7 +529,6 @@ router.route('/deleteaulas/:horade/:horaate/:estudio/:data').get(function(req, r
         res.send(ret);
     })    
 })
-
 
 
 router.route('/horariosdisponiveis/:estudio').get(function(req, res) {
@@ -551,7 +571,7 @@ router.route('/horariosdisponiveisdatas/:estudio/:startdate/:enddate').get(funct
     var enddate = req.param('enddate');
     
     var sql = "SELECT TO_CHAR(dt_data :: DATE, 'yyyy-mm-dd') AS dt_data, id AS id FROM aulas WHERE  ";
-    sql += " nm_estudio='" + estudio + "' AND dt_data >= '" + startdate + "' AND dt_data <= '" + enddate + "'";
+    sql += " status IS NULL AND  nm_estudio='" + estudio + "' AND dt_data >= '" + startdate + "' AND dt_data <= '" + enddate + "'";
     console.log(sql)
     general.select(sql, function(ret){
         
