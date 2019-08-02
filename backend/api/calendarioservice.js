@@ -185,13 +185,15 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
             var dateatual = new Date(data);  
             var monthatual = dateatual.getMonth() + 1;
 
-            if((sm >= diade && sm <= diaate) && !ret[0].bloquear && monthatual <= month){
-                ret[0].disponivel = true;
-            }
+            //if((sm >= diade && sm <= diaate) && !ret[0].bloquear && monthatual < month){
+                if((sm >= diade && sm <= diaate) && !ret[0].bloquear){
+                    ret[0].disponivel = true;
+                }
 
-            //if((sm >= diafimde && sm <= diafimate) && !ret[0].bloquear && monthatual <= month){
-                ret[0].disponivel = true;
-            //}
+                //if((sm >= diafimde && sm <= diafimate) && !ret[0].bloquear && monthatual < month){
+                if((sm >= diafimde && sm <= diafimate) && !ret[0].bloquear){
+                    ret[0].disponivel = true;
+                } 
 
             ret[0].semana = semana;
 
