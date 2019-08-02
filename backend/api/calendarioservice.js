@@ -221,7 +221,29 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
 
                 }
 
-                res.send(ret);
+                var sel = "SELECT count(*), nm_horade1 AS hora FROM alunos WHERE nm_dia1='" + semana + "' GROUP BY nm_horade1"
+                aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                    sel = "SELECT count(*), nm_horade2 AS hora FROM alunos WHERE nm_dia2='" + semana + "' GROUP BY nm_horade2"
+                    aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                        sel = "SELECT count(*), nm_horade3 AS hora  FROM alunos WHERE nm_dia3='" + semana + "' GROUP BY nm_horade3"
+                        aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                            sel = "SELECT count(*), nm_horade4 AS hora  FROM alunos WHERE nm_dia4='" + semana + "' GROUP BY nm_horade4"
+                            aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                                sel = "SELECT count(*), nm_horade5 AS hora  FROM alunos WHERE nm_dia5='" + semana + "' GROUP BY nm_horade5"
+                                aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                                    sel = "SELECT count(*), nm_horade6 AS hora  FROM alunos WHERE nm_dia6='" + semana + "' GROUP BY nm_horade6"
+                                    aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                                        sel = "SELECT count(*), nm_horade7 AS hora  FROM alunos WHERE nm_dia7='" + semana + "' GROUP BY nm_horade7"
+                                        aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                                            res.send(ret);
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+
             })
             
 
@@ -316,10 +338,32 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
                         }
 
                         ret[0].capacidadehorario.push(capacidadehorario);
-
                     }
 
-                    res.send(ret);
+                    var sel = "SELECT count(*), nm_horade1 AS hora FROM alunos WHERE nm_dia1='" + semana + "' GROUP BY nm_horade1"
+                    aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                        sel = "SELECT count(*), nm_horade2 AS hora FROM alunos WHERE nm_dia2='" + semana + "' GROUP BY nm_horade2"
+                        aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                            sel = "SELECT count(*), nm_horade3 AS hora  FROM alunos WHERE nm_dia3='" + semana + "' GROUP BY nm_horade3"
+                            aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                                sel = "SELECT count(*), nm_horade4 AS hora  FROM alunos WHERE nm_dia4='" + semana + "' GROUP BY nm_horade4"
+                                aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                                    sel = "SELECT count(*), nm_horade5 AS hora  FROM alunos WHERE nm_dia5='" + semana + "' GROUP BY nm_horade5"
+                                    aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                                        sel = "SELECT count(*), nm_horade6 AS hora  FROM alunos WHERE nm_dia6='" + semana + "' GROUP BY nm_horade6"
+                                        aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                                            sel = "SELECT count(*), nm_horade7 AS hora  FROM alunos WHERE nm_dia7='" + semana + "' GROUP BY nm_horade7"
+                                            aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
+                                                res.send(ret);
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+
+                    
                 })
             });
         }        
@@ -327,7 +371,21 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
 })
 
 
+function aulasfuturas(sql,ret,capacidade, callback){
+    general.select(sql, function(retorno){
+ 
+        for (let index = 0; index < retorno.length; index++) {  
+            var i = parseInt(retorno[index].hora);
+            ret[0].capacidadehorario[i].capacidade += parseInt(retorno[index].count);
+            if(retorno[index].count + ret[0].capacidadehorario[i].capacidade >= capacidade){                
+                ret[0].capacidadehorario[i].horariodisponivel = false;
+            }
+        }
 
+        callback(ret);
+    })
+            
+}
 
 
 router.route('/editaraula/:id').get(function(req, res) {   
