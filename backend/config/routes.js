@@ -19,4 +19,5 @@ module.exports = function(server) {
     const calendario = require('../api/calendarioservice')
     const intervalo = require('../api/intervaloservice')
     const capacidade_estudios = require('../api/capacidadeestudioservice')
+    const email = require('../api/emailservice')
 }
