@@ -1,17 +1,31 @@
 document.addEventListener('DOMContentLoaded', function () {
     var options = "";
-    var url = "http://" + window.location.hostname + ":3003/api/estudios/carregarestudios"
+    var idoption = "";
+    var id = localStorage.getItem("userid");
+    var url = "http://" + window.location.hostname + ":3003/api/estudios/carregarestudiosaluno/" + id;
     $.ajax({
       url: url,
       context: document.body
     }).done(function (data) {
       for (let index = 0; index < data.length; index++) {
         const element = data[index];
-        options += "<option value='" + element.id + "'>" + element.nm_nome + "</option>"
+        var selecionado = "";
+
+        if(element.nm_nome == element.selecionado){
+          selecionado = "selected=\"true\"";
+          idoption = element.id;
+        }
+
+        options += "<option " + selecionado + " value='" + element.id + "'>" + element.nm_nome + "</option>"
       }
       $("#nm_estudio").html(options);
       $(".estudio").html(options);
-  
+
+      if(idoption){
+        $("#nm_estudio").val(idoption);
+        localStorage.setItem("idestudio",idoption);
+      }
+
       if(localStorage.getItem("idestudio")){
         $('#nm_estudio').val(localStorage.getItem("idestudio"));
       }else{
@@ -181,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 
                 if(dataexpiracao){
                   htm += "<div style='text-align:center' class='col-md-12'>"
-                  htm += "    <h5 style=\"display: inline;\">Data de expiração da aula: ";
+                  htm += "    <h5 style=\"display: inline;\">Remarcação de aula pendente para: ";
                   htm +=  dataexpiracao;
                   htm += "    </h5>";
                   htm += "    </div>";
@@ -258,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if(dataexpiracao){
                   htm += "<div style='text-align:center' class='col-md-12'>"
-                  htm += "    <h5 style=\"display: inline;\">Data de expiração da aula: ";
+                  htm += "    <h5 style=\"display: inline;\">Remarcação de aula pendente para: ";
                   htm +=  dataexpiracao;
                   htm += "    </h5>";
                   htm += "    </div>";
@@ -604,7 +618,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                             title: '',
                                             message: 'Registro salvo com sucesso!',
                                         });
-                                        voltar();
+                                        //voltar();
+                                        changeestudio();
                                     }else if(data.length > 0){
                                       var mensagem = "";
                                       for (let index = 0; index < data.length; index++) {
@@ -731,7 +746,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     title: '',
                     message: 'Registro deletado com sucesso!',
                   });
-                  voltar();
+                  //voltar();
+                  changeestudio();
                 }
                 
               });
@@ -829,7 +845,17 @@ document.addEventListener('DOMContentLoaded', function () {
       $("#calendar").html("");
       var estudio = $("#nm_estudio").val();
 
-      horariosaulas("")
+      var dataselecionanda = $("#dataselecionada").attr("data-dataselecionada");
+      if(dataselecionanda){
+        var arraydata = dataselecionanda.split("/");
+        if(arraydata){
+          if(arraydata.length > 0){
+            dataselecionanda = arraydata[1] + "/" + arraydata[0] + "/" + arraydata[2];
+          }
+        }
+      }
+      
+      horariosaulas("", dataselecionanda)
       /*
       var url = "http://" + window.location.hostname + ":3003/api/aulas/horariosdisponiveis/" + estudio
   

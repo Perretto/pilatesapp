@@ -18,6 +18,14 @@ router.route('/carregarestudios').get(function(req, res) {
     })    
 })
 
+router.route('/carregarestudiosaluno/:idaluno').get(function(req, res) {
+    var idaluno = req.param('idaluno');
+    var sql = "SELECT id AS id, nm_nome AS nm_nome, (SELECT nm_estudio FROM alunos WHERE id='" + idaluno + "') AS selecionado  FROM estudios ";
+    general.select(sql, function(ret){
+        res.send(ret);
+    })    
+})
+
 router.route('/gravar').post(function(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed

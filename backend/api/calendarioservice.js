@@ -223,19 +223,19 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
 
                 }
 
-                var sel = "SELECT count(*), nm_horade1 AS hora FROM alunos WHERE nm_dia1='" + semana + "' GROUP BY nm_horade1"
+                var sel = "SELECT count(*), nm_horade1 AS hora FROM alunos WHERE nm_dia1='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade1"
                 aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
-                    sel = "SELECT count(*), nm_horade2 AS hora FROM alunos WHERE nm_dia2='" + semana + "' GROUP BY nm_horade2"
+                    sel = "SELECT count(*), nm_horade2 AS hora FROM alunos WHERE nm_dia2='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade2"
                     aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
-                        sel = "SELECT count(*), nm_horade3 AS hora  FROM alunos WHERE nm_dia3='" + semana + "' GROUP BY nm_horade3"
+                        sel = "SELECT count(*), nm_horade3 AS hora  FROM alunos WHERE nm_dia3='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade3"
                         aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
-                            sel = "SELECT count(*), nm_horade4 AS hora  FROM alunos WHERE nm_dia4='" + semana + "' GROUP BY nm_horade4"
+                            sel = "SELECT count(*), nm_horade4 AS hora  FROM alunos WHERE nm_dia4='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade4"
                             aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
-                                sel = "SELECT count(*), nm_horade5 AS hora  FROM alunos WHERE nm_dia5='" + semana + "' GROUP BY nm_horade5"
+                                sel = "SELECT count(*), nm_horade5 AS hora  FROM alunos WHERE nm_dia5='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade5"
                                 aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
-                                    sel = "SELECT count(*), nm_horade6 AS hora  FROM alunos WHERE nm_dia6='" + semana + "' GROUP BY nm_horade6"
+                                    sel = "SELECT count(*), nm_horade6 AS hora  FROM alunos WHERE nm_dia6='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade6"
                                     aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
-                                        sel = "SELECT count(*), nm_horade7 AS hora  FROM alunos WHERE nm_dia7='" + semana + "' GROUP BY nm_horade7"
+                                        sel = "SELECT count(*), nm_horade7 AS hora  FROM alunos WHERE nm_dia7='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade7"
                                         aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
                                             res.send(ret);
                                         });
@@ -342,19 +342,19 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
                         ret[0].capacidadehorario.push(capacidadehorario);
                     }
 
-                    var sel = "SELECT count(*), nm_horade1 AS hora FROM alunos WHERE nm_dia1='" + semana + "' GROUP BY nm_horade1"
+                    var sel = "SELECT count(*), nm_horade1 AS hora FROM alunos WHERE nm_dia1='" + semana + "' AND alunos.id <> '" + id + "' GROUP BY nm_horade1"
                     aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
-                        sel = "SELECT count(*), nm_horade2 AS hora FROM alunos WHERE nm_dia2='" + semana + "' GROUP BY nm_horade2"
+                        sel = "SELECT count(*), nm_horade2 AS hora FROM alunos WHERE nm_dia2='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade2"
                         aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
-                            sel = "SELECT count(*), nm_horade3 AS hora  FROM alunos WHERE nm_dia3='" + semana + "' GROUP BY nm_horade3"
+                            sel = "SELECT count(*), nm_horade3 AS hora  FROM alunos WHERE nm_dia3='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade3"
                             aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
-                                sel = "SELECT count(*), nm_horade4 AS hora  FROM alunos WHERE nm_dia4='" + semana + "' GROUP BY nm_horade4"
+                                sel = "SELECT count(*), nm_horade4 AS hora  FROM alunos WHERE nm_dia4='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade4"
                                 aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
-                                    sel = "SELECT count(*), nm_horade5 AS hora  FROM alunos WHERE nm_dia5='" + semana + "' GROUP BY nm_horade5"
+                                    sel = "SELECT count(*), nm_horade5 AS hora  FROM alunos WHERE nm_dia5='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade5"
                                     aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
-                                        sel = "SELECT count(*), nm_horade6 AS hora  FROM alunos WHERE nm_dia6='" + semana + "' GROUP BY nm_horade6"
+                                        sel = "SELECT count(*), nm_horade6 AS hora  FROM alunos WHERE nm_dia6='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade6"
                                         aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
-                                            sel = "SELECT count(*), nm_horade7 AS hora  FROM alunos WHERE nm_dia7='" + semana + "' GROUP BY nm_horade7"
+                                            sel = "SELECT count(*), nm_horade7 AS hora  FROM alunos WHERE nm_dia7='" + semana + "' AND alunos.id <> '" + id + "'  GROUP BY nm_horade7"
                                             aulasfuturas(sel, ret,ret[0].capacidade,function(ret){
                                                 res.send(ret);
                                             });
@@ -379,7 +379,7 @@ function aulasfuturas(sql,ret,capacidade, callback){
         for (let index = 0; index < retorno.length; index++) {  
             var i = parseInt(retorno[index].hora);
             ret[0].capacidadehorario[i].capacidade += parseInt(retorno[index].count);
-            if(retorno[index].count + ret[0].capacidadehorario[i].capacidade >= capacidade){                
+            if(parseInt(retorno[index].count) + ret[0].capacidadehorario[i].capacidade >= capacidade){                
                 ret[0].capacidadehorario[i].horariodisponivel = false;
             }
         }
@@ -473,7 +473,7 @@ function verificarRemarcacao(data, quantidade,aluno, callback){
 router.route('/dataexpiracao/:aluno').get(function(req, res) {     
     var aluno = req.param('aluno');
 
-    sql = "SELECT to_char(dt_data + 14, 'DD-MM-YYYY') AS dt_data FROM aulas_canceladas ";
+    sql = "SELECT to_char(dt_data, 'DD-MM-YYYY') AS dt_data FROM aulas_canceladas ";
     sql += "WHERE dt_data > CURRENT_DATE ";
     sql += "AND nr_remarcacao IS NULL AND nm_alunos='" + aluno + "'";
     console.log(sql)
