@@ -189,7 +189,10 @@ function horariosddl(index, element, item, diasemana){
     
     var idfimsemanade = semana.indexOf(element.diafimde);
     var idfimsemanaate = semana.indexOf(element.diafimate);
-
+    var valor = index;
+    if(index <= 9){
+        valor = "0" + index;
+    }
     $("#nm_horade" + item + " option[value='" + valor + "']").show();
     $("#nm_horaate" + item + "  option[value='" + valor + "']").show();
 
