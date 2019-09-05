@@ -69,7 +69,6 @@ function savealuno(table){
             
             });
         }else{
-
             var url = "http://" + window.location.hostname + ":3003/api/alunos/deletaraulas/" + id
     
             $.ajax({        
@@ -79,13 +78,8 @@ function savealuno(table){
 
                 }
             })
-
-
-
         }
-        
     })
-      
 }
 
 function geraraulas(){
@@ -100,10 +94,8 @@ function geraraulas(){
             iziToast.success({
                 title: '',
                 message: 'Aulas atualizadas conforme cadastro!',
-            });
-                               
-        }
-    
+            });                               
+        }    
     });
 }
 
@@ -132,4 +124,138 @@ function voltar(){
     $(".cadaluno").show();
     $(".cadsaude").hide();
     changeplano()
+}
+
+
+
+
+function changeestudio(){
+    var id = $("#nm_estudio").val();
+    var url = "http://" + window.location.hostname + ":3003/api/alunos/diasbloqueados/" + id
+    
+    $.ajax({        
+        type: "GET",
+        url: url,
+        success: function(data){         
+            if(data){
+                if(data.length > 0){
+                    for (let index = 0; index < data.length; index++) {
+                        const element = data[index];
+                        var dia1 = $("#nm_dia1").val();
+                        var dia2 = $("#nm_dia2").val();
+                        var dia3 = $("#nm_dia3").val();
+                        var dia4 = $("#nm_dia4").val();
+                        var dia5 = $("#nm_dia5").val();
+                        var dia6 = $("#nm_dia6").val();
+                        var dia7 = $("#nm_dia7").val();
+                        
+                        for (let index = 1; index < 24; index++) {  
+                            if(dia1 != ""){ 
+                                horariosddl(index, element, 1, dia1);               
+                            }   
+                            if(dia2 != ""){ 
+                                horariosddl(index, element, 2, dia2);               
+                            }                            
+                            if(dia3 != ""){ 
+                                horariosddl(index, element, 3, dia3);               
+                            }                            
+                            if(dia4 != ""){ 
+                                horariosddl(index, element, 4, dia4);               
+                            }                            
+                            if(dia5 != ""){ 
+                                horariosddl(index, element, 5, dia5);               
+                            }                            
+                            if(dia6 != ""){ 
+                                horariosddl(index, element, 6, dia6);               
+                            }                            
+                            if(dia7 != ""){ 
+                                horariosddl(index, element, 7, dia7);               
+                            }                                                     
+                        }   
+                        
+                        
+                    }
+                }
+            }                                
+        }    
+    });
+}
+
+function horariosddl(index, element, item, diasemana){
+    var semana = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado","Domingo"];
+    var idsemana = semana.indexOf(diasemana);
+    var idsemanade = semana.indexOf(element.diade);
+    var idsemanaate = semana.indexOf(element.diaate);
+    
+    var idfimsemanade = semana.indexOf(element.diafimde);
+    var idfimsemanaate = semana.indexOf(element.diafimate);
+
+    $("#nm_horade" + item + " option[value='" + valor + "']").show();
+    $("#nm_horaate" + item + "  option[value='" + valor + "']").show();
+
+    if(idsemana >= idsemanade && idsemana <= idsemanaate ){
+        if(index < parseInt(element.horade)){
+            var valor = index;
+            if(index <= 9){
+                valor = "0" + index;
+            }
+            $("#nm_horade" + item + " option[value='" + valor + "']").hide();
+            $("#nm_horaate" + item + "  option[value='" + valor + "']").hide();
+        }
+    
+        if(index > parseInt(element.horaate)){
+            var valor = index;
+            if(index <= 9){
+                valor = "0" + index;
+            }
+            $("#nm_horade" + item + "  option[value='" + valor + "']").hide();
+            $("#nm_horaate" + item + "  option[value='" + valor + "']").hide();
+        }
+                           
+        if(element.nm_dia == diasemana){ 
+            if(index >= parseInt(element.nm_horade) && index < parseInt(element.nm_horaate)){
+                var valor = index;
+                if(index <= 9){
+                    valor = "0" + index;
+                }
+                $("#nm_horade" + item + "  option[value='" + valor + "']").hide();
+                $("#nm_horaate" + item + "  option[value='" + valor + "']").hide();
+            }   
+        }  
+    }
+
+
+
+    if(idsemana >= idfimsemanade && idsemana <= idfimsemanaate ){
+        if(index < parseInt(element.horafimde)){
+            var valor = index;
+            if(index <= 9){
+                valor = "0" + index;
+            }
+            $("#nm_horade" + item + " option[value='" + valor + "']").hide();
+            $("#nm_horaate" + item + "  option[value='" + valor + "']").hide();
+        }
+    
+        if(index > parseInt(element.horafimate)){
+            var valor = index;
+            if(index <= 9){
+                valor = "0" + index;
+            }
+            $("#nm_horade" + item + "  option[value='" + valor + "']").hide();
+            $("#nm_horaate" + item + "  option[value='" + valor + "']").hide();
+        }
+                        
+        if(element.nm_dia == diasemana){ 
+            if(index >= parseInt(element.nm_horade) && index < parseInt(element.nm_horaate)){
+                var valor = index;
+                if(index <= 9){
+                    valor = "0" + index;
+                }
+                $("#nm_horade" + item + "  option[value='" + valor + "']").hide();
+                $("#nm_horaate" + item + "  option[value='" + valor + "']").hide();
+            }   
+        }  
+    }
+   
+           
 }

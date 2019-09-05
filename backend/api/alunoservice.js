@@ -353,3 +353,28 @@ function guid() {
         res.send(ret);
     })    
 })
+
+router.route('/diasbloqueados/:id').get(function(req, res) {
+    var id = req.param('id');
+        
+    var sql = "SELECT intervalo.*, ";
+    sql += " (SELECT nm_horade  FROM estudios WHERE nm_nome='" + id + "') AS horade, ";
+    sql += "(SELECT nm_horaate  FROM estudios WHERE nm_nome='" + id + "') AS horaate, "
+    sql += "(SELECT nm_diade  FROM estudios WHERE nm_nome='" + id + "') AS diade, "
+    sql += "(SELECT nm_diaate  FROM estudios WHERE nm_nome='" + id + "') AS diaate, "
+    
+    sql += " (SELECT nm_horafimde  FROM estudios WHERE nm_nome='" + id + "') AS horafimde, ";
+    sql += "(SELECT nm_horafimate  FROM estudios WHERE nm_nome='" + id + "') AS horafimate, "
+    sql += "(SELECT nm_diafimde  FROM estudios WHERE nm_nome='" + id + "') AS diafimde, "
+    sql += "(SELECT nm_diafimate  FROM estudios WHERE nm_nome='" + id + "') AS diafimate "
+
+    sql += " FROM intervalo ";
+    sql += " INNER JOIN estudios ON estudios.id=intervalo.nm_estudio ";
+    sql += " WHERE nm_nome='" + id + "' ";
+
+    general.select(sql, function(ret){
+        res.send(ret);
+    })    
+})
+
+

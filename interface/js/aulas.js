@@ -542,7 +542,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   $("[name='id']").val(data[0].id);       
                   $("[name='nm_obs']").html(data[0].nm_obs);    
                   $("[name='nm_alunos']").val(data[0].nm_alunos);
-                  $("[name='nm_estudios']").val(data[0].nm_estudios);
+                  $("[name='nm_estudio']").val(data[0].nm_estudio);
                   $("[name='nm_horade']").val(data[0].nm_horade);
                   $("[name='nm_horaate']").val(data[0].nm_horaate);
                   $("[name='dt_data']").val(data[0].dt_data);
