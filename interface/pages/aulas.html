@@ -54,20 +54,24 @@
             <div id="rowform" class="form-panel">
               <h4 class="mb" style="padding-left:15px">Calendário</h4>
               
-                <div style="" id="div_estudio" class="form-group col-md-3">
+                <div style="" id="div_estudio" class="form-group col-md-12">
                   <div class="col">
                     <label class=" form-control-label">Estúdio:</label>
                   </div>
-                  <div class="">
+                  <div class="col-md-6">
                     <select onchange="changeestudio()" name="nm_estudio" id="nm_estudio" class="form-control">
                       <option value="">Selecione</option>
                     </select>
                   </div>
+                  <div class="col-md-3">
+                    <h4 id="quantidadeaulas"></h4>
+                  </div>
+                  <div class="col-md-3">
+                    <h4 id="dataultimaaula"></h4>
+                  </div>
                 </div>
                 <br>
-                <div id="calendar">
-
-                </div>
+                <div id="calendar"></div>
                 <div id="listahorarios"></div>
 
                 <div id="editaraula" class="form-panel" style="display:none">

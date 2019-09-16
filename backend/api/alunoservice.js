@@ -259,7 +259,7 @@ function aulasAluno(id, callback){
                             var datahoje = new Date();
                             datahoje.setHours(0, 0, 0, 0);
     
-                            if(data >= datahoje){
+                            //if(data >= datahoje){
                                 retorno = {};
                                 retorno.diasemana = diasemana;
                                 retorno.data = data;
@@ -270,7 +270,7 @@ function aulasAluno(id, callback){
                                 retorno.horarioate = horarioate;
     
                                 arrayretorno.push(retorno);
-                            }
+                            //}
                             
     
                         }   

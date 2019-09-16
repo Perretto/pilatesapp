@@ -1095,3 +1095,25 @@ router.route('/datasbloqueio/:estudio/:startdate/:enddate').get(function(req, re
         res.send(array);         
     })     
 })
+
+
+router.route('/informaluno/:id').get(function(req, res) {
+    var idusuario = req.param('id');
+    var dataatual = dataAtualFormatada()
+    var sql = "SELECT count(*) AS quant, (SELECT  to_char(dt_data, 'DD/MM/YYYY') FROM aulas WHERE nm_alunos = '" + idusuario + "' ORDER BY dt_data DESC limit 1) AS ultimaaula ";
+    sql += "FROM aulas  ";
+    sql += "WHERE nm_alunos = '" + idusuario + "' AND dt_data >= '" + dataatual + "'";
+    
+    console.log(sql)
+    general.select(sql, function(ret){        
+        res.send(ret);         
+    })     
+})
+
+function dataAtualFormatada(){
+    var data = new Date(),
+        dia  = data.getDate().toString().padStart(2, '0'),
+        mes  = (data.getMonth()+1).toString().padStart(2, '0'),
+        ano  = data.getFullYear();
+    return mes+"/"+dia+"/"+ano;
+}

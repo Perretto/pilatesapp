@@ -66,6 +66,23 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   
   
+    var id = localStorage.getItem("userid");
+    var url = "http://" + window.location.hostname + ":3003/api/aulas/informaluno/" + id
+      $.ajax({
+        url: url,
+        type: "GET",
+        dataType: "text",
+        contentType: "application/json; charset=utf-8",
+        async: false,
+        crossDomain: true,
+      }).success(function (ret) {
+        var obj = JSON.parse(ret);
+        if(obj.length > 0){
+          $("#quantidadeaulas").html("Aulas restantes: " + obj[0].quant);
+          $("#dataultimaaula").html("Ultima aula: " + obj[0].ultimaaula);          
+        }
+        
+      });
   
       
     });
