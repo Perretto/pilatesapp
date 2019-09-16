@@ -6,7 +6,7 @@ exports.select =  function (sql, callback){
         //host: '34.212.28.6',
         host: 'localhost',
         user: 'postgres',
-        database: 'pilatesapp',
+        database: 'pilatesapp_producao',
         password: 'Joao3:16',
         port: 5432
         //port: 5434
@@ -54,7 +54,7 @@ exports.execute =  function (sql, callback){
         //host: '34.212.28.6',
         host: 'localhost',
         user: 'postgres',
-        database: 'pilatesapp',
+        database: 'pilatesapp_producao',
         password: 'Joao3:16',
         port: 5432
         //port: 5434
@@ -222,7 +222,7 @@ exports.executeObj =  function (table, parametros, callback){
         //host: '34.212.28.6',
         host: 'localhost',
         user: 'postgres',
-        database: 'pilatesapp',
+        database: 'pilatesapp_producao',
         password: 'Joao3:16',
         port: 5432
         //port: 5434
