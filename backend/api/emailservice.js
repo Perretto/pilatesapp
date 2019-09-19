@@ -137,3 +137,80 @@ function enviarEmail(sender, mail, callback) {
         callback(error, info);
     });
 }
+
+
+
+router.route('/enviaremailaniversario').get(async function(req, res) {
+    var sql = "SELECT * ";
+    sql += " FROM configuracaoemail WHERE id_tipo='1'";
+    general.select(sql, function(ret){      
+
+        if(ret.length > 0){
+            var sender = {};
+            var mail = {};
+
+            sender.service = ret[0].nm_server; //"smtp.live.com" ;
+            sender.user = ret[0].nm_user; //"andreperretto@hotmail.com" ;
+            sender.pass = ret[0].nm_pass;//"barra586270" ;
+
+            mail.from = ret[0].nm_from;//"andreperretto@hotmail.com" ;
+            
+
+            mail.subject = ret[0].nm_subject; //"teste" ;
+            mail.text = ret[0].nm_text; //"123" ;
+
+            // Obtém a data/hora atual
+            var data = new Date();
+
+            // Guarda cada pedaço em uma variável
+            var dia     = data.getDate();           // 1-31
+            var mes     = data.getMonth()+1;          // 0-11 (zero=janeiro)
+            
+            if(mes < 10){
+                mes = "0" + mes; 
+            }
+            // Formata a data e a hora (note o mês + 1)
+            var str_data = dia + '/' + mes + '/';
+            var index = 0;
+            var sql2 = "SELECT nm_email AS emailto FROM alunos WHERE dt_nascimento LIKE '" + str_data + "%'";
+            general.select(sql2, function(retor){  
+                if(retor.length > 0){
+                    for (let i = 0; i < retor.length; i++) {
+                        if(retor.length > 0){
+                            mail.to = retor[i].emailto;
+                            
+                            sleep(10000)
+                            enviarEmail(sender,mail, function(error, info){
+                                index = index + 1;
+                                if(index == retor.length){
+                                    //res.send(error);
+                                }                      
+                            });
+                             
+                            
+                        }
+                    }
+                } else{
+                    res.send("Sem aniversários para este dia");
+                }
+                
+                
+            });
+        }else{
+            res.send("Template de envio de email não encontrado")
+        }
+    })    
+
+
+    
+})
+
+
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+}

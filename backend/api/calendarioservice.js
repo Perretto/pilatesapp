@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 server.use('/api/aulas', router);
 const general = require('../api/core/general');
+var nodemailer = require('nodemailer');
 
 router.route('/listaaulas/:data/:estudio').get(function(req, res) {   
     
@@ -520,9 +521,24 @@ router.route('/delete/:id/:data/:aluno').get(function(req, res) {
             res.send(ver);
         }else{
             insertAulaCancelada(id, function(){
-                var sql = "DELETE FROM " + table + " WHERE id='" + id + "'";
-                general.execute(sql, function(ret){
-                    res.send(ret);
+                var sql2 = "SELECT nm_email AS email FROM alunos WHERE id='" + aluno + "'";
+                general.select(sql2, function(ret2){
+                    if(ret2 && ret2.length > 0){
+                        var emailto = ret2[0].email;
+                        enviaremailconfig(2, emailto, function(){
+                            var sql = "DELETE FROM " + table + " WHERE id='" + id + "'";
+                            general.execute(sql, function(ret){
+                                res.send(ret);
+                            }) 
+                        })
+                    }else{
+                        var sql = "DELETE FROM " + table + " WHERE id='" + id + "'";
+                            general.execute(sql, function(ret){
+                                res.send(ret);
+                            }) 
+                    }
+
+                    
                 }) 
             })  
         }
@@ -1116,4 +1132,74 @@ function dataAtualFormatada(){
         mes  = (data.getMonth()+1).toString().padStart(2, '0'),
         ano  = data.getFullYear();
     return mes+"/"+dia+"/"+ano;
+}
+
+
+function enviaremailconfig(tipo, emailto, callback){
+
+    var sql = "SELECT * ";
+    sql += " FROM configuracaoemail WHERE id_tipo='" + tipo + "'";
+    general.select(sql, function(ret){
+        if(ret.length > 0){
+
+            var sender = {};
+            var mail = {};
+
+            sender.service = ret[0].nm_server; //"smtp.live.com" ;
+            sender.user = ret[0].nm_user; //"andreperretto@hotmail.com" ;
+            sender.pass = ret[0].nm_pass;//"barra586270" ;
+
+            mail.from = ret[0].nm_from;//"andreperretto@hotmail.com" ;
+            mail.to = emailto;
+
+            mail.subject = ret[0].nm_subject; //"teste" ;
+            mail.text = ret[0].nm_text; //"123" ;
+            enviarEmail(sender,mail, function(error, info){
+                callback(error)
+            });
+        
+        }else{
+            callback("Template de envio de email não encontrado")
+        }
+    })    
+
+}
+
+
+
+function enviarEmail(sender, mail, callback) { 
+
+    let transporter = nodemailer.createTransport({
+        host: sender.service,
+        port: 587,
+        auth: {
+            user: sender.user,
+            pass: sender.pass
+        },
+        tls: { ciphers: 'SSLv3' }
+    });
+    /*
+    var attachments = [];
+    if(mail.attachments){
+        attachments = mail.attachments;
+    }else{
+        attachments.push({   
+            filename: "relatorio.pdf",
+            path: mail.path
+        })
+    }
+*/
+    
+    let mailOptions = {
+        from: 'user-alias <' + sender.user + '>', // sender address
+        to: mail.to, // list of receivers
+        subject: mail.subject, // Subject line
+        html: mail.text//, // plain text body,  
+        //attachments: attachments
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        transporter.close();
+        callback(error, info);
+    });
 }
