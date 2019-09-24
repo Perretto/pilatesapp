@@ -3,10 +3,10 @@ var pg = require('pg');
 
 exports.select =  function (sql, callback){
     const config = {
-        host: '34.212.28.6',
-        //host: 'localhost',
+        //host: '34.212.28.6',
+        host: 'localhost',
         user: 'postgres',
-        database: 'pilatesapp',
+        database: 'pilatesapp_producao',
         password: 'Joao3:16',
         port: 5432
         //port: 5434
@@ -51,10 +51,10 @@ exports.select =  function (sql, callback){
 exports.execute =  function (sql, callback){
 
     const config = {
-        host: '34.212.28.6',
-        //host: 'localhost',
+        //host: '34.212.28.6',
+        host: 'localhost',
         user: 'postgres',
-        database: 'pilatesapp',
+        database: 'pilatesapp_producao',
         password: 'Joao3:16',
         port: 5432
         //port: 5434
@@ -219,10 +219,10 @@ exports.executeObj =  function (table, parametros, callback){
     console.log(sql)
 
     const config = {
-        host: '34.212.28.6',
-        //host: 'localhost',
+        //host: '34.212.28.6',
+        host: 'localhost',
         user: 'postgres',
-        database: 'pilatesapp',
+        database: 'pilatesapp_producao',
         password: 'Joao3:16',
         port: 5432
         //port: 5434
