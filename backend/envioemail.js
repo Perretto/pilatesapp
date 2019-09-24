@@ -1,5 +1,5 @@
 
-    var url = 'http://localhost:3003/api/email/enviaremailaniversario';
+    var url = 'http://meupilates.pilatesapp.com.br:3003/api/email/enviaremailaniversario';
     var Client = require('node-rest-client').Client;
     
    // direct way 
