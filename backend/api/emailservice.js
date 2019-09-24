@@ -165,14 +165,14 @@ router.route('/enviaremailaniversario').get(async function(req, res) {
             // Guarda cada pedaço em uma variável
             var dia     = data.getDate();           // 1-31
             var mes     = data.getMonth()+1;          // 0-11 (zero=janeiro)
-            
+            var ano     = data.getFullYear();
             if(mes < 10){
                 mes = "0" + mes; 
             }
             // Formata a data e a hora (note o mês + 1)
             var str_data = dia + '/' + mes + '/';
             var index = 0;
-            var sql2 = "SELECT nm_email AS emailto FROM alunos WHERE dt_nascimento LIKE '" + str_data + "%'";
+            var sql2 = "SELECT id AS id, nm_email AS emailto FROM alunos WHERE dt_nascimento LIKE '" + str_data + "%' AND (nm_emailaniversario <> '" + ano + "' OR nm_emailaniversario IS NULL)";
             general.select(sql2, function(retor){  
                 if(retor.length > 0){
                     for (let i = 0; i < retor.length; i++) {
@@ -184,7 +184,12 @@ router.route('/enviaremailaniversario').get(async function(req, res) {
                                 index = index + 1;
                                 if(index == retor.length){
                                     //res.send(error);
-                                }                      
+                                } 
+                                
+                                var up = "UPDATE alunos SET nm_emailaniversario='" + ano + "' WHERE id='" + retor[i].id + "'";
+                                general.execute(up, function(retUP){
+                                    
+                                })                         
                             });
                              
                             

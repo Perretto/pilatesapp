@@ -343,9 +343,23 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (!elementAluno.obs) {
                                   elementAluno.obs = "";
                                 }
-                                htmlAlunos += "<a href='#' onclick=\"deleteaulas('" + elementAluno.id + "','" + elementAluno.horade + "')\">";
+                                htmlAlunos += "<a  href='#' onclick=\"deleteaulas('" + elementAluno.id + "','" + elementAluno.horade + "')\">";
                                 htmlAlunos += "<div style=\"padding-top: 10px;\">";
                                 htmlAlunos += " <h4 style=\"display: inline;margin-left: 40%;font-weight: bold;padding-top:10px\"><i class=\"fa fa-close\"></i></h4><h4 style=\"display: inline;font-weight: bold;font-weight: bold;\"></h4><h4 style=\"display: inline;\">Cancelar aula</h4>";
+                                
+                                if(elementAluno.obs){
+                                    htmlAlunos += "<h4 style=\"display: inline;font-weight: bold;\"> - Obs: </h4><h4 style=\"display: inline;\">" + elementAluno.obs + "</h4>";
+                                }
+
+                                htmlAlunos += "<\div>";
+                                htmlAlunos += "<\a>";
+
+
+
+
+                        htmlAlunos += "<a  href='#' onclick=\"desistiraula('" + elementAluno.id + "')\">";
+                                htmlAlunos += "<div style=\"padding-top: 10px;\">";
+                                htmlAlunos += " <h4 style=\"display: inline;margin-left: 40%;font-weight: bold;padding-top:10px\"><i class=\"fa fa-close\"></i></h4><h4 style=\"display: inline;font-weight: bold;font-weight: bold;\"></h4><h4 style=\"display: inline;\">Desistir da aula</h4>";
                                 
                                 if(elementAluno.obs){
                                     htmlAlunos += "<h4 style=\"display: inline;font-weight: bold;\"> - Obs: </h4><h4 style=\"display: inline;\">" + elementAluno.obs + "</h4>";
@@ -843,6 +857,58 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   
+
+    function desistiraula(id){
+      
+      iziToast.question({
+        timeout: 20000,
+        close: false,
+        overlay: true,
+        displayMode: 'once',
+        id: 'question',
+        zindex: 999,
+        title: '',
+        message: 'Esta aula será anuladas e não haverá reposição. Deseja continuar? ',
+        position: 'center',
+        buttons: [
+          ['<button><b>SIM</b></button>', function (instance, toast) {
+    
+            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');    
+      
+            var dataselec = $("#dataselecionada").attr("data-dataselecionada");
+            dataselec = dataselec.replace("/","-");
+            dataselec = dataselec.replace("/","-");
+            dataselec = dataselec.replace("/","-");
+
+  
+            var url = "http://" + window.location.hostname + ":3003/api/aulas/anula/" + id 
+            $.ajax({
+              url: url,
+              context: document.body
+            }).done(function (data) {                   
+                iziToast.success({
+                  title: '',
+                  message: 'Registro anulado com sucesso!',
+                });
+                voltar();
+            });
+  
+          }, true],
+          ['<button>NÃO</button>', function (instance, toast) {
+  
+              instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+  
+          }],
+        ],
+        onClosing: function(instance, toast, closedBy){
+          console.info('Closing | closedBy: ' + closedBy);
+        },
+        onClosed: function(instance, toast, closedBy){
+          console.info('Closed | closedBy: ' + closedBy);
+        }
+      });
+
+    }
   
     function saveCalendario(table){
       var id = $("[name='nm_alunos']").val();
