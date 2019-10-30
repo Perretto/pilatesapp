@@ -128,7 +128,7 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
     sql += " (SELECT  ";
 			
     sql += "     (CASE alunos.nr_creditos ";
-    sql += "        WHEN 0 THEN (nr_meses * nr_aulasmes) ";
+    sql += "        WHEN 0 THEN (0) ";
     sql += "        ELSE alunos.nr_creditos ";
     sql += "       END) - ";
 
@@ -267,7 +267,7 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
             sql += " (SELECT  ";
 			
             sql += "     (CASE alunos.nr_creditos ";
-            sql += "        WHEN 0 THEN (nr_meses * nr_aulasmes) ";
+            sql += "        WHEN 0 THEN (0) ";
             sql += "        ELSE alunos.nr_creditos ";
             sql += "       END) - ";
 
