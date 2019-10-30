@@ -146,7 +146,7 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
     sql += "( SELECT bloquear_dia.id FROM bloquear_dia WHERE nm_estudio='" + estudio + "' AND dt_data='" + data + "' ) AS bloquear,  "
 
     sql += " (SELECT dt_inicioplano ";
-    sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
+    sql += " FROM alunos  ";
     sql += " WHERE alunos.id='" + id + "') AS dt_inicioplano, ";
     
     
@@ -285,7 +285,7 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
 
             
             sql += " (SELECT dt_inicioplano ";
-            sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
+            sql += " FROM alunos  ";
             sql += " WHERE alunos.id='" + id + "') AS dt_inicioplano, ";
             
             sql += " (SELECT nr_meses ";
