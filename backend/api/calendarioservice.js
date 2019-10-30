@@ -128,7 +128,7 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
     sql += " (SELECT  ";
 			
     sql += "     (CASE alunos.nr_creditos ";
-    sql += "        WHEN 0 THEN (0) ";
+    sql += "        WHEN 0 THEN (nr_meses * nr_aulasmes) ";
     sql += "        ELSE alunos.nr_creditos ";
     sql += "       END) - ";
 
@@ -171,6 +171,12 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
             if(!ret[0].capacidade){
                 ret[0].capacidade = 10000000;
             }
+
+            if(ret[0].reposicao < 0){
+                ret[0].reposicao = ret[0].reposicao * -1;
+            }
+
+            
 
             ret[0].disponivel = false;
             diade = diaSemanaComFim(ret[0].nm_diade);
@@ -261,7 +267,7 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
             sql += " (SELECT  ";
 			
             sql += "     (CASE alunos.nr_creditos ";
-            sql += "        WHEN 0 THEN (0) ";
+            sql += "        WHEN 0 THEN (nr_meses * nr_aulasmes) ";
             sql += "        ELSE alunos.nr_creditos ";
             sql += "       END) - ";
 
@@ -294,6 +300,9 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
                 console.log(sql)
                 ret[0].disponivel = false;
 
+                if(ret[0].reposicao < 0){
+                    ret[0].reposicao = ret[0].reposicao * -1;
+                }
                 
                 diade = diaSemanaComFim(ret[0].nm_diade);
                 diaate = diaSemanaComFim(ret[0].nm_diaate);
