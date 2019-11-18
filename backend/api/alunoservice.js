@@ -30,7 +30,9 @@ router.route('/gravar').post(function(req, res) {
 
     general.executeObj(table,parametros, function(ret){
         if(id == ""){
-            enviaremailconfig("3", emailto, function(){
+            var param = [];
+            var paramvalues = [];
+            enviaremailconfig("3", emailto, param, paramvalues, function(){
                 
             });
         }
@@ -388,7 +390,7 @@ router.route('/diasbloqueados/:id').get(function(req, res) {
 })
 
 
-function enviaremailconfig(tipo, emailto, callback){
+function enviaremailconfig(tipo, emailto, parametros, paramvalues, callback){
 
     var sql = "SELECT * ";
     sql += " FROM configuracaoemail WHERE id_tipo='" + tipo + "'";
@@ -406,6 +408,14 @@ function enviaremailconfig(tipo, emailto, callback){
             mail.to = emailto;
 
             mail.subject = ret[0].nm_subject; //"teste" ;
+
+            if(parametros.length > 0){
+                for (let index = 0; index < parametros.length; index++) {
+                    const element = parametros[index];
+                    ret[0].nm_text = ret[0].nm_text.replace("@@" + element, paramvalues[index]);                    
+                }
+            }
+
             mail.text = ret[0].nm_text; //"123" ;
             enviarEmail(sender,mail, function(error, info){
                 callback(error)
@@ -458,3 +468,29 @@ function enviarEmail(sender, mail, callback) {
 }
 
 
+
+router.route('/recuperarsenha/:email').get(function(req, res) {
+    var email = req.param('email');
+    var retorno = "";
+    var sql = "";
+    sql += " SELECT * FROM alunos WHERE nm_email='" + email + "'";
+    general.select(sql, function(ret){
+        if(ret.length > 0){
+            var param = [];
+            var paramvalues = [];
+            param[0] = "SENHA";
+            paramvalues[0] = ret[0].nm_senha;
+            param[1] = "LOGIN";
+            paramvalues[1] = ret[0].nm_login;
+            enviaremailconfig("4", email,param, paramvalues, function(){
+                
+            });
+            retorno = "Email enviado para " + ret[0].nm_email;
+        }else{
+            retorno = "Email não encontrado";
+        }
+        
+        res.send(retorno);
+    }) 
+    
+});

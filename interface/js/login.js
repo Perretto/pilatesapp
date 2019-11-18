@@ -93,4 +93,38 @@ function verificarAmbiente(tipo){
         $("#frmaluno").show();
         $("#frmadmin").hide();
     }
+    $("#frmemail").hide();
+}
+
+
+function esquecisenha(){
+    $("#frmaluno").hide();
+    $("#frmadmin").hide();
+    $("#frmemail").show();
+
+}
+
+
+
+function recuperarsenha(){
+    var email = "";
+
+    email = $("#email").val();
+
+    var url = "http://" + window.location.hostname + ":3003/api/alunos/recuperarsenha/" + email                 
+    $.ajax({        
+        type: "GET",
+        url: url,
+        success: function(data){
+            if(data){
+                verificarAmbiente('Alunos')
+                iziToast.warning({
+                    title: '',
+                    message: data,
+                }); 
+            }
+        }
+    });
+
+
 }

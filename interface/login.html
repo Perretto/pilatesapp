@@ -51,15 +51,27 @@
                 <br>
                 <br>
         </div>
-        
+        <div id="frmemail" style="display:none" class="login-wrap">
+          <h5>Recuperação de senha</h5>
+          <input name="email" id="email" type="text" class="form-control" placeholder="Email" autofocus>
+          <br>
+          <button onclick="recuperarsenha()" class="btn btn-theme btn-block" href="index.html" type="button"><i class="fa fa-lock"></i> ENVIAR</button>
+          <button onclick="verificarAmbiente('Aluno')" class="btn btn-theme btn-block" href="index.html" type="button"><i class="fa fa-lock"></i> VOLTAR</button>
+          
+          <hr> 
+        </div>
         <div id="frmaluno" class="login-wrap">
             <h5>Aluno</h5>
           <input name="loginaluno" id="loginaluno" type="text" class="form-control" placeholder="Login" autofocus>
           <br>
           <input name="senhaaluno" id="senhaaluno" type="password" class="form-control" placeholder="Senha">          
-            <br>
+            
           
-          <button onclick="logar('aluno')" class="btn btn-theme btn-block" href="index.html" type="button"><i class="fa fa-lock"></i> ENTRAR</button>
+            <a href="#" onclick="esquecisenha()" >Esqueci a senha</a>
+            <br>
+            <br>
+
+          <button onclick="verificarAmbiente('Aluno')" class="btn btn-theme btn-block" href="index.html" type="button"><i class="fa fa-lock"></i> ENTRAR</button>
           <hr>    
           
           <button onclick="verificarAmbiente('Admin')" class="col-md-6 btn btn-theme  " href="index.html" type="button">
@@ -74,6 +86,7 @@
         <div style="display:none" id="frmalunocpf" class="login-wrap">
           <input name="loginalunocpf" id="loginalunocpf" type="text" class="form-control" placeholder="CPF" autofocus>
           <br>
+          
           
           <button onclick="logar('alunocpf')" class="btn btn-theme btn-block" href="index.html" type="button"><i class="fa fa-lock"></i> ENTRAR</button>
           <hr>    
