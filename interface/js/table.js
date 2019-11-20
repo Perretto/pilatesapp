@@ -48,7 +48,7 @@ function createtable(table){
                                 tds += "</button>";
                                 tds += "</td>";
                             }else{
-                                tds += "<td data-valuetd='" + element[index]  + "'>" + element[index] + "</td>";     
+                                tds += "<td data-valuetd='" + element[index].toLowerCase()  + "'>" + element[index] + "</td>";     
                             }                   
                         }
                         tds += "</tr>";
@@ -200,7 +200,7 @@ function edit(id, table){
 
 function changeSeach(element){
     var value = $(element).val();
-
+    value = value.toLowerCase();
     if(value){
         $("[data-valuetd]").parents("tr").hide();
         $("[data-valuetd*='" + value + "']").parents("tr").show();
