@@ -454,7 +454,8 @@ function enviarEmail(sender, mail, callback) {
 */
     
     let mailOptions = {
-        from: 'user-alias <' + sender.user + '>', // sender address
+        //from: 'user-alias <' + sender.user + '>', // sender address
+        from: '' + sender.user + '',
         to: mail.to, // list of receivers
         subject: mail.subject, // Subject line
         html: mail.text//, // plain text body,  
