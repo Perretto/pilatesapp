@@ -388,10 +388,13 @@ function aulasfuturas(sql,ret,capacidade, callback){
  
         for (let index = 0; index < retorno.length; index++) {  
             var i = parseInt(retorno[index].hora);
-            ret[0].capacidadehorario[i].capacidade += parseInt(retorno[index].count);
-            if(parseInt(retorno[index].count) + ret[0].capacidadehorario[i].capacidade >= capacidade){                
-                ret[0].capacidadehorario[i].horariodisponivel = false;
+            if(ret[0].capacidadehorario[i]){
+                ret[0].capacidadehorario[i].capacidade += parseInt(retorno[index].count);
+                if(parseInt(retorno[index].count) + ret[0].capacidadehorario[i].capacidade >= capacidade){                
+                    ret[0].capacidadehorario[i].horariodisponivel = false;
+                }
             }
+            
         }
 
         callback(ret);
