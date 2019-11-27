@@ -115,8 +115,8 @@ router.route('/geraraulasaluno/:id').get(function(req, res) {
 
         dataformathoje = mes + "/" + dia + "/" + ano;
 
-        var ins = "DELETE FROM aulas WHERE dt_data >= '" + dataformathoje +  "' ";
-        ins += " AND nm_alunos='" + id + "';";
+        var ins = "DELETE FROM aulas WHERE  ";
+        ins += "  nm_alunos='" + id + "';";
         
         ins += "INSERT INTO aulas (id, dt_data, nm_alunos, nm_estudio, nm_horade, nm_horaate)";
                
@@ -126,7 +126,7 @@ router.route('/geraraulasaluno/:id').get(function(req, res) {
             const element = arrayretorno[index];
             var data = new Date(element.dataformat)
 
-            if(data > datahoje){
+            //if(data > datahoje){
                 ins += "('" + guid() + "', ";
                 ins += "'" + element.dataformat + "','" + element.aluno + "','" + element.estudio
                 ins += "','" + element.horario + "','" + element.horarioate + "'";
@@ -135,7 +135,7 @@ router.route('/geraraulasaluno/:id').get(function(req, res) {
                 if(index < (arrayretorno.length - 1)){
                     ins += ",";
                 }
-            }
+            //}
             
         }
         console.log(ins)
