@@ -124,15 +124,19 @@ router.route('/geraraulasaluno/:id').get(function(req, res) {
 
         for (let index = 0; index < arrayretorno.length; index++) {
             const element = arrayretorno[index];
-            
-            ins += "('" + guid() + "', ";
-            ins += "'" + element.dataformat + "','" + element.aluno + "','" + element.estudio
-            ins += "','" + element.horario + "','" + element.horarioate + "'";
-            ins += ") ";
+            var data = new Date(element.dataformat)
 
-            if(index < (arrayretorno.length - 1)){
-                ins += ",";
+            if(data > datahoje){
+                ins += "('" + guid() + "', ";
+                ins += "'" + element.dataformat + "','" + element.aluno + "','" + element.estudio
+                ins += "','" + element.horario + "','" + element.horarioate + "'";
+                ins += ") ";
+    
+                if(index < (arrayretorno.length - 1)){
+                    ins += ",";
+                }
             }
+            
         }
         console.log(ins)
         general.execute(ins, function(ret){
