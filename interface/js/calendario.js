@@ -27,6 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
           locale: 'pt',
           plugins: ['dayGrid'],
           defaultView: 'dayGridMonth',
+          eventClick: function(info) {
+            var thistd = $("[data-date='" + info.event.start.getFullYear() + "-" + (info.event.start.getMonth() + 1) + "-" + info.event.start.getDate() + "']")
+            horariosaulas(thistd);
+          },
           events: function(fetchInfo, successCallback, failureCallback) {
             var estudio = $("#nm_estudio").val();
             var startStr = fetchInfo.startStr;
