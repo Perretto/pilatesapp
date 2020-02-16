@@ -82,6 +82,44 @@ function savealuno(table){
     })
 }
 
+function savealunosimples(table){
+    save(table, function(data){ 
+        if(data){
+            if(data.lastID || data.lastID == 0){
+                envioemail(data.lastID);
+            }
+        }
+
+        var url = "";
+        if(window.location.hostname == "localhost"){
+            url = "http://" + window.location.hostname + ":99/pages/sucessoaluno.html"
+        }else{
+            url = "http://" + window.location.hostname + "/pages/sucessoaluno.html"
+        }
+         
+        window.location.href = url;
+        
+    });
+}
+
+function envioemail(id){
+    var url = "http://" + window.location.hostname + ":3003/api/email/enviaraluno/" + id;
+    
+    $.ajax({        
+        type: "GET",
+        url: url,
+        success: function(data){         
+           
+            iziToast.success({
+                title: '',
+                message: 'Email enviado com sucesso!',
+            });
+                                
+        }
+    
+    });
+}
+
 function geraraulas(){
     var id = $("#id").val();
     var url = "http://" + window.location.hostname + ":3003/api/alunos/geraraulasaluno/" + id

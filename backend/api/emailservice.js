@@ -93,9 +93,98 @@ router.route('/enviar/:tipo/:emailto').get(async function(req, res) {
             res.send("Template de envio de email não encontrado")
         }
     })    
+})
 
 
+router.route('/enviaraluno/:id').get(async function(req, res) {
+    var id = req.param('id');
+    var sql = "SELECT * ";
+    sql += " FROM configuracaoemail WHERE id_tipo='3';";
     
+    general.select(sql, function(ret){
+        if(ret.length > 0){
+
+            var sender = {};
+            var mail = {};
+
+            sender.service = ret[0].nm_server; //"smtp.live.com" ;
+            sender.user = ret[0].nm_user; //"andreperretto@hotmail.com" ;
+            sender.pass = ret[0].nm_pass;//"barra586270" ;
+
+            mail.from = ret[0].nm_from;//"andreperretto@hotmail.com" ;
+            mail.to = ret[0].nm_from;
+
+            mail.subject = ret[0].nm_subject; //"teste" ;
+            //mail.text = ret[0].nm_text; //"123" ;
+            mail.text = "<head>";
+            mail.text += "   <meta charset=\"utf-8\">";
+        
+            mail.text += "    <title>PilatesApp</title>";
+           
+            mail.text += "<link href=\"http://meupilates.pilatesapp.com.br/img/favicon.png\" rel=\"icon\">";
+            mail.text += "<link href=\"http://meupilates.pilatesapp.com.br/img/apple-touch-icon.png\" rel=\"apple-touch-icon\">";
+            mail.text += "<link href=\"http://meupilates.pilatesapp.com.br/lib/bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\">";
+            mail.text += "<link href=\"http://meupilates.pilatesapp.com.br/lib/font-awesome/css/font-awesome.css\" rel=\"stylesheet\" />";
+            mail.text += "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://meupilates.pilatesapp.com.br/css/zabuto_calendar.css\">";
+            mail.text += "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://meupilates.pilatesapp.com.br/lib/gritter/css/jquery.gritter.css\" />";
+            mail.text += "<link href=\"http://meupilates.pilatesapp.com.br/css/style.css\" rel=\"stylesheet\">";
+            mail.text += "<link href=\"http://meupilates.pilatesapp.com.br/css/style-responsive.css\" rel=\"stylesheet\">";
+            mail.text += "<link href=\"http://meupilates.pilatesapp.com.br/node_modules/izitoast/dist/css/iziToast.min.css\" rel=\"stylesheet\">";
+            mail.text += "<link href=\"http://meupilates.pilatesapp.com.br/lib/bootstrap-datetimepicker/css/datetimepicker.css\" rel=\"stylesheet\">";
+            mail.text += "<link href=\"http://meupilates.pilatesapp.com.br/lib/jquery-ui/jquery-ui.min.css\" rel=\"stylesheet\">";
+            mail.text += "<script src=\"http://meupilates.pilatesapp.com.br/lib/chart-master/Chart.js\"></script>";
+
+            mail.text += "    <style>";
+            mail.text += "        #conteudomodal {";
+            mail.text += "            width: 100%;";
+            mail.text += "        }";
+        
+            mail.text += "        .modal-content{";
+            mail.text += "            width: 800px;";
+            mail.text += "        }";
+            mail.text += "    </style>";
+        
+            mail.text += "</head>";
+        
+            mail.text += "<body>";
+            
+            mail.text += "<section id=\"container\">";
+
+            mail.text += "<header class=\"header black-bg\">            ";
+            mail.text += "    <a   class=\"logo\"><b>PILATES<span>APP</span></b></a>";
+            mail.text += "    <div class=\"nav notify-row\" id=\"top_menu\"></div>     ";       
+            mail.text += "</header>";
+
+            mail.text += "<section style=\"margin-left:0px\" id=\"main-content\">";
+            mail.text += "<section class=\"wrapper\">";
+            mail.text += "    <div class=\"row\" id=\"gridsearch\">";
+            mail.text += "    <div class=\"row mt\">";
+            mail.text += "        <div class=\"col-md-12\">";
+            mail.text += "            <div id=\"rowform\" class=\"form-panel\">";
+
+            mail.text += "<p>Solicitação de ativação de cadastro</p>";
+            mail.text += "<a  type='button' class='btn btn-success' href='http://meupilates.pilatesapp.com.br/pages/alunos.html?id=" + id + "'>Ativar</a>";
+            
+            mail.text += "</div>";
+            mail.text += "</div>";
+            mail.text += "</div>";
+            mail.text += "</div>";
+            mail.text += "</section>";
+            mail.text += "</section>";
+            mail.text += "</section>";
+
+
+            
+            mail.text += "</body>";
+
+            enviarEmail(sender,mail, function(error, info){
+                res.send(error)
+            });
+        
+        }else{
+            res.send("Template de envio de email não encontrado")
+        }
+    })        
 })
 
 

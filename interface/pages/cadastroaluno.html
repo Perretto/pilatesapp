@@ -33,30 +33,19 @@
 <body>
     <section id="container">
         <header class="header black-bg">
-            <div class="sidebar-toggle-box">
-                <div class="fa fa-bars tooltips" data-placement="right" data-original-title=""></div>
-            </div>
+            
             <a href="../index.html" class="logo"><b>PILATES<span>APP</span></b></a>
             <div class="nav notify-row" id="top_menu"></div>
-            <div class="top-menu">
-                <ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="../login.html">Sair</a></li>
-                </ul>
-            </div>
+            
         </header>
-        <aside>
-            <div id="sidebar" class="nav-collapse "></div>
-        </aside>
-        <section id="main-content">
+        
+        <section style="margin-left:0px" id="main-content">
             <section class="wrapper">
                 <div class="row" id="gridsearch"></div>
                 <div class="row mt">
                     <div class="col-md-12">
                         <div id="rowform" class="form-panel">
                             <h4 class="mb" style="padding-left:15px">Cadastro de Alunos</h4>
-
-
-
                             <form class="" role="form">
                                 <input type="hidden" name="id" id="id" class="form-control">
                                 <div class="image image-product col-md-1 cadaluno">
@@ -191,12 +180,6 @@
                                         placeholder="Data inicio das aulas">
                                 </div>
 
-                                <div class="form-group col-md-2 cadaluno">
-                                    <label class="control-label">Quantidade de créditos</label>
-                                    <input type="number" class="form-control" name="nr_creditos" id="nr_creditos"
-                                        placeholder="Quantidade de créditos">
-                                </div>
-                                
                                 
                                 <div class="form-group col-md-2 cadaluno">
                                     <label class="control-label">Login</label>
@@ -215,17 +198,7 @@
                                 </div>
 
 
-                                <div class="cadaluno ">
-                                        <label class="control-label ">Desativar</label>
-                                        <input onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control " name="sn_desativar" id="sn_desativar" placeholder="Desativar Aluno">
-                                </div>
-
-                                <div class="cadaluno ">
-                                        <label class="control-label ">Sem reposição</label>
-                                        <input onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control " name="sn_semreposicao" id="sn_semreposicao" placeholder="Sem reposição">
-                                </div>
-
-                                <div class="col-md-12 cadaluno">
+                                <div style="" class="col-md-12 cadalunodiahora">
                                     <h4 class="mb" style="padding-left:15px">Dias e horarios das aulas</h4>
                                 </div>
 
@@ -860,183 +833,170 @@
                                 </div>
 
                                 <!--  Campos das Informações sobre saúde  -->
-                                <h4 style="display:none" class='cadsaude'>Informações sobre saúde</h4>
+                                <h4 style="" class='cadsaude col-md-12'>Informações sobre saúde</h4>
 
-                                <div style="display:none" class="cadsaude col-md-4" >
+                                <div style="" class="cadsaude col-md-3" >
                                     <label class="control-label ">Pratica algum tipo de atividade física?</label>
                                     <input name="sn_praticaatividade" id="sn_praticaatividade"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
                                 </div>
                                 
-                                <div style="display:none" class="form-group col-md-4 cadsaude">
+                                <div style="" class="form-group col-md-5 cadsaude">
                                     <label class="control-label">Qual?</label>
                                     <input type="text" class="form-control" name="nm_qualatividade" id="nm_qualatividade" placeholder="Qual?">
                                 </div>
 
-                                <div style="display:none" class="form-group col-md-4 cadsaude">
+                                <div style="" class="form-group col-md-4 cadsaude">
                                     <label class="control-label">Com que frequencia?</label>
                                     <input type="text" class="form-control" name="nm_quefrequencia" id="nm_quefrequencia" placeholder="Com que frequencia?">
                                 </div>
-                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                <div style="" class="form-group col-md-12 cadsaude">
                                     <hr>
                                 </div>
 
-                                <div style="display:none" class='cadsaude col-md-6' >
+                                <div style="" class='cadsaude col-md-6' >
                                     <label class="control-label ">Fumante?</label>
                                     <input name="sn_fumante" id="sn_fumante"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
                                 </div>
                                 
-                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                <div style="" class="form-group col-md-6 cadsaude">
                                     <label class="control-label">Quantos cigarros por dia?</label>
                                     <input type="number" class="form-control" name="nr_quantospordia" id="nr_quantospordia" placeholder="Quantos por dia?">
                                 </div>
 
-                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                <div style="" class="form-group col-md-12 cadsaude">
                                     <hr>
                                 </div>
 
-                                <div style="display:none" class='cadsaude col-md-6' >
+                                <div style="" class='cadsaude col-md-6' >
                                     <label class="control-label ">Problemas cardíacos?</label>
                                     <input name="sn_problemascardiacos" id="sn_problemascardiacos"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
                                 </div>
                                     
-                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                <div style="" class="form-group col-md-6 cadsaude">
                                     <label class="control-label">Qual?</label>
                                     <input type="text" class="form-control" name="nm_qualproblema" id="nm_qualproblema" placeholder="Qual?">
                                 </div>
 
-                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                <div style="" class="form-group col-md-12 cadsaude">
                                     <hr>
                                 </div>
 
-                                <div style="display:none" style="display:none" class='cadsaude col-md-6' >
+                                <div style="" style="" class='cadsaude col-md-6' >
                                     <label class="control-label ">Problemas respiratórios?</label>
                                     <input name="sn_problemasrespiratorios" id="sn_problemasrespiratorios"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
                                 </div>
                                     
-                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                <div style="" class="form-group col-md-6 cadsaude">
                                     <label class="control-label">Qual?</label>
                                     <input type="text" class="form-control" name="nm_qualproblemarespiratorio" id="nm_qualproblemarespiratorio" placeholder="Qual?">
                                 </div>
 
-                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                <div style="" class="form-group col-md-12 cadsaude">
                                     <hr>
                                 </div>
 
-                                <div style="display:none" class='cadsaude col-md-4' >
+                                <div style="" class='cadsaude col-md-4' >
                                     <label class="control-label ">Diabétes?</label>
                                     <input name="sn_diabetes" id="sn_diabetes"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
                                 </div>
 
-                                <div style="display:none" class='cadsaude col-md-4' >
+                                <div style="" class='cadsaude col-md-4' >
                                     <label class="control-label ">Problemas ósseos ou articular?</label>
                                     <input name="sn_problemasosseos" id="sn_problemasosseos"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
                                 </div>
                                     
-                                <div style="display:none" class="form-group col-md-4 cadsaude">
+                                <div style="" class="form-group col-md-4 cadsaude">
                                     <label class="control-label">Qual?</label>
                                     <input type="text" class="form-control" name="nm_qualproblemaosseo" id="nm_qualproblemaosseo" placeholder="Qual?">
                                 </div>
 
                                 
-                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                <div style="" class="form-group col-md-12 cadsaude">
                                     <hr>
                                 </div>
     
 
-                                <div style="display:none" class='cadsaude col-md-6' >
+                                <div style="" class='cadsaude col-md-6' >
                                     <label class="control-label ">Sente dores musculares ou articulares?</label>
                                     <input name="sn_doresmusculares" id="sn_doresmusculares"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
                                 </div>
                                     
-                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                <div style="" class="form-group col-md-6 cadsaude">
                                     <label class="control-label">Onde?</label>
                                     <input type="text" class="form-control" name="nm_ondedoi" id="nm_ondedoi" placeholder="Onde?">
                                 </div>
 
                                 
-                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                <div style="" class="form-group col-md-12 cadsaude">
                                     <hr>
                                 </div>
     
 
-                                <div style="display:none" class='cadsaude col-md-6' >
+                                <div style="" class='cadsaude col-md-6' >
                                     <label class="control-label ">Fratura, traumatismo ou lesão?</label>
                                     <input name="sn_lesoes" id="sn_lesoes"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
                                 </div>
                                     
-                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                <div style="" class="form-group col-md-6 cadsaude">
                                     <label class="control-label">Onde?</label>
                                     <input type="text" class="form-control" name="nm_ondelesoes" id="nm_ondelesoes" placeholder="Onde?">
                                 </div>
 
                                 
-                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                <div style="" class="form-group col-md-12 cadsaude">
                                     <hr>
                                 </div>
     
 
-                                <div style="display:none" class='cadsaude col-md-6' >
+                                <div style="" class='cadsaude col-md-6' >
                                     <label class="control-label ">Cirurgia?</label>
                                     <input name="sn_cirurgia" id="sn_cirurgia"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
                                 </div>
                                     
-                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                <div style="" class="form-group col-md-6 cadsaude">
                                     <label class="control-label">Onde?</label>
                                     <input type="text" class="form-control" name="nm_ondecirurgia" id="nm_ondecirurgia" placeholder="Onde?">
                                 </div>
 
                                 
-                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                <div style="" class="form-group col-md-12 cadsaude">
                                     <hr>
                                 </div>
     
 
-                                <div style="display:none" class='cadsaude col-md-6' >
+                                <div style="" class='cadsaude col-md-6' >
                                     <label class="control-label ">Toma algum medicamento?</label>
                                     <input name="sn_medicamento" id="sn_medicamento"  onchange="checkchange(this)" style="width: 30px;height: 30px;" type="checkbox" class="form-control col-md-2" >
                                 </div>
                                     
-                                <div style="display:none" class="form-group col-md-6 cadsaude">
+                                <div style="" class="form-group col-md-6 cadsaude">
                                     <label class="control-label">Para qual finalidade?</label>
                                     <input type="text" class="form-control" name="nm_qualfinalidade" id="nm_qualfinalidade" placeholder="Para qual finalidade?">
                                 </div>
                                 
                                 
-                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                <div style="" class="form-group col-md-12 cadsaude">
                                     <hr>
                                 </div>
     
 
-                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                <div style="" class="form-group col-md-12 cadsaude">
                                     <label class="control-label">Qual é o seu objetivo?</label>
                                     <input type="text" class="form-control" name="nm_qualobjetivo" id="nm_qualobjetivo" placeholder="Qual é o seu objetivo?">
                                 </div>
 
-                                <div style="display:none" class="form-group col-md-12 cadsaude">
+                                <div style="" class="form-group col-md-12 cadsaude">
                                     <label class="control-label">Observações</label>
                                     <textarea placeholder="Observações" id="nm_obs" name="nm_obs"  class="form-control"></textarea>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <button id="novo" onclick="novo()" type="button" class="btn btn-primary">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button id="gravar" onclick="savealuno('alunos')" type="button" class="btn btn-success">
+                                        
+                                        <button id="gravar" onclick="savealunosimples('alunos')" type="button" class="btn btn-success">
                                             <i class="fa fa-save"></i>
                                         </button>
-                                        <button id="deletar" onclick="ondelete('alunos')" type="button" class="btn btn-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                        <button onclick="createtable('alunos')" type="button" class="btn btn-warning">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                        <button onclick="abasaude()" type="button" class="btn btn-default">
-                                            Inf. Saúde
-                                        </button>
-                                        <button style="display:none" onclick="voltar()" type="button" class="btn btn-primary cadsaude">
-                                            <i class="fa fa-long-arrow-left"></i>
-                                        </button>
+                                       
 
                                     </div>
                                 </div>
@@ -1064,7 +1024,7 @@
 
 
     <div id="modalaluno" style="width: 100%;" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
-        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        aria-labelledby="myLargeModalLabel" >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
@@ -1104,6 +1064,7 @@
     <script src="../lib/jquery-ui-1.9.2.custom.min.js"></script>
 
     <script>
+        
         var tipo = localStorage.getItem("tipo");
         if(tipo == "Professor"){
             $("#deletar").remove();
@@ -1160,26 +1121,11 @@
                     }
                 }
             }
+
+
+
+
         }
-
-        function getParameter(theParameter) {
-            var params = window.location.search.substr(1).split('&');
-
-            for (var i = 0; i < params.length; i++) {
-                var p = params[i].split('=');
-                if (p[0] == theParameter) {
-                    return decodeURIComponent(p[1]);
-                }
-            }
-            return false;
-            }
-            var id = getParameter('id');
-
-            if(id){
-                edit(id,'alunos');
-            }
-        
-
     </script>
 </body>
 
