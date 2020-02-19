@@ -128,15 +128,15 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
     sql += " (SELECT  ";
 			
     sql += "     (CASE alunos.nr_creditos ";
-    sql += "        WHEN 0 THEN (0) ";
+    sql += "        WHEN 0 THEN (planos.nr_meses * planos.nr_aulasmes) ";
     sql += "        ELSE alunos.nr_creditos ";
     sql += "       END) - ";
 
 
 
-    sql += "(SELECT COUNT(*) FROM aulas WHERE nm_alunos='" + id + "' AND ";
-    sql += " aulas.dt_data >= CURRENT_DATE)";
-    sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
+    sql += "(SELECT COUNT(*) FROM aulas WHERE nm_alunos='" + id + "' ";
+    //sql += " AND  aulas.dt_data >= CURRENT_DATE ";
+    sql += ") FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
     sql += " WHERE alunos.id='" + id + "') AS reposicao, ";
 
     sql += " (SELECT sn_experimental FROM alunos a INNER JOIN planos ON planos.nm_nome=a.nm_plano WHERE a.id='" + id + "' ) AS experimental,";
@@ -267,13 +267,13 @@ var sql = "SELECT false AS disponivel,  estudios.nm_diade, estudios.nm_diaate, e
             sql += " (SELECT  ";
 			
             sql += "     (CASE alunos.nr_creditos ";
-            sql += "        WHEN 0 THEN (0) ";
+            sql += "        WHEN 0 THEN (planos.nr_meses * planos.nr_aulasmes) ";
             sql += "        ELSE alunos.nr_creditos ";
             sql += "       END) - ";
 
-            sql += " (SELECT COUNT(*) FROM aulas WHERE nm_alunos='" + id + "' AND ";
-            sql += " aulas.dt_data >=  CURRENT_DATE)";
-            sql += " FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
+            sql += " (SELECT COUNT(*) FROM aulas WHERE nm_alunos='" + id + "' ";
+            //sql += " AND aulas.dt_data >=  CURRENT_DATE";
+            sql += " ) FROM alunos INNER JOIN planos ON planos.nm_nome=alunos.nm_plano ";
             sql += " WHERE alunos.id='" + id + "') AS reposicao, ";
 
             sql += " (SELECT sn_experimental FROM alunos a INNER JOIN planos ON planos.nm_nome=a.nm_plano WHERE a.id='" + id + "' ) AS experimental, ";
@@ -1128,7 +1128,9 @@ router.route('/datasbloqueio/:estudio/:startdate/:enddate').get(function(req, re
 router.route('/informaluno/:id').get(function(req, res) {
     var idusuario = req.param('id');
     var dataatual = dataAtualFormatada()
-    var sql = "SELECT count(*) AS quant, (SELECT  to_char(dt_data, 'DD/MM/YYYY') FROM aulas WHERE nm_alunos = '" + idusuario + "' ORDER BY dt_data DESC limit 1) AS ultimaaula ";
+    var sql = "SELECT count(*) - (SELECT count(*) FROM aulas_canceladas WHERE nm_alunos = '" + idusuario + "') AS quant, ";
+    sql += "(SELECT  to_char(dt_data, 'DD/MM/YYYY') FROM aulas WHERE nm_alunos = '" + idusuario + "' ORDER BY dt_data DESC limit 1) AS ultimaaula ";
+  
     sql += "FROM aulas  ";
     sql += "WHERE nm_alunos = '" + idusuario + "' AND dt_data >= '" + dataatual + "'";
     
