@@ -115,6 +115,9 @@ document.addEventListener('DOMContentLoaded', function () {
     $("#editaraula").hide();
     $("#listahorarios").show();
     var data = $(element).attr("data-date");
+    if(!data){
+      data = element.selector.replace("[data-date='", "").replace("']","");
+    }
     var estudio = $("#nm_estudio").val();
 
     //Swal.fire(data)
