@@ -1129,13 +1129,25 @@ router.route('/informaluno/:id').get(function(req, res) {
     var idusuario = req.param('id');
     var dataatual = dataAtualFormatada()
     var sql = "SELECT count(*) - (SELECT count(*) FROM aulas_canceladas WHERE nm_alunos = '" + idusuario + "') AS quant, ";
-    sql += "(SELECT  to_char(dt_data, 'DD/MM/YYYY') FROM aulas WHERE nm_alunos = '" + idusuario + "' ORDER BY dt_data DESC limit 1) AS ultimaaula ";
-  
-    sql += "FROM aulas  ";
+    sql += "(SELECT  to_char(dt_data, 'DD/MM/YYYY') FROM aulas WHERE nm_alunos = '" + idusuario + "' ORDER BY dt_data DESC limit 1) AS ultimaaula, ";
+    sql += "(SELECT (planos.nr_aulasmes * planos.nr_meses) FROM planos INNER JOIN alunos ON alunos.nm_plano = planos.nm_nome WHERE alunos.id='" + idusuario + "') AS quantplano"
+    sql += " FROM aulas  ";
     sql += "WHERE nm_alunos = '" + idusuario + "' AND dt_data >= '" + dataatual + "'";
     
     console.log(sql)
-    general.select(sql, function(ret){        
+    general.select(sql, function(ret){  
+        console.log(sql)   
+        if(ret){
+            if(ret.length > 0){
+                if(ret[0].quant <= 0){
+                    ret[0].quant = ret[0].quantplano;
+                }
+
+                if(!ret[0].ultimaaula){
+                    ret[0].ultimaaula = "";
+                }
+            } 
+        }   
         res.send(ret);         
     })     
 })

@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
+/*
                         htmlAlunos += "<a  href='#' onclick=\"desistiraula('" + elementAluno.id + "')\">";
                                 htmlAlunos += "<div style=\"padding-top: 10px;\">";
                                 htmlAlunos += " <h4 style=\"display: inline;margin-left: 40%;font-weight: bold;padding-top:10px\"><i class=\"fa fa-close\"></i></h4><h4 style=\"display: inline;font-weight: bold;font-weight: bold;\"></h4><h4 style=\"display: inline;\">Desistir da aula</h4>";
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                                 htmlAlunos += "<\div>";
                                 htmlAlunos += "<\a>";
-      
+      */
                                 quantidadealunos += 1;
                               }
                             }
