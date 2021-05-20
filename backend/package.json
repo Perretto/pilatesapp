@@ -16,7 +16,7 @@
     "eval": "^0.1.2",
     "express": "^4.16.4",
     "express-query-int": "^1.0.1",
-    "html-pdf": "^2.2.0",
+    "html-pdf": "^3.0.1",
     "html-to-xlsx": "^1.0.2",
     "loadash": "0.0.1",
     "mkdirp": "^0.5.1",
